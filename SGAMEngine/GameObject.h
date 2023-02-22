@@ -2,7 +2,7 @@
 #include <memory>
 #include "Transform.h"
 
-namespace dae
+namespace sgam
 {
 	class Texture2D;
 

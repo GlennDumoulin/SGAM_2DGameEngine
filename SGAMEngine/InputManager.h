@@ -1,7 +1,7 @@
 #pragma once
 #include "Singleton.h"
 
-namespace dae
+namespace sgam
 {
 	class InputManager final : public Singleton<InputManager>
 	{
