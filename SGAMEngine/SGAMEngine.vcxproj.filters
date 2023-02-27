@@ -57,6 +57,9 @@
     <ClInclude Include="TextObject.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Other Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Texture2D.cpp">
@@ -94,6 +97,9 @@
     </ClCompile>
     <ClCompile Include="TextObject.cpp">
       <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Other Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
