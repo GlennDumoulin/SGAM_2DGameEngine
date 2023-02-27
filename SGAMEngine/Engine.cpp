@@ -1,4 +1,5 @@
 #include <stdexcept>
+#include <iostream>
 #define WIN32_LEAN_AND_MEAN 
 #include <windows.h>
 #include <SDL.h>
@@ -83,12 +84,26 @@ void sgam::Engine::Run(const std::function<void()>& load)
 	auto& renderer = Renderer::GetInstance();
 	auto& sceneManager = SceneManager::GetInstance();
 	auto& input = InputManager::GetInstance();
+	auto& time = Time::GetInstance();
 
-	// todo: this update loop could use some work.
 	bool doContinue = true;
+	float unhandledTime = 0.f;
+	int nrOfSubsteps = 0;
+
 	while (doContinue)
 	{
+		//Update Time
+		time.Update();
+		unhandledTime += time.Delta();
+		nrOfSubsteps = 0;
+
 		doContinue = input.ProcessInput();
+		while (unhandledTime >= time.FixedTimeStep() && nrOfSubsteps < time.MaxSubsteps())
+		{
+			//todo: Handle fixed update
+			unhandledTime -= time.FixedTimeStep();
+			++nrOfSubsteps;
+		}
 		sceneManager.Update();
 		renderer.Render();
 	}

@@ -15,9 +15,22 @@ namespace sgam
 	{
 		return m_Delta;
 	}
-
 	float Time::TotalElapsed()
 	{
 		return m_TotalElapsed;
+	}
+
+	int Time::FPS()
+	{
+		return static_cast<int>(1 / m_Delta);
+	}
+
+	float Time::FixedTimeStep()
+	{
+		return m_FixedTimeStep;
+	}
+	int Time::MaxSubsteps()
+	{
+		return m_MaxSubsteps;
 	}
 }
