@@ -100,11 +100,13 @@ void sgam::Engine::Run(const std::function<void()>& load)
 		doContinue = input.ProcessInput();
 		while (unhandledTime >= time.FixedTimeStep() && nrOfSubsteps < time.MaxSubsteps())
 		{
-			//todo: Handle fixed update
+			sceneManager.FixedUpdate();
+
 			unhandledTime -= time.FixedTimeStep();
 			++nrOfSubsteps;
 		}
 		sceneManager.Update();
+		sceneManager.LateUpdate();
 		renderer.Render();
 	}
 }

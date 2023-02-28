@@ -12,7 +12,10 @@ namespace sgam
 		void Remove(std::shared_ptr<GameObject> object);
 		void RemoveAll();
 
+		void FixedUpdate();
 		void Update();
+		void LateUpdate();
+
 		void Render() const;
 
 		~Scene();

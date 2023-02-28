@@ -3,22 +3,41 @@
 #include "ResourceManager.h"
 #include "Renderer.h"
 
-sgam::GameObject::~GameObject() = default;
-
-void sgam::GameObject::Update(){}
-
-void sgam::GameObject::Render() const
+namespace sgam
 {
-	const auto& pos = m_transform.GetPosition();
-	Renderer::GetInstance().RenderTexture(*m_texture, pos.x, pos.y);
-}
+	GameObject::~GameObject() = default;
 
-void sgam::GameObject::SetTexture(const std::string& filename)
-{
-	m_texture = ResourceManager::GetInstance().LoadTexture(filename);
-}
+	void GameObject::FixedUpdate()
+	{
+		//...
+	}
+	void GameObject::Update()
+	{
+		//...
+	}
+	void GameObject::LateUpdate()
+	{
+		//...
+	}
 
-void sgam::GameObject::SetPosition(float x, float y)
-{
-	m_transform.SetPosition(x, y, 0.0f);
+	void GameObject::Render() const
+	{
+		const auto& pos = m_transform.GetPosition();
+		Renderer::GetInstance().RenderTexture(*m_texture, pos.x, pos.y);
+	}
+
+	void GameObject::Destroy()
+	{
+		m_IsDestroyed = true;
+	}
+
+	void GameObject::SetTexture(const std::string& filename)
+	{
+		m_texture = ResourceManager::GetInstance().LoadTexture(filename);
+	}
+
+	void GameObject::SetPosition(float x, float y)
+	{
+		m_transform.SetPosition(x, y, 0.0f);
+	}
 }
