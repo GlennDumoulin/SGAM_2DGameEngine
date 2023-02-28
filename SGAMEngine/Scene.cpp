@@ -52,4 +52,21 @@ namespace sgam
 			object->Render();
 		}
 	}
+
+	void Scene::Cleanup()
+	{
+		for (const auto& object : m_objects)
+		{
+			if (object->IsDestroyed())
+			{
+				//Remove destroyed object
+				Remove(object);
+			}
+			else
+			{
+				//Cleanup object
+				object->Cleanup();
+			}
+		}
+	}
 }

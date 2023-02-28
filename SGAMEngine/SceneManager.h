@@ -17,6 +17,9 @@ namespace sgam
 		void LateUpdate();
 
 		void Render();
+
+		void Cleanup();
+
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;

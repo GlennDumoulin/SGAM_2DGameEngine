@@ -30,6 +30,14 @@ namespace sgam
 	{
 		m_IsDestroyed = true;
 	}
+	bool GameObject::IsDestroyed() const
+	{
+		return m_IsDestroyed;
+	}
+	void GameObject::Cleanup()
+	{
+		//todo: cleanup destroyed components
+	}
 
 	void GameObject::SetTexture(const std::string& filename)
 	{

@@ -17,6 +17,8 @@ namespace sgam
 		virtual void Render() const;
 
 		virtual void Destroy();
+		virtual bool IsDestroyed() const;
+		virtual void Cleanup();
 
 		void SetTexture(const std::string& filename);
 		void SetPosition(float x, float y);

@@ -42,71 +42,82 @@ void PrintSDLVersion()
 		version.major, version.minor, version.patch);
 }
 
-sgam::Engine::Engine(const std::string &dataPath)
+namespace sgam
 {
-	PrintSDLVersion();
-	
-	if (SDL_Init(SDL_INIT_VIDEO) != 0) 
+	Engine::Engine(const std::string& dataPath)
 	{
-		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
-	}
+		PrintSDLVersion();
 
-	g_window = SDL_CreateWindow(
-		"Programming 4 assignment",
-		SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED,
-		640,
-		480,
-		SDL_WINDOW_OPENGL
-	);
-	if (g_window == nullptr) 
-	{
-		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
-	}
-
-	Renderer::GetInstance().Init(g_window);
-
-	ResourceManager::GetInstance().Init(dataPath);
-}
-
-sgam::Engine::~Engine()
-{
-	Renderer::GetInstance().Destroy();
-	SDL_DestroyWindow(g_window);
-	g_window = nullptr;
-	SDL_Quit();
-}
-
-void sgam::Engine::Run(const std::function<void()>& load)
-{
-	load();
-
-	auto& renderer = Renderer::GetInstance();
-	auto& sceneManager = SceneManager::GetInstance();
-	auto& input = InputManager::GetInstance();
-	auto& time = Time::GetInstance();
-
-	bool doContinue = true;
-	float unhandledTime = 0.f;
-	int nrOfSubsteps = 0;
-
-	while (doContinue)
-	{
-		//Update Time
-		time.Update();
-		unhandledTime += time.Delta();
-		nrOfSubsteps = 0;
-
-		doContinue = input.ProcessInput();
-		while (unhandledTime >= time.FixedTimeStep() && nrOfSubsteps < time.MaxSubsteps())
+		if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		{
-			sceneManager.FixedUpdate();
-
-			unhandledTime -= time.FixedTimeStep();
-			++nrOfSubsteps;
+			throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
 		}
-		sceneManager.Update();
-		sceneManager.LateUpdate();
-		renderer.Render();
+
+		g_window = SDL_CreateWindow(
+			"Programming 4 assignment",
+			SDL_WINDOWPOS_CENTERED,
+			SDL_WINDOWPOS_CENTERED,
+			640,
+			480,
+			SDL_WINDOW_OPENGL
+		);
+		if (g_window == nullptr)
+		{
+			throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
+		}
+
+		Renderer::GetInstance().Init(g_window);
+
+		ResourceManager::GetInstance().Init(dataPath);
+	}
+
+	Engine::~Engine()
+	{
+		Renderer::GetInstance().Destroy();
+		SDL_DestroyWindow(g_window);
+		g_window = nullptr;
+		SDL_Quit();
+	}
+
+	void Engine::Run(const std::function<void()>& load)
+	{
+		load();
+
+		auto& renderer = Renderer::GetInstance();
+		auto& sceneManager = SceneManager::GetInstance();
+		auto& input = InputManager::GetInstance();
+		auto& time = Time::GetInstance();
+
+		bool doContinue = true;
+		float unhandledTime = 0.f;
+		int nrOfSubsteps = 0;
+
+		while (doContinue)
+		{
+			//Update Time
+			time.Update();
+			unhandledTime += time.Delta();
+			nrOfSubsteps = 0;
+
+			//Handle Input
+			doContinue = input.ProcessInput();
+
+			//Handle Updates
+			while (unhandledTime >= time.FixedTimeStep() && nrOfSubsteps < time.MaxSubsteps())
+			{
+				sceneManager.FixedUpdate();
+
+				unhandledTime -= time.FixedTimeStep();
+				++nrOfSubsteps;
+			}
+			sceneManager.Update();
+			sceneManager.LateUpdate();
+
+			//Handle Destroyed GameObjects/Components
+			sceneManager.Cleanup();
+
+			//Handle Rendering
+			renderer.Render();
+		}
 	}
 }

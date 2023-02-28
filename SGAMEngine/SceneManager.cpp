@@ -3,11 +3,18 @@
 
 namespace sgam
 {
+	Scene& SceneManager::CreateScene(const std::string& name)
+	{
+		const auto& scene = std::shared_ptr<Scene>(new Scene(name));
+		m_scenes.push_back(scene);
+		return *scene;
+	}
+
 	void SceneManager::FixedUpdate()
 	{
 		for (auto& scene : m_scenes)
 		{
-			scene->Update();//todo: Handle fixed updates
+			scene->FixedUpdate();
 		}
 	}
 	void SceneManager::Update()
@@ -21,7 +28,7 @@ namespace sgam
 	{
 		for (auto& scene : m_scenes)
 		{
-			scene->Update();//todo: Handle late updates
+			scene->LateUpdate();
 		}
 	}
 
@@ -33,10 +40,11 @@ namespace sgam
 		}
 	}
 
-	Scene& SceneManager::CreateScene(const std::string& name)
+	void SceneManager::Cleanup()
 	{
-		const auto& scene = std::shared_ptr<Scene>(new Scene(name));
-		m_scenes.push_back(scene);
-		return *scene;
+		for (const auto& scene : m_scenes)
+		{
+			scene->Cleanup();
+		}
 	}
 }

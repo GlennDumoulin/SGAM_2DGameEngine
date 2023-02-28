@@ -4,6 +4,7 @@
 namespace sgam
 {
 	class GameObject;
+
 	class Scene final
 	{
 		friend Scene& SceneManager::CreateScene(const std::string& name);
@@ -17,6 +18,8 @@ namespace sgam
 		void LateUpdate();
 
 		void Render() const;
+
+		void Cleanup();
 
 		~Scene();
 		Scene(const Scene& other) = delete;
