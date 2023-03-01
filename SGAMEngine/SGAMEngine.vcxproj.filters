@@ -60,6 +60,9 @@
     <ClInclude Include="Time.h">
       <Filter>Other Files</Filter>
     </ClInclude>
+    <ClInclude Include="BaseComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Texture2D.cpp">
@@ -100,6 +103,9 @@
     </ClCompile>
     <ClCompile Include="Time.cpp">
       <Filter>Other Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseComponent.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

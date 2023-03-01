@@ -13,7 +13,6 @@ namespace sgam
 	{
 		m_objects.emplace_back(std::move(object));
 	}
-
 	void Scene::Remove(std::shared_ptr<GameObject> object)
 	{
 		m_objects.erase(std::remove(m_objects.begin(), m_objects.end(), object), m_objects.end());
@@ -60,6 +59,7 @@ namespace sgam
 			if (object->IsDestroyed())
 			{
 				//Remove destroyed object
+				object->RemoveAllComponents();
 				Remove(object);
 			}
 			else

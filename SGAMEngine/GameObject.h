@@ -1,30 +1,36 @@
 #pragma once
+#include <vector>
 #include <memory>
+#include <string>
 #include "Transform.h"
 
 namespace sgam
 {
+	class BaseComponent;
 	class Texture2D;
 
-	// todo: this should become final.
-	class GameObject 
+	class GameObject final
 	{
 	public:
-		virtual void FixedUpdate();
-		virtual void Update();
-		virtual void LateUpdate();
+		void AddComponent(std::shared_ptr<BaseComponent> component);
+		void RemoveComponent(std::shared_ptr<BaseComponent> component);
+		void RemoveAllComponents();
 
-		virtual void Render() const;
+		void FixedUpdate();
+		void Update();
+		void LateUpdate();
 
-		virtual void Destroy();
-		virtual bool IsDestroyed() const;
-		virtual void Cleanup();
+		void Render() const;
+
+		void Destroy();
+		bool IsDestroyed() const;
+		void Cleanup();
 
 		void SetTexture(const std::string& filename);
 		void SetPosition(float x, float y);
 
 		GameObject() = default;
-		virtual ~GameObject();
+		~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
 		GameObject& operator=(const GameObject& other) = delete;
@@ -34,6 +40,8 @@ namespace sgam
 		Transform m_transform{};
 
 		bool m_IsDestroyed{ false };
+
+		std::vector<std::shared_ptr<BaseComponent>> m_Components;
 
 		// todo: mmm, every gameobject has a texture? Is that correct?
 		std::shared_ptr<Texture2D> m_texture{};
