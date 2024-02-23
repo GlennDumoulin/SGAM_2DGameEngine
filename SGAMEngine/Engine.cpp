@@ -4,11 +4,15 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <thread>
+#include <iostream>
+
 #include "Engine.h"
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
+#include "Time.h"
 
 SDL_Window* g_window{};
 
@@ -62,9 +66,10 @@ sgam::Engine::Engine(const std::string &dataPath)
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
 
+	// Initialize Singletons
 	Renderer::GetInstance().Init(g_window);
-
 	ResourceManager::GetInstance().Init(dataPath);
+	Time::GetInstance().Init();
 }
 
 sgam::Engine::~Engine()
@@ -79,16 +84,42 @@ void sgam::Engine::Run(const std::function<void()>& load)
 {
 	load();
 
+	// Get the Singleton instances
 	auto& renderer = Renderer::GetInstance();
 	auto& sceneManager = SceneManager::GetInstance();
 	auto& input = InputManager::GetInstance();
+	auto& time = Time::GetInstance();
 
-	// todo: this update loop could use some work.
+	// Initialize gameloop variables
 	bool doContinue = true;
+	float unhandledTime = 0.0f;
+	int nrOfSubsteps = 0;
+
+	// Handle the gameloop
 	while (doContinue)
 	{
+		// Update the Time and reset the nrOfSubsteps
+		time.Update();
+		unhandledTime += time.Delta();
+		nrOfSubsteps = 0;
+
 		doContinue = input.ProcessInput();
+
+		// Check if we still need to catch up with fixed updates and haven't handled to many this frame
+		while (unhandledTime >= time.FixedTimeStep() && nrOfSubsteps < time.MaxSubsteps())
+		{
+			//...
+
+			unhandledTime -= time.FixedTimeStep();
+			++nrOfSubsteps;
+		}
+
 		sceneManager.Update();
+		
 		renderer.Render();
+
+		// Sleep to not exceed the desired fps
+		std::cout << static_cast<int>(1.0f / time.Delta()) << "\n";
+		std::this_thread::sleep_for(time.SleepTime());
 	}
 }

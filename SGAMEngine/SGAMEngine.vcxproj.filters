@@ -54,6 +54,9 @@
     <ClInclude Include="GameObject.h">
       <Filter>Component Files</Filter>
     </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -90,6 +93,9 @@
       <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
   </ItemGroup>
