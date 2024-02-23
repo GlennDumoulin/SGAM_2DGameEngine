@@ -2,6 +2,7 @@
 #include <string>
 
 struct _TTF_Font;
+
 namespace sgam
 {
 	/**
@@ -11,14 +12,15 @@ namespace sgam
 	{
 	public:
 		_TTF_Font* GetFont() const;
+
 		explicit Font(const std::string& fullPath, unsigned int size);
 		~Font();
-
 		Font(const Font &) = delete;
 		Font(Font &&) = delete;
 		Font & operator= (const Font &) = delete;
 		Font & operator= (const Font &&) = delete;
+
 	private:
-		_TTF_Font* m_font;
+		_TTF_Font* m_pFont;
 	};
 }

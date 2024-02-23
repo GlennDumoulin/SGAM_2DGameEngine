@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+
 #include "Transform.h"
 
 namespace sgam
@@ -10,8 +11,13 @@ namespace sgam
 	class GameObject 
 	{
 	public:
+		virtual void FixedUpdate();
 		virtual void Update();
+		virtual void LateUpdate();
+
 		virtual void Render() const;
+
+		virtual void Destroy();
 
 		void SetTexture(const std::string& filename);
 		void SetPosition(float x, float y);
@@ -25,7 +31,11 @@ namespace sgam
 
 	private:
 		Transform m_transform{};
+
+		bool m_IsMarkedAsDestroyed{ false };
+
+
 		// todo: mmm, every gameobject has a texture? Is that correct?
-		std::shared_ptr<Texture2D> m_texture{};
+		std::shared_ptr<Texture2D> m_pTexture{};
 	};
 }

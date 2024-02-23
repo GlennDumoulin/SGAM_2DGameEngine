@@ -14,7 +14,7 @@
 #include "ResourceManager.h"
 #include "Time.h"
 
-SDL_Window* g_window{};
+SDL_Window* g_pWindow{};
 
 void PrintSDLVersion()
 {
@@ -53,7 +53,7 @@ sgam::Engine::Engine(const std::string &dataPath)
 		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
 	}
 
-	g_window = SDL_CreateWindow(
+	g_pWindow = SDL_CreateWindow(
 		"Programming 4 assignment",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
@@ -61,13 +61,13 @@ sgam::Engine::Engine(const std::string &dataPath)
 		480,
 		SDL_WINDOW_OPENGL
 	);
-	if (g_window == nullptr) 
+	if (g_pWindow == nullptr) 
 	{
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
 
 	// Initialize Singletons
-	Renderer::GetInstance().Init(g_window);
+	Renderer::GetInstance().Init(g_pWindow);
 	ResourceManager::GetInstance().Init(dataPath);
 	Time::GetInstance().Init();
 }
@@ -75,8 +75,8 @@ sgam::Engine::Engine(const std::string &dataPath)
 sgam::Engine::~Engine()
 {
 	Renderer::GetInstance().Destroy();
-	SDL_DestroyWindow(g_window);
-	g_window = nullptr;
+	SDL_DestroyWindow(g_pWindow);
+	g_pWindow = nullptr;
 	SDL_Quit();
 }
 
@@ -108,13 +108,14 @@ void sgam::Engine::Run(const std::function<void()>& load)
 		// Check if we still need to catch up with fixed updates and haven't handled to many this frame
 		while (unhandledTime >= time.FixedTimeStep() && nrOfSubsteps < time.MaxSubsteps())
 		{
-			//...
+			sceneManager.FixedUpdate();
 
 			unhandledTime -= time.FixedTimeStep();
 			++nrOfSubsteps;
 		}
 
 		sceneManager.Update();
+		sceneManager.LateUpdate();
 		
 		renderer.Render();
 

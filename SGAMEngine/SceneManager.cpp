@@ -1,25 +1,41 @@
 #include "SceneManager.h"
 #include "Scene.h"
 
-void sgam::SceneManager::Update()
+using namespace sgam;
+
+void SceneManager::FixedUpdate()
 {
-	for(auto& scene : m_scenes)
+	for (auto& pScene : m_pScenes)
 	{
-		scene->Update();
+		pScene->FixedUpdate();
+	}
+}
+void SceneManager::Update()
+{
+	for(auto& pScene : m_pScenes)
+	{
+		pScene->Update();
+	}
+}
+void SceneManager::LateUpdate()
+{
+	for (auto& pScene : m_pScenes)
+	{
+		pScene->LateUpdate();
 	}
 }
 
-void sgam::SceneManager::Render()
+void SceneManager::Render() const
 {
-	for (const auto& scene : m_scenes)
+	for (const auto& pScene : m_pScenes)
 	{
-		scene->Render();
+		pScene->Render();
 	}
 }
 
-sgam::Scene& sgam::SceneManager::CreateScene(const std::string& name)
+Scene& SceneManager::CreateScene(const std::string& name)
 {
-	const auto& scene = std::shared_ptr<Scene>(new Scene(name));
-	m_scenes.push_back(scene);
-	return *scene;
+	const auto& pScene = std::shared_ptr<Scene>(new Scene(name));
+	m_pScenes.push_back(pScene);
+	return *pScene;
 }

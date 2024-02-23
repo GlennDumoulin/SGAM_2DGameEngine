@@ -7,10 +7,10 @@ namespace sgam
 	class Engine
 	{
 	public:
-		explicit Engine(const std::string& dataPath);
-		~Engine();
 		void Run(const std::function<void()>& load);
 
+		explicit Engine(const std::string& dataPath);
+		~Engine();
 		Engine(const Engine& other) = delete;
 		Engine(Engine&& other) = delete;
 		Engine& operator=(const Engine& other) = delete;
