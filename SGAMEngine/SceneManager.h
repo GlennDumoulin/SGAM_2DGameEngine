@@ -20,6 +20,8 @@ namespace sgam
 
 		void Render() const;
 
+		void Cleanup();
+
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;

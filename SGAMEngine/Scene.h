@@ -19,6 +19,8 @@ namespace sgam
 
 		void Render() const;
 
+		void Cleanup();
+
 		~Scene();
 		Scene(const Scene& other) = delete;
 		Scene(Scene&& other) = delete;

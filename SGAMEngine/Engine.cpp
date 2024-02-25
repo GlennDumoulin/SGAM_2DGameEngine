@@ -114,13 +114,18 @@ void sgam::Engine::Run(const std::function<void()>& load)
 			++nrOfSubsteps;
 		}
 
+		// Always handle exactly one update and late update
 		sceneManager.Update();
 		sceneManager.LateUpdate();
+
+		// Handle cleaning up GameObjects and Components that are marked to be destroyed
+		sceneManager.Cleanup();
 		
+		// Handle rendering
 		renderer.Render();
 
 		// Sleep to not exceed the desired fps
-		std::cout << static_cast<int>(1.0f / time.Delta()) << "\n";
+		std::cout << static_cast<int>(1.0f / time.Delta()) << "\n"; // TEMP: print fps
 		std::this_thread::sleep_for(time.SleepTime());
 	}
 }

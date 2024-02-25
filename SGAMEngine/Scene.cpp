@@ -56,3 +56,19 @@ void Scene::Render() const
 	}
 }
 
+void Scene::Cleanup()
+{
+	// Remove all GameObjects that were marked to be destroyed
+	std::for_each(m_pObjects.begin(), m_pObjects.end(), [&](const auto& pObject) {
+		if (pObject->IsMarkedAsDestroyed())
+		{
+			Remove(pObject);
+		}
+	});
+
+	// Clean up all GameObjects in the scene
+	for (const auto& pObject : m_pObjects)
+	{
+		//...
+	}
+}

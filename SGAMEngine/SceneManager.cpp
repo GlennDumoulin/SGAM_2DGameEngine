@@ -3,6 +3,13 @@
 
 using namespace sgam;
 
+Scene& SceneManager::CreateScene(const std::string& name)
+{
+	const auto& pScene = std::shared_ptr<Scene>(new Scene(name));
+	m_pScenes.push_back(pScene);
+	return *pScene;
+}
+
 void SceneManager::FixedUpdate()
 {
 	for (auto& pScene : m_pScenes)
@@ -33,9 +40,10 @@ void SceneManager::Render() const
 	}
 }
 
-Scene& SceneManager::CreateScene(const std::string& name)
+void SceneManager::Cleanup()
 {
-	const auto& pScene = std::shared_ptr<Scene>(new Scene(name));
-	m_pScenes.push_back(pScene);
-	return *pScene;
+	for (const auto& pScene : m_pScenes)
+	{
+		pScene->Cleanup();
+	}
 }
