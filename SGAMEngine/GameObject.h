@@ -19,6 +19,7 @@ namespace sgam
 
 		virtual void Destroy();
 		virtual const bool IsMarkedAsDestroyed() const { return m_IsMarkedAsDestroyed; }
+		virtual void Cleanup();
 
 		void SetTexture(const std::string& filename);
 		void SetPosition(float x, float y);

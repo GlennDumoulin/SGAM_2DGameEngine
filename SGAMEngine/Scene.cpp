@@ -69,6 +69,6 @@ void Scene::Cleanup()
 	// Clean up all GameObjects in the scene
 	for (const auto& pObject : m_pObjects)
 	{
-		//...
+		pObject->Cleanup();
 	}
 }

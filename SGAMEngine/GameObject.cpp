@@ -24,6 +24,12 @@ void GameObject::Destroy()
 	m_IsMarkedAsDestroyed = true;
 }
 
+void GameObject::Cleanup()
+{
+	// Remove all Components that were marked to be destroyed
+	//...
+}
+
 void GameObject::SetTexture(const std::string& filename)
 {
 	m_pTexture = ResourceManager::GetInstance().LoadTexture(filename);
