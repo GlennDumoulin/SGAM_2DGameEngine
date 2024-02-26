@@ -63,6 +63,9 @@
     <ClInclude Include="TextureComponent.h">
       <Filter>Component Files</Filter>
     </ClInclude>
+    <ClInclude Include="FPSComponent.h">
+      <Filter>Component Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -108,6 +111,9 @@
       <Filter>Component Files</Filter>
     </ClCompile>
     <ClCompile Include="TextureComponent.cpp">
+      <Filter>Component Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSComponent.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
   </ItemGroup>

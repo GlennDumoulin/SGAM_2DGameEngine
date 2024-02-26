@@ -9,7 +9,7 @@ namespace sgam
 	class Font;
 	class Texture2D;
 
-	class TextComponent final : public Component
+	class TextComponent : public Component
 	{
 	public:
 		virtual void Update() override;
@@ -20,7 +20,7 @@ namespace sgam
 		void SetText(const std::string& text);
 
 		TextComponent() = default;
-		~TextComponent() = default;
+		virtual ~TextComponent() = default;
 		TextComponent(const TextComponent& other) = delete;
 		TextComponent(TextComponent&& other) = delete;
 		TextComponent& operator=(const TextComponent& other) = delete;
@@ -31,6 +31,6 @@ namespace sgam
 		std::shared_ptr<Font> m_pFont;
 		std::shared_ptr<Texture2D> m_TextTexture;
 
-		bool m_NeedsUpdate;
+		bool m_NeedsUpdate{ false };
 	};
 }

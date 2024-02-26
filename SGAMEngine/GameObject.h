@@ -79,7 +79,7 @@ namespace sgam
 		{
 			T* pDerivedComponent{ dynamic_cast<T*>(pComponent.get()) };
 
-			if (pDerivedComponent) pComponents.push_back(pComponent);
+			if (pDerivedComponent) pComponents.push_back(pDerivedComponent);
 		}
 
 		return pComponents;
@@ -122,7 +122,7 @@ namespace sgam
 		static_assert(std::is_base_of<Component, T>(), "T does not derive from Component class");
 		static_assert(!std::is_same<Transform, T>(), "You can't remove Transform component");
 
-		const T* pComponent{ GetComponent<T>() };
+		T* pComponent{ GetComponent<T>() };
 
 		if (pComponent)
 		{
