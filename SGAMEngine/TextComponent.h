@@ -27,9 +27,9 @@ namespace sgam
 		TextComponent& operator=(TextComponent&& other) = delete;
 
 	private:
-		std::string m_Text;
-		std::shared_ptr<Font> m_pFont;
-		std::shared_ptr<Texture2D> m_TextTexture;
+		std::string m_Text{ " " };
+		std::shared_ptr<Font> m_pFont{};
+		std::shared_ptr<Texture2D> m_TextTexture{};
 
 		bool m_NeedsUpdate{ false };
 	};

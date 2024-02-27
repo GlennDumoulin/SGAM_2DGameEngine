@@ -1,9 +1,11 @@
 #pragma once
-#include "TextComponent.h"
+#include "Component.h"
 
 namespace sgam
 {
-	class FPSComponent final : public TextComponent
+	class TextComponent;
+
+	class FPSComponent final : public Component
 	{
 	public:
 		virtual void Update() override;
@@ -16,8 +18,12 @@ namespace sgam
 		FPSComponent& operator=(FPSComponent&& other) = delete;
 
 	private:
-		float m_ElapsedSeconds{};
+		TextComponent* m_pText{};
+
 		const float m_SecondsPerUpdate{ 0.2f };
+
+		float m_ElapsedSeconds{};
+		int m_ElapsedUpdates{};
 	};
 }
 

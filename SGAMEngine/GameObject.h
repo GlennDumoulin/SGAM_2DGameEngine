@@ -95,7 +95,7 @@ namespace sgam
 			// Check if we already have a Transform Component, if so return that one
 			if (m_pTransform)
 			{
-				std::cout << "You tried to add a second Transform Component, which doesn't do anything.";
+				std::cout << "You tried to add a second Transform Component, which doesn't do anything.\n";
 
 				return m_pTransform;
 			}
