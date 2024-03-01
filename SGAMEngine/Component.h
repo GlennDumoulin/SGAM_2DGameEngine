@@ -9,12 +9,6 @@ namespace sgam
 	class Component
 	{
 	public:
-		virtual void FixedUpdate() {};
-		virtual void Update() {};
-		virtual void LateUpdate() {};
-
-		virtual void Render() const {};
-
 		void Destroy() { m_IsMarkedAsDestroyed = true; }
 		const bool IsMarkedAsDestroyed() const { return m_IsMarkedAsDestroyed; }
 
@@ -29,11 +23,9 @@ namespace sgam
 
 	protected:
 		friend class GameObject;
-		Component() = default;
+		explicit Component(GameObject* pOwner) : m_pOwner{ pOwner } {}
 
 	private:
-		void SetOwner(GameObject* pNewOwner) { m_pOwner = pNewOwner; }
-
 		GameObject* m_pOwner{};
 
 		bool m_IsMarkedAsDestroyed{ false };

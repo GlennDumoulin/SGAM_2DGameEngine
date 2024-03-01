@@ -11,7 +11,7 @@ namespace sgam
 		const glm::vec3& GetPosition() const { return m_position; }
 		void SetPosition(float x, float y, float z);
 
-		Transform() = default;
+		Transform(GameObject* pOwner) : Component(pOwner) {}
 		~Transform() = default;
 		Transform(const Transform& other) = delete;
 		Transform(Transform&& other) = delete;

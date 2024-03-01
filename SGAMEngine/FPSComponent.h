@@ -1,16 +1,16 @@
 #pragma once
-#include "Component.h"
+#include "FunctionalComponent.h"
 
 namespace sgam
 {
 	class TextComponent;
 
-	class FPSComponent final : public Component
+	class FPSComponent final : public FunctionalComponent
 	{
 	public:
 		virtual void Update() override;
 
-		FPSComponent() = default;
+		FPSComponent(GameObject* pOwner) : FunctionalComponent(pOwner) {}
 		virtual ~FPSComponent() = default;
 		FPSComponent(const FPSComponent& other) = delete;
 		FPSComponent(FPSComponent&& other) = delete;

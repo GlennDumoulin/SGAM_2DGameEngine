@@ -16,6 +16,9 @@
     <Filter Include="Manager Files">
       <UniqueIdentifier>{dd1c14c7-b82a-4af2-bbef-fdc71f45d794}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component Files\BaseComponents">
+      <UniqueIdentifier>{cb8a6470-3633-4e66-97ab-37b0c17812d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -51,14 +54,8 @@
     <ClInclude Include="TextComponent.h">
       <Filter>Component Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Component Files</Filter>
-    </ClInclude>
     <ClInclude Include="Time.h">
       <Filter>Engine Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Component Files</Filter>
     </ClInclude>
     <ClInclude Include="TextureComponent.h">
       <Filter>Component Files</Filter>
@@ -66,11 +63,20 @@
     <ClInclude Include="FPSComponent.h">
       <Filter>Component Files</Filter>
     </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Component Files\BaseComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableComponent.h">
+      <Filter>Component Files\BaseComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="FunctionalComponent.h">
+      <Filter>Component Files\BaseComponents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Component Files</Filter>
-    </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
@@ -107,14 +113,23 @@
     <ClCompile Include="Time.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Component Files</Filter>
-    </ClCompile>
     <ClCompile Include="TextureComponent.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
     <ClCompile Include="FPSComponent.cpp">
       <Filter>Component Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Component Files\BaseComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableComponent.cpp">
+      <Filter>Component Files\BaseComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="FunctionalComponent.cpp">
+      <Filter>Component Files\BaseComponents</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

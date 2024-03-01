@@ -4,7 +4,8 @@
 #include <vector>
 #include <iostream>
 
-#include "Component.h"
+#include "FunctionalComponent.h"
+#include "RenderableComponent.h"
 
 namespace sgam
 {
@@ -37,7 +38,7 @@ namespace sgam
 		bool RemoveComponents();
 		template <class T>
 		bool HasComponent() const;
-		Transform* GetTransform() const { return m_pTransform; }
+		Transform* GetTransform() const { return m_pTransform.get(); }
 
 		GameObject();
 		~GameObject() = default;
@@ -47,8 +48,9 @@ namespace sgam
 		GameObject& operator=(GameObject&& other) = delete;
 
 	private:
-		std::vector<std::unique_ptr<Component>> m_pComponents{};
-		Transform* m_pTransform{};
+		std::vector<std::unique_ptr<FunctionalComponent>> m_pFunctionalComponents{};
+		std::vector<std::unique_ptr<RenderableComponent>> m_pRenderableComponents{};
+		std::unique_ptr<Transform> m_pTransform{};
 
 		bool m_IsMarkedAsDestroyed{ false };
 	};
@@ -58,11 +60,26 @@ namespace sgam
 	{
 		static_assert(std::is_base_of<Component, T>(), "T does not derive from Component class");
 
-		for (const auto& pComponent : m_pComponents)
-		{
-			T* pDerivedComponent{ dynamic_cast<T*>(pComponent.get()) };
+		// Check if we are getting the transform
+		if constexpr (std::is_same<Transform, T>()) return GetTransform();
 
-			if (pDerivedComponent) return pDerivedComponent;
+		if constexpr (std::is_base_of<FunctionalComponent, T>())
+		{
+			for (const auto& pComponent : m_pFunctionalComponents)
+			{
+				T* pDerivedComponent{ dynamic_cast<T*>(pComponent.get()) };
+
+				if (pDerivedComponent) return pDerivedComponent;
+			}
+		}
+		else if constexpr (std::is_base_of<RenderableComponent, T>())
+		{
+			for (const auto& pComponent : m_pRenderableComponents)
+			{
+				T* pDerivedComponent{ dynamic_cast<T*>(pComponent.get()) };
+
+				if (pDerivedComponent) return pDerivedComponent;
+			}
 		}
 
 		return nullptr;
@@ -75,11 +92,26 @@ namespace sgam
 
 		std::vector<T*> pComponents{};
 
-		for (const auto& pComponent : m_pComponents)
-		{
-			T* pDerivedComponent{ dynamic_cast<T*>(pComponent.get()) };
+		// Check if we are getting the transform(s?)
+		if constexpr (std::is_same<Transform, T>()) return pComponents.push_back(GetTransform());
 
-			if (pDerivedComponent) pComponents.push_back(pDerivedComponent);
+		if constexpr (std::is_base_of<FunctionalComponent, T>())
+		{
+			for (const auto& pComponent : m_pFunctionalComponents)
+			{
+				T* pDerivedComponent{ dynamic_cast<T*>(pComponent.get()) };
+
+				if (pDerivedComponent) pComponents.push_back(pDerivedComponent);
+			}
+		}
+		else if constexpr (std::is_base_of<RenderableComponent, T>())
+		{
+			for (const auto& pComponent : m_pRenderableComponents)
+			{
+				T* pDerivedComponent{ dynamic_cast<T*>(pComponent.get()) };
+
+				if (pDerivedComponent) pComponents.push_back(pDerivedComponent);
+			}
 		}
 
 		return pComponents;
@@ -97,21 +129,30 @@ namespace sgam
 			{
 				std::cout << "You tried to add a second Transform Component, which doesn't do anything.\n";
 
-				return m_pTransform;
+				return GetTransform();
 			}
 		}
 
 		// Make the Component we want to add
-		auto pComponent{ std::make_unique<T>() };
-
 		// Set the current GameObject as the owner
-		pComponent->SetOwner(this);
+		auto pComponent{ std::make_unique<T>(this) };
 
 		// Get the raw pointer to the Component
 		T* pComponentPtr{ pComponent.get() };
 
 		// Add the Component to GameObject's Components
-		m_pComponents.push_back(std::move(pComponent));
+		if constexpr (std::is_base_of<FunctionalComponent, T>())
+		{
+			m_pFunctionalComponents.push_back(std::move(pComponent));
+		}
+		else if constexpr (std::is_base_of<RenderableComponent, T>())
+		{
+			m_pRenderableComponents.push_back(std::move(pComponent));
+		}
+		else if constexpr (std::is_same<Transform, T>())
+		{
+			m_pTransform = std::move(pComponent);
+		}
 
 		return pComponentPtr;
 	}
@@ -176,11 +217,25 @@ namespace sgam
 	{
 		static_assert(std::is_base_of<Component, T>(), "T does not derive from Component class");
 
-		for (const auto& pComponent : m_pComponents)
-		{
-			T* pDerivedComponent{ dynamic_cast<T*>(pComponent.get()) };
+		if constexpr (std::is_same<Transform, T>()) return m_pTransform;
 
-			if (pDerivedComponent) return true;
+		if constexpr (std::is_base_of<FunctionalComponent, T>())
+		{
+			for (const auto& pComponent : m_pFunctionalComponents)
+			{
+				T* pDerivedComponent{ dynamic_cast<T*>(pComponent.get()) };
+
+				if (pDerivedComponent) return true;
+			}
+		}
+		else if constexpr (std::is_base_of<RenderableComponent, T>())
+		{
+			for (const auto& pComponent : m_pRenderableComponents)
+			{
+				T* pDerivedComponent{ dynamic_cast<T*>(pComponent.get()) };
+
+				if (pDerivedComponent) return true;
+			}
 		}
 
 		return false;
