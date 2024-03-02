@@ -30,9 +30,9 @@ namespace sgam
 	private: 
 		explicit Scene(const std::string& name);
 
-		std::string m_name;
-		std::vector < std::shared_ptr<GameObject>> m_pObjects{};
+		std::string m_Name;
+		std::vector<std::shared_ptr<GameObject>> m_pObjects{};
 
-		static unsigned int m_idCounter; 
+		static unsigned int m_IdCounter; 
 	};
 }

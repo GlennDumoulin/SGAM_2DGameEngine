@@ -12,6 +12,9 @@ namespace sgam
 		void Destroy() { m_IsMarkedAsDestroyed = true; }
 		const bool IsMarkedAsDestroyed() const { return m_IsMarkedAsDestroyed; }
 
+		void SetEnabled(bool isEnabled) { m_IsEnabled = isEnabled; }
+		bool IsEnabled() const { return m_IsEnabled; }
+
 		GameObject* GetOwner() const { return m_pOwner; }
 		Transform* GetTransform() const;
 
@@ -29,5 +32,6 @@ namespace sgam
 		GameObject* m_pOwner{};
 
 		bool m_IsMarkedAsDestroyed{ false };
+		bool m_IsEnabled{ true };
 	};
 }

@@ -5,9 +5,9 @@
 
 using namespace sgam;
 
-unsigned int Scene::m_idCounter = 0;
+unsigned int Scene::m_IdCounter = 0;
 
-Scene::Scene(const std::string& name) : m_name(name) {}
+Scene::Scene(const std::string& name) : m_Name(name) {}
 
 Scene::~Scene() = default;
 
@@ -30,21 +30,23 @@ void Scene::FixedUpdate()
 {
 	for (auto& pObject : m_pObjects)
 	{
-		pObject->FixedUpdate();
+		if (pObject->IsEnabled()) pObject->FixedUpdate();
 	}
 }
+
 void Scene::Update()
 {
 	for(auto& pObject : m_pObjects)
 	{
-		pObject->Update();
+		if (pObject->IsEnabled()) pObject->Update();
 	}
 }
+
 void Scene::LateUpdate()
 {
 	for (auto& pObject : m_pObjects)
 	{
-		pObject->LateUpdate();
+		if (pObject->IsEnabled()) pObject->LateUpdate();
 	}
 }
 
@@ -52,7 +54,7 @@ void Scene::Render() const
 {
 	for (const auto& pObject : m_pObjects)
 	{
-		pObject->Render();
+		if (pObject->IsEnabled()) pObject->Render();
 	}
 }
 

@@ -21,8 +21,13 @@ namespace sgam
 		void Render() const;
 
 		void Destroy() { m_IsMarkedAsDestroyed = true; }
-		const bool IsMarkedAsDestroyed() const { return m_IsMarkedAsDestroyed; }
+		bool IsMarkedAsDestroyed() const { return m_IsMarkedAsDestroyed; }
 		void Cleanup();
+
+		void SetEnabled(bool isEnabled) { m_IsEnabled = isEnabled; }
+		bool IsEnabled() const { return m_IsEnabled; }
+
+		const std::string& GetName() const { return m_Name; }
 
 		template <class T>
 		T* GetComponent() const;
@@ -40,7 +45,7 @@ namespace sgam
 		bool HasComponent() const;
 		Transform* GetTransform() const { return m_pTransform.get(); }
 
-		GameObject();
+		GameObject(const std::string& name = "");
 		~GameObject() = default;
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
@@ -53,6 +58,9 @@ namespace sgam
 		std::unique_ptr<Transform> m_pTransform{};
 
 		bool m_IsMarkedAsDestroyed{ false };
+		bool m_IsEnabled{ true };
+
+		std::string m_Name{};
 	};
 
 	template <class T>

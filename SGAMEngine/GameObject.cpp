@@ -5,7 +5,8 @@
 
 using namespace sgam;
 
-GameObject::GameObject()
+GameObject::GameObject(const std::string& name)
+	: m_Name{ name }
 {
 	AddComponent<Transform>();
 }
@@ -14,7 +15,7 @@ void GameObject::FixedUpdate()
 {
 	for (const auto& pComponent : m_pFunctionalComponents)
 	{
-		pComponent->FixedUpdate();
+		if (pComponent->IsEnabled()) pComponent->FixedUpdate();
 	}
 }
 
@@ -22,7 +23,7 @@ void GameObject::Update()
 {
 	for (const auto& pComponent : m_pFunctionalComponents)
 	{
-		pComponent->Update();
+		if (pComponent->IsEnabled()) pComponent->Update();
 	}
 }
 
@@ -30,7 +31,7 @@ void GameObject::LateUpdate()
 {
 	for (const auto& pComponent : m_pFunctionalComponents)
 	{
-		pComponent->LateUpdate();
+		if (pComponent->IsEnabled()) pComponent->LateUpdate();
 	}
 }
 
@@ -38,7 +39,7 @@ void GameObject::Render() const
 {
 	for (const auto& pComponent : m_pRenderableComponents)
 	{
-		pComponent->Render();
+		if (pComponent->IsEnabled()) pComponent->Render();
 	}
 }
 
