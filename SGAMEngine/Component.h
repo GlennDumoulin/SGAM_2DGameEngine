@@ -16,6 +16,7 @@ namespace sgam
 		bool IsEnabled() const { return m_IsEnabled; }
 
 		GameObject* GetOwner() const { return m_pOwner; }
+		GameObject* GetParent() const;
 		Transform* GetTransform() const;
 
 		virtual ~Component() = default;

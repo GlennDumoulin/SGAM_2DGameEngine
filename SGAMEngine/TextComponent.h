@@ -22,7 +22,7 @@ namespace sgam
 		void SetColor(const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a);
 
 		TextComponent(GameObject* pOwner) : FunctionalComponent(pOwner) {}
-		virtual ~TextComponent() = default;
+		~TextComponent() = default;
 		TextComponent(const TextComponent& other) = delete;
 		TextComponent(TextComponent&& other) = delete;
 		TextComponent& operator=(const TextComponent& other) = delete;

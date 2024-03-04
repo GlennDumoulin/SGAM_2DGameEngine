@@ -91,13 +91,25 @@ void GameObject::Cleanup()
 	}
 }
 
-void GameObject::SetParent(GameObject* pParent)
+void GameObject::SetParent(GameObject* pParent, const bool keepWorldPosition)
 {
 	// Check if the new parent is different from the current parent & itself
 	if (m_pParent == pParent || pParent == this) return;
 
 	// Check if the new parent isn't one of this GameObject's children
 	if (IsChild(pParent)) return;
+
+	// Update Transform
+	const auto& pTransform{ GetTransform() };
+
+	if (keepWorldPosition)
+	{
+		glm::vec2 newLocalPos{ pTransform->GetWorldPosition() };
+		if (pParent) newLocalPos -= pParent->GetTransform()->GetWorldPosition();
+
+		pTransform->SetLocalPosition(newLocalPos);
+	}
+	pTransform->SetPositionDirty();
 
 	// Cache the unique pointer of the current GameObject
 	std::unique_ptr<GameObject> pObject{};
@@ -132,9 +144,6 @@ void GameObject::SetParent(GameObject* pParent)
 	{
 		m_pScene->Add(std::move(pObject));
 	}
-
-	// Update Transform
-	//...
 }
 
 bool GameObject::IsChild(GameObject* pObject) const
@@ -150,7 +159,7 @@ bool GameObject::IsChild(GameObject* pObject) const
 	return false;
 }
 
-GameObject* GameObject::GetChildAt(unsigned int index) const
+GameObject* GameObject::GetChildAt(const unsigned int index) const
 {
 	if (index >= GetChildCount())
 	{
@@ -166,7 +175,7 @@ void GameObject::AddChild(std::unique_ptr<GameObject> pChild)
 	m_pChildren.push_back(std::move(pChild));
 }
 
-std::unique_ptr<GameObject> GameObject::RemoveChildAt(unsigned int index)
+std::unique_ptr<GameObject> GameObject::RemoveChildAt(const unsigned int index)
 {
 	if (index >= GetChildCount())
 	{

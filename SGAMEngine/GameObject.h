@@ -32,9 +32,9 @@ namespace sgam
 
 		Scene* GetScene() const { return m_pScene; }
 
-		void SetParent(GameObject* pParent = nullptr);
+		void SetParent(GameObject* pParent, const bool keepWorldPosition = true);
 		GameObject* GetParent() const { return m_pParent; }
-		GameObject* GetChildAt(unsigned int index) const;
+		GameObject* GetChildAt(const unsigned int index) const;
 		size_t GetChildCount() const { return m_pChildren.size(); }
 
 		GameObject* CreateGameObject(const std::string& name = "");
@@ -66,7 +66,7 @@ namespace sgam
 		bool IsChild(GameObject* pObject) const;
 
 		void AddChild(std::unique_ptr<GameObject> pChild);
-		std::unique_ptr<GameObject> RemoveChildAt(unsigned int index);
+		std::unique_ptr<GameObject> RemoveChildAt(const unsigned int index);
 
 		Scene* m_pScene{};
 
