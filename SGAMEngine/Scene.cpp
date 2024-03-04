@@ -1,24 +1,51 @@
 #include <algorithm>
 
 #include "Scene.h"
-#include "GameObject.h"
 
 using namespace sgam;
 
 unsigned int Scene::m_IdCounter = 0;
 
-Scene::Scene(const std::string& name) : m_Name(name) {}
-
-Scene::~Scene() = default;
-
-void Scene::Add(std::shared_ptr<GameObject> pObject)
+GameObject* Scene::CreateGameObject(const std::string& name)
 {
-	m_pObjects.emplace_back(std::move(pObject));
+	// Make new GameObject
+	// Set the GameObject's Scene & name (optional)
+	auto pObject{ std::make_unique<GameObject>(this, name) };
+
+	// Get raw pointer to the GameObject
+	GameObject* pObjectPtr{ pObject.get() };
+
+	// Add GameObject to Scene
+	Add(std::move(pObject));
+
+	// Return raw pointer
+	return pObjectPtr;
 }
 
-void Scene::Remove(std::shared_ptr<GameObject> pObject)
+void Scene::Add(std::unique_ptr<GameObject> pObject)
 {
-	m_pObjects.erase(std::remove(m_pObjects.begin(), m_pObjects.end(), pObject), m_pObjects.end());
+	m_pObjects.push_back(std::move(pObject));
+}
+
+std::unique_ptr<GameObject> Scene::Remove(GameObject* pObject)
+{
+	const size_t objectsCount{ m_pObjects.size() };
+	for (size_t idx{ 0 }; idx < objectsCount; ++idx)
+	{
+		// Check if this is the object we want to remove
+		if (m_pObjects.at(idx).get() == pObject)
+		{
+			// Get the unique pointer 
+			std::unique_ptr<GameObject> pUniqueObject{ std::move(m_pObjects.at(idx)) };
+
+			// Remove the dangling pointer from the list
+			m_pObjects.erase(m_pObjects.begin() + idx);
+
+			return pUniqueObject;
+		}
+	}
+
+	return nullptr;
 }
 
 void Scene::RemoveAll()
@@ -61,13 +88,13 @@ void Scene::Render() const
 void Scene::Cleanup()
 {
 	// Remove all GameObjects that were marked to be destroyed
-	std::for_each(m_pObjects.begin(), m_pObjects.end(), [&](const auto& pObject)
-	{
-		if (pObject->IsMarkedAsDestroyed())
-		{
-			Remove(pObject);
-		}
-	});
+	m_pObjects.erase(
+		std::remove_if(
+			m_pObjects.begin(), m_pObjects.end(),
+			[](const auto& pObject) { return pObject->IsMarkedAsDestroyed(); }
+		)
+		, m_pObjects.end()
+	);
 
 	// Clean up all GameObjects in the scene
 	for (const auto& pObject : m_pObjects)

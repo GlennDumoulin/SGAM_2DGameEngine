@@ -6,10 +6,11 @@
 
 #include "FunctionalComponent.h"
 #include "RenderableComponent.h"
+#include "Transform.h"
 
 namespace sgam
 {
-	class Transform;
+	class Scene;
 
 	class GameObject final
 	{
@@ -29,6 +30,15 @@ namespace sgam
 
 		const std::string& GetName() const { return m_Name; }
 
+		Scene* GetScene() const { return m_pScene; }
+
+		void SetParent(GameObject* pParent = nullptr);
+		GameObject* GetParent() const { return m_pParent; }
+		GameObject* GetChildAt(unsigned int index) const;
+		size_t GetChildCount() const { return m_pChildren.size(); }
+
+		GameObject* CreateGameObject(const std::string& name = "");
+
 		template <class T>
 		T* GetComponent() const;
 		template <class T>
@@ -45,7 +55,7 @@ namespace sgam
 		bool HasComponent() const;
 		Transform* GetTransform() const { return m_pTransform.get(); }
 
-		GameObject(const std::string& name = "");
+		explicit GameObject(Scene* pScene, const std::string& name = "", GameObject* pParent = nullptr);
 		~GameObject() = default;
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
@@ -53,6 +63,16 @@ namespace sgam
 		GameObject& operator=(GameObject&& other) = delete;
 
 	private:
+		bool IsChild(GameObject* pObject) const;
+
+		void AddChild(std::unique_ptr<GameObject> pChild);
+		std::unique_ptr<GameObject> RemoveChildAt(unsigned int index);
+
+		Scene* m_pScene{};
+
+		GameObject* m_pParent{};
+		std::vector<std::unique_ptr<GameObject>> m_pChildren{};
+
 		std::vector<std::unique_ptr<FunctionalComponent>> m_pFunctionalComponents{};
 		std::vector<std::unique_ptr<RenderableComponent>> m_pRenderableComponents{};
 		std::unique_ptr<Transform> m_pTransform{};
