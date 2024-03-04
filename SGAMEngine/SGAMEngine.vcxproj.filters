@@ -75,6 +75,9 @@
     <ClInclude Include="FunctionalComponent.h">
       <Filter>Component Files\BaseComponents</Filter>
     </ClInclude>
+    <ClInclude Include="RotaterComponent.h">
+      <Filter>Component Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">
@@ -130,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="FunctionalComponent.cpp">
       <Filter>Component Files\BaseComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="RotaterComponent.cpp">
+      <Filter>Component Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
