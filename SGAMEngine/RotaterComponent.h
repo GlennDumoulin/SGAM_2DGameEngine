@@ -25,5 +25,7 @@ namespace sgam
 		float m_RotateRadius{ 20.f };
 		float m_RotateSpeed{ glm::radians(360.f) };
 		float m_CurrentAngle{};
+
+		const float m_FullRotation{ glm::radians(360.f) };
 	};
 }

@@ -30,10 +30,9 @@ namespace sgam
 	private:
 		void UpdateWorldPosition();
 
-		// New Position
 		glm::vec2 m_LocalPosition{};
 		glm::vec2 m_WorldPosition{};
 
-		bool m_HasChanged{ false };
+		bool m_HasChanged{ true };
 	};
 }
