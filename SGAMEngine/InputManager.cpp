@@ -1,4 +1,6 @@
 #include <SDL.h>
+#include <backends/imgui_impl_sdl2.h>
+
 #include "InputManager.h"
 
 bool sgam::InputManager::ProcessInput()
@@ -14,7 +16,8 @@ bool sgam::InputManager::ProcessInput()
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
 			
 		}
-		// etc...
+
+		ImGui_ImplSDL2_ProcessEvent(&e);
 	}
 
 	return true;
