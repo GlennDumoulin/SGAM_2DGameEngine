@@ -46,6 +46,8 @@ void sgam::Renderer::Render() const
 
 	SceneManager::GetInstance().Render();
 
+	SDL_RenderFlush(m_renderer);
+
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame();
 	ImGui::NewFrame();

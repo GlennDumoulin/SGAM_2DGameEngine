@@ -127,8 +127,8 @@ void ImGuiExercises::TrashInts()
 	m_IntResults.clear();
 
 	// Prepare large buffer
-	std::unique_ptr<std::vector<int>> intArray{ std::make_unique<std::vector<int>>() };
-	intArray->resize(m_ArraySize);
+	std::vector<int> intArray{};
+	intArray.resize(m_ArraySize);
 
 	// Handle all step sizes
 	for (int stepsize{ 1 }; stepsize <= 1024; stepsize *= 2)
@@ -142,7 +142,7 @@ void ImGuiExercises::TrashInts()
 
 			for (int i{ 0 }; i < m_ArraySize; i += stepsize)
 			{
-				intArray->at(i) += stepsize;
+				intArray.at(i) += stepsize;
 			}
 
 			const auto endTime{ std::chrono::high_resolution_clock::now() };
@@ -166,8 +166,8 @@ void ImGuiExercises::TrashGOs()
 	m_GOResults.clear();
 
 	// Prepare large buffer
-	std::unique_ptr<std::vector<GameObject3D>> goArray{ std::make_unique<std::vector<GameObject3D>>() };
-	goArray->resize(m_ArraySize);
+	std::vector<GameObject3D> goArray{};
+	goArray.resize(m_ArraySize);
 
 	// Handle all step sizes
 	for (int stepsize{ 1 }; stepsize <= 1024; stepsize *= 2)
@@ -181,7 +181,7 @@ void ImGuiExercises::TrashGOs()
 
 			for (int i{ 0 }; i < m_ArraySize; i += stepsize)
 			{
-				goArray->at(i).id += stepsize;
+				goArray.at(i).id += stepsize;
 			}
 
 			const auto endTime{ std::chrono::high_resolution_clock::now() };
@@ -205,8 +205,8 @@ void ImGuiExercises::TrashGOAs()
 	m_GOAResults.clear();
 
 	// Prepare large buffer
-	std::unique_ptr<std::vector<GameObject3DAlt>> goArray{ std::make_unique<std::vector<GameObject3DAlt>>() };
-	goArray->resize(m_ArraySize);
+	std::vector<GameObject3DAlt> goArray{};
+	goArray.resize(m_ArraySize);
 
 	// Handle all step sizes
 	for (int stepsize{ 1 }; stepsize <= 1024; stepsize *= 2)
@@ -220,7 +220,7 @@ void ImGuiExercises::TrashGOAs()
 
 			for (int i{ 0 }; i < m_ArraySize; i += stepsize)
 			{
-				goArray->at(i).id += stepsize;
+				goArray.at(i).id += stepsize;
 			}
 
 			const auto endTime{ std::chrono::high_resolution_clock::now() };
@@ -238,14 +238,11 @@ void ImGuiExercises::TrashGOAs()
 
 float ImGuiExercises::CalculateAverage(std::vector<int>& results)
 {
-	std::sort(results.begin(), results.end());
+	const auto& minmax{ std::minmax_element(results.begin(), results.end()) };
 
-	const auto& beginIt{ results.begin() + 1 };
-	const auto& endIt{ results.end() - 1 };
+	const int sum{ std::accumulate(results.begin(), results.end(), -(*minmax.first + *minmax.second)) };
 
-	const int sum{ std::accumulate(beginIt, endIt, 0) };
-
-	const int avg{ sum / static_cast<int>(std::distance(beginIt, endIt)) };
+	const int avg{ sum / static_cast<int>(results.size() - 2) };
 
 	return static_cast<float>(avg);
 }
