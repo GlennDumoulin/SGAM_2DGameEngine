@@ -1,6 +1,9 @@
 #pragma once
 #include <memory>
 
+#include "imgui.h"
+#include "implot.h"
+
 namespace sgam
 {
 	class GameObject;
@@ -9,6 +12,8 @@ namespace sgam
 	class Component
 	{
 	public:
+		virtual void RenderGUI() {};
+
 		void Destroy() { m_IsMarkedAsDestroyed = true; }
 		const bool IsMarkedAsDestroyed() const { return m_IsMarkedAsDestroyed; }
 

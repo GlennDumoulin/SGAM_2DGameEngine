@@ -18,6 +18,7 @@ namespace sgam
 		void LateUpdate();
 
 		void Render() const;
+		void RenderGUI();
 
 		void Cleanup();
 

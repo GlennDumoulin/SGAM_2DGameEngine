@@ -65,6 +65,23 @@ void GameObject::Render() const
 	}
 }
 
+void GameObject::RenderGUI()
+{
+	for (const auto& pComponent : m_pFunctionalComponents)
+	{
+		if (pComponent->IsEnabled()) pComponent->RenderGUI();
+	}
+	for (const auto& pComponent : m_pRenderableComponents)
+	{
+		if (pComponent->IsEnabled()) pComponent->RenderGUI();
+	}
+
+	for (const auto& pChild : m_pChildren)
+	{
+		if (pChild->IsEnabled()) pChild->RenderGUI();
+	}
+}
+
 void GameObject::Cleanup()
 {
 	// Remove all FunctionalComponents that were marked to be destroyed

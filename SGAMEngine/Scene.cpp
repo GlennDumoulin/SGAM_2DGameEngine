@@ -85,6 +85,14 @@ void Scene::Render() const
 	}
 }
 
+void Scene::RenderGUI()
+{
+	for (const auto& pObject : m_pObjects)
+	{
+		if (pObject->IsEnabled()) pObject->RenderGUI();
+	}
+}
+
 void Scene::Cleanup()
 {
 	// Remove all GameObjects that were marked to be destroyed

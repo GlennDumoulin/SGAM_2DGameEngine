@@ -20,6 +20,7 @@ namespace sgam
 		void LateUpdate();
 
 		void Render() const;
+		void RenderGUI();
 
 		void Destroy() { m_IsMarkedAsDestroyed = true; }
 		bool IsMarkedAsDestroyed() const { return m_IsMarkedAsDestroyed; }
