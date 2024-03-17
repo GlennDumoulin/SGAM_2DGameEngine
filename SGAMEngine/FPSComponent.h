@@ -10,7 +10,7 @@ namespace sgam
 	public:
 		virtual void Update() override;
 
-		FPSComponent(GameObject* pOwner) : FunctionalComponent(pOwner) {}
+		explicit FPSComponent(GameObject* pOwner) : FunctionalComponent(pOwner) {}
 		~FPSComponent() = default;
 		FPSComponent(const FPSComponent& other) = delete;
 		FPSComponent(FPSComponent&& other) = delete;

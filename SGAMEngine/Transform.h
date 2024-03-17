@@ -20,7 +20,7 @@ namespace sgam
 
 		void SetPositionDirty();
 
-		Transform(GameObject* pOwner) : Component(pOwner) {}
+		explicit Transform(GameObject* pOwner) : Component(pOwner) {}
 		~Transform() = default;
 		Transform(const Transform& other) = delete;
 		Transform(Transform&& other) = delete;

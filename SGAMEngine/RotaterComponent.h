@@ -14,7 +14,7 @@ namespace sgam
 		void SetRotateSpeedDeg(const float degrees) { SetRotateSpeedRad(glm::radians(degrees)); }
 		void SetRotateSpeedRad(const float rad) { m_RotateSpeed = rad; }
 
-		RotaterComponent(GameObject* pOwner) : FunctionalComponent(pOwner) {}
+		explicit RotaterComponent(GameObject* pOwner) : FunctionalComponent(pOwner) {}
 		~RotaterComponent() = default;
 		RotaterComponent(const RotaterComponent& other) = delete;
 		RotaterComponent(RotaterComponent&& other) = delete;

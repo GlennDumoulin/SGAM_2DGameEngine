@@ -12,7 +12,7 @@ namespace sgam
 
 		void SetTexture(std::shared_ptr<Texture2D> pTexture) { m_pTexture = pTexture; }
 
-		TextureComponent(GameObject* pOwner) : RenderableComponent(pOwner) {}
+		explicit TextureComponent(GameObject* pOwner) : RenderableComponent(pOwner) {}
 		~TextureComponent() = default;
 		TextureComponent(const TextureComponent& other) = delete;
 		TextureComponent(TextureComponent&& other) = delete;

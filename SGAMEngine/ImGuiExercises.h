@@ -35,7 +35,7 @@ namespace sgam
 	public:
 		virtual void RenderGUI() override;
 
-		ImGuiExercises(GameObject* pOwner) : RenderableComponent(pOwner) {}
+		explicit ImGuiExercises(GameObject* pOwner) : RenderableComponent(pOwner) {}
 		~ImGuiExercises() = default;
 		ImGuiExercises(const ImGuiExercises& other) = delete;
 		ImGuiExercises(ImGuiExercises&& other) = delete;
