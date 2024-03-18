@@ -1,8 +1,5 @@
 #pragma once
-#define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
-#include <XInput.h>
-#pragma comment(lib, "xinput.lib")
+#include <memory>
 
 namespace sgam
 {
@@ -15,23 +12,17 @@ namespace sgam
 		bool IsButtonUp(unsigned int button) const;
 		bool IsButtonPressed(unsigned int button) const;
 
-		bool IsDisconnected() const { return m_IsDisconnected; }
+		bool IsDisconnected() const;
 
-		explicit Controller(unsigned int controllerIdx) : m_ControllerIdx{ controllerIdx } {}
-		~Controller() = default;
+		explicit Controller(unsigned int controllerIdx);
+		~Controller();
 		Controller(const Controller& other) = delete;
 		Controller(Controller&& other) = delete;
 		Controller& operator=(const Controller& other) = delete;
 		Controller& operator=(Controller&& other) = delete;
 
 	private:
-		const unsigned int m_ControllerIdx{};
-		bool m_IsDisconnected{ false };
-
-		XINPUT_STATE m_PreviousState{};
-		XINPUT_STATE m_CurrentState{};
-
-		unsigned int m_PressedBtns{};
-		unsigned int m_ReleasedBtns{};
+		class ControllerImpl;
+		std::unique_ptr<ControllerImpl> m_pImpl{};
 	};
 }

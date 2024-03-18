@@ -16,6 +16,23 @@ InputManager::InputManager()
 
 bool InputManager::ProcessInput()
 {
+	// Update the SDL inputs
+	if (!ProcessSDLInputs()) return false;
+
+	// Get the new state of all controllers 
+	for (const auto& pController : m_pControllers)
+	{
+		pController->Update();
+	}
+
+	// Handle all binded commands
+	HandleCommands();
+
+	return true;
+}
+
+bool InputManager::ProcessSDLInputs()
+{
 	// Clear keyboard up & down keys
 	m_KeyboardDown.clear();
 	m_KeyboardUp.clear();
@@ -49,12 +66,11 @@ bool InputManager::ProcessInput()
 		ImGui_ImplSDL2_ProcessEvent(&e);
 	}
 
-	// Get the new state of all controllers 
-	for (const auto& pController : m_pControllers)
-	{
-		pController->Update();
-	}
+	return true;
+}
 
+void InputManager::HandleCommands()
+{
 	// Check controller commands to be executed
 	for (const auto& pControllerCommand : m_pControllerCommands)
 	{
@@ -114,8 +130,6 @@ bool InputManager::ProcessInput()
 
 		if (shouldExecute) pKeyboardCommand->pCommand->Execute();
 	}
-
-	return true;
 }
 
 void InputManager::BindControllerCommand(const unsigned int controllerIdx, const ControllerButton button, const InputType inputType, std::unique_ptr<Command> pCommand)

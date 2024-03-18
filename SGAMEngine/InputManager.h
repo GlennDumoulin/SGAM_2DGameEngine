@@ -71,6 +71,10 @@ namespace sgam
 			std::unique_ptr<Command> pCommand;
 		};
 
+		bool ProcessSDLInputs();
+
+		void HandleCommands();
+
 		const unsigned int m_MaxControllers{ 4 };
 
 		std::vector<std::unique_ptr<Controller>> m_pControllers{};
