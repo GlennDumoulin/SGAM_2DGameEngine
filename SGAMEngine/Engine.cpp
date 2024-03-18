@@ -74,6 +74,7 @@ sgam::Engine::Engine(const std::string &dataPath)
 
 sgam::Engine::~Engine()
 {
+	InputManager::GetInstance().UnbindAll();
 	Renderer::GetInstance().Destroy();
 	SDL_DestroyWindow(g_pWindow);
 	g_pWindow = nullptr;

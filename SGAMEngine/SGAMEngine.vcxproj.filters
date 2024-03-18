@@ -22,6 +22,12 @@
     <Filter Include="imgui">
       <UniqueIdentifier>{23cacd3d-f617-4680-bc66-224d1c0a38e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Command Files">
+      <UniqueIdentifier>{ca5825a5-5103-47e4-8fa0-0eb06f62875b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Command Files\BaseCommands">
+      <UniqueIdentifier>{05a63f6a-c503-49a7-8a5a-42fb57c25f13}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -114,6 +120,21 @@
     <ClInclude Include="..\3rdParty\imgui-1.90.4\implot_internal.h">
       <Filter>imgui</Filter>
     </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Command Files\BaseCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectCommand.h">
+      <Filter>Command Files\BaseCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveCommand.h">
+      <Filter>Command Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveComponent.h">
+      <Filter>Component Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">
@@ -202,6 +223,15 @@
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui-1.90.4\implot_items.cpp">
       <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveCommand.cpp">
+      <Filter>Command Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveComponent.cpp">
+      <Filter>Component Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

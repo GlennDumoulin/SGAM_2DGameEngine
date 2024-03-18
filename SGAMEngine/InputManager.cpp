@@ -3,22 +3,142 @@
 
 #include "InputManager.h"
 
-bool sgam::InputManager::ProcessInput()
+using namespace sgam;
+
+InputManager::InputManager()
 {
+	// Initialize all controllers
+	for (unsigned int idx{}; idx < m_MaxControllers; ++idx)
+	{
+		m_pControllers.push_back(std::make_unique<Controller>(idx));
+	}
+}
+
+bool InputManager::ProcessInput()
+{
+	// Clear keyboard up & down keys
+	m_KeyboardDown.clear();
+	m_KeyboardUp.clear();
+
 	SDL_Event e;
-	while (SDL_PollEvent(&e)) {
-		if (e.type == SDL_QUIT) {
-			return false;
+	while (SDL_PollEvent(&e))
+	{
+		// Early out if we quit the application
+		if (e.type == SDL_QUIT) return false;
+
+		// Check pressed keys
+		switch (e.key.type)
+		{
+		case SDL_KEYDOWN:
+		{
+			m_KeyboardPressed.insert(e.key.keysym.scancode);
+			m_KeyboardDown.insert(e.key.keysym.scancode);
+			break;
 		}
-		if (e.type == SDL_KEYDOWN) {
-			
+		case SDL_KEYUP:
+		{
+			m_KeyboardPressed.erase(e.key.keysym.scancode);
+			m_KeyboardUp.insert(e.key.keysym.scancode);
+			break;
 		}
-		if (e.type == SDL_MOUSEBUTTONDOWN) {
-			
+		default:
+			break;
 		}
 
+		// Handle ImGui inputs
 		ImGui_ImplSDL2_ProcessEvent(&e);
 	}
 
+	// Get the new state of all controllers 
+	for (const auto& pController : m_pControllers)
+	{
+		pController->Update();
+	}
+
+	// Check controller commands to be executed
+	for (const auto& pControllerCommand : m_pControllerCommands)
+	{
+		// Cache the targetted controller
+		const auto& pController{ m_pControllers.at(pControllerCommand->controllerIdx) };
+
+		// Check if the controller is disconnected
+		if (pController->IsDisconnected()) continue;
+
+		// Check if the command should be executed
+		bool shouldExecute{ false };
+		switch (pControllerCommand->inputType)
+		{
+		case InputType::ButtonDown:
+		{
+			shouldExecute = pController->IsButtonDown(static_cast<unsigned int>(pControllerCommand->button));
+			break;
+		}
+		case InputType::ButtonUp:
+		{
+			shouldExecute = pController->IsButtonUp(static_cast<unsigned int>(pControllerCommand->button));
+			break;
+		}
+		case InputType::ButtonPressed:
+		{
+			shouldExecute = pController->IsButtonPressed(static_cast<unsigned int>(pControllerCommand->button));
+			break;
+		}
+		}
+
+		if (shouldExecute) pControllerCommand->pCommand->Execute();
+	}
+
+	// Check keyboard commands to be executed
+	for (const auto& pKeyboardCommand : m_pKeyboardCommands)
+	{
+		// Check if the command should be executed
+		bool shouldExecute{ false };
+		switch (pKeyboardCommand->inputType)
+		{
+		case InputType::ButtonDown:
+		{
+			shouldExecute = m_KeyboardDown.find(pKeyboardCommand->button) != m_KeyboardDown.end();
+			break;
+		}
+		case InputType::ButtonUp:
+		{
+			shouldExecute = m_KeyboardUp.find(pKeyboardCommand->button) != m_KeyboardUp.end();
+			break;
+		}
+		case InputType::ButtonPressed:
+		{
+			shouldExecute = m_KeyboardPressed.find(pKeyboardCommand->button) != m_KeyboardPressed.end();
+			break;
+		}
+		}
+
+		if (shouldExecute) pKeyboardCommand->pCommand->Execute();
+	}
+
 	return true;
+}
+
+void InputManager::BindControllerCommand(const unsigned int controllerIdx, const ControllerButton button, const InputType inputType, std::unique_ptr<Command> pCommand)
+{
+	// Check if the controllerIdx is valid
+	if (controllerIdx >= m_MaxControllers) return;
+
+	// Bind new command to list of controller commands
+	m_pControllerCommands.push_back(std::make_unique<ControllerCommand>(
+		controllerIdx, button, inputType, std::move(pCommand)
+	));
+}
+
+void InputManager::BindKeyboardCommand(const SDL_Scancode button, const InputType inputType, std::unique_ptr<Command> pCommand)
+{
+	// Bind new command to list of keyboard commands
+	m_pKeyboardCommands.push_back(std::make_unique<KeyboardCommand>(
+		button, inputType, std::move(pCommand)
+	));
+}
+
+void InputManager::UnbindAll()
+{
+	m_pControllerCommands.clear();
+	m_pKeyboardCommands.clear();
 }
