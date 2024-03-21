@@ -41,9 +41,16 @@ namespace sgam
 		void BindKeyboardCommand(const SDL_Scancode button, const InputType inputType, std::unique_ptr<Command> pCommand);
 		void UnbindAll();
 
-		explicit InputManager();
+		~InputManager() = default;
+		InputManager(const InputManager& other) = delete;
+		InputManager(InputManager&& other) = delete;
+		InputManager& operator=(const InputManager& other) = delete;
+		InputManager& operator=(InputManager&& other) = delete;
 
 	private:
+		friend class Singleton<InputManager>;
+		explicit InputManager();
+
 		struct ControllerCommand final
 		{
 			ControllerCommand(const unsigned int controllerIdx, const ControllerButton button, const InputType inputType, std::unique_ptr<Command> pCommand)

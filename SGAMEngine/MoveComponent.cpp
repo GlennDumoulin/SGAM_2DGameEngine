@@ -12,11 +12,9 @@ void MoveComponent::Update()
 	// Normalize the move direction
 	m_Direction = glm::normalize(m_Direction);
 
-	// Inverse Y direction (Y-zero is at top)
-	m_Direction.y *= -1;
-
 	// Apply movement to GameObject
-	GetTransform()->Translate(m_Direction * m_MoveSpeed * Time::GetInstance().Delta());
+	const glm::vec2 movement{ m_Direction * m_MoveSpeed * Time::GetInstance().Delta() };
+	GetTransform()->Translate(movement);
 
 	// Reset the move direction for next frame
 	m_Direction = glm::vec2{};

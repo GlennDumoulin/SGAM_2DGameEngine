@@ -1,10 +1,12 @@
 #pragma once
 #include <SDL.h>
+
 #include "Singleton.h"
 
 namespace sgam
 {
 	class Texture2D;
+
 	/**
 	 * Simple RAII wrapper for the SDL renderer
 	 */

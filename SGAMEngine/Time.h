@@ -20,6 +20,12 @@ namespace sgam
 		const float FixedTimeStep() const { return m_FixedTimeStep; }
 		const int MaxSubsteps() const { return m_MaxSubsteps; }
 
+		~Time() = default;
+		Time(const Time& other) = delete;
+		Time(Time&& other) = delete;
+		Time& operator=(const Time& other) = delete;
+		Time& operator=(Time&& other) = delete;
+
 	private:
 		friend class Singleton<Time>;
 		Time() = default;

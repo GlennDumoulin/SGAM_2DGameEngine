@@ -11,8 +11,8 @@ namespace sgam
 		const glm::vec2& GetLocalPosition() const { return m_LocalPosition; };
 		void SetLocalPosition(const glm::vec2& pos);
 		void SetLocalPosition(const float x, const float y) { SetLocalPosition(glm::vec2{ x, y }); }
-		void Translate(const glm::vec2& pos);
-		void Translate(const float x, const float y) { Translate(glm::vec2{ x, y }); }
+		void Translate(const glm::vec2& offset);
+		void Translate(const float offsetX, const float offsetY) { Translate(glm::vec2{ offsetX, offsetY }); }
 
 		const glm::vec2& GetWorldPosition();
 		void SetWorldPosition(const glm::vec2& pos);

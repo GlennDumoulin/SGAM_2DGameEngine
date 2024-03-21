@@ -13,12 +13,12 @@ void Transform::SetLocalPosition(const glm::vec2& pos)
 	SetPositionDirty();
 }
 
-void Transform::Translate(const glm::vec2& pos)
+void Transform::Translate(const glm::vec2& offset)
 {
 	// Don't update if nothing changed
-	if (pos == glm::vec2{ 0.f, 0.f }) return;
+	if (offset == glm::vec2{ 0.f, 0.f }) return;
 
-	m_LocalPosition += pos;
+	m_LocalPosition += offset;
 
 	SetPositionDirty();
 }
