@@ -42,6 +42,8 @@ namespace sgam
 
 		bool IsDisconnected() const { return m_IsDisconnected; }
 
+		unsigned int GetIndex() const { return m_ControllerIdx; }
+
 		explicit ControllerImpl(unsigned int controllerIdx) : m_ControllerIdx{ controllerIdx } {}
 		~ControllerImpl() = default;
 		ControllerImpl(const ControllerImpl& other) = delete;
@@ -96,4 +98,9 @@ bool Controller::IsButtonPressed(unsigned int button) const
 bool Controller::IsDisconnected() const
 {
 	return m_pImpl->IsDisconnected();
+}
+
+unsigned int Controller::GetIndex() const
+{
+	return m_pImpl->GetIndex();
 }

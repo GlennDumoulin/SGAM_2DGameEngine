@@ -5,15 +5,6 @@
 
 using namespace sgam;
 
-InputManager::InputManager()
-{
-	// Initialize all controllers
-	for (unsigned int idx{}; idx < m_MaxControllers; ++idx)
-	{
-		m_pControllers.push_back(std::make_unique<Controller>(idx));
-	}
-}
-
 bool InputManager::ProcessInput()
 {
 	// Update the SDL inputs
@@ -75,7 +66,10 @@ void InputManager::HandleCommands()
 	for (const auto& pControllerCommand : m_pControllerCommands)
 	{
 		// Cache the targetted controller
-		const auto& pController{ m_pControllers.at(pControllerCommand->controllerIdx) };
+		const auto& pController{ GetController(pControllerCommand->controllerIdx) };
+
+		// Check if the targetted controller exists
+		if (!pController) continue;
 
 		// Check if the controller is disconnected
 		if (pController->IsDisconnected()) continue;
@@ -132,10 +126,26 @@ void InputManager::HandleCommands()
 	}
 }
 
+Controller* InputManager::GetController(const unsigned int controllerIdx) const
+{
+	for (const auto& pController : m_pControllers)
+	{
+		if (pController->GetIndex() == controllerIdx) return pController.get();
+	}
+
+	return nullptr;
+}
+
 void InputManager::BindControllerCommand(const unsigned int controllerIdx, const ControllerButton button, const InputType inputType, std::unique_ptr<Command> pCommand)
 {
 	// Check if the controllerIdx is valid
 	if (controllerIdx >= m_MaxControllers) return;
+
+	// Add a new controller for the index we are binding a command to, if we don't have one already
+	if (GetController(controllerIdx) == nullptr)
+	{
+		m_pControllers.push_back(std::make_unique<Controller>(controllerIdx));
+	}
 
 	// Bind new command to list of controller commands
 	m_pControllerCommands.push_back(std::make_unique<ControllerCommand>(

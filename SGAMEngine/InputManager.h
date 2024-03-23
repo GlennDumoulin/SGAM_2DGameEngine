@@ -49,7 +49,7 @@ namespace sgam
 
 	private:
 		friend class Singleton<InputManager>;
-		explicit InputManager();
+		explicit InputManager() = default;
 
 		struct ControllerCommand final
 		{
@@ -81,6 +81,8 @@ namespace sgam
 		bool ProcessSDLInputs();
 
 		void HandleCommands();
+
+		Controller* GetController(const unsigned int controllerIdx) const;
 
 		const unsigned int m_MaxControllers{ 4 };
 

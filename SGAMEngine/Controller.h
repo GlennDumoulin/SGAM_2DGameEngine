@@ -14,6 +14,8 @@ namespace sgam
 
 		bool IsDisconnected() const;
 
+		unsigned int GetIndex() const;
+
 		explicit Controller(unsigned int controllerIdx);
 		~Controller();
 		Controller(const Controller& other) = delete;
