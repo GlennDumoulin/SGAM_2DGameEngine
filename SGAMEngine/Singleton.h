@@ -1,4 +1,5 @@
 #pragma once
+
 namespace sgam
 {
 	template <typename T>
