@@ -15,4 +15,15 @@ namespace sgam
 
 		const GameObject* pEntity;
 	};
+
+	struct ScoreChangedEvent final : public Event
+	{
+	public:
+		explicit ScoreChangedEvent(const unsigned int score)
+			: score{ score }
+		{
+		}
+
+		const unsigned int score;
+	};
 }

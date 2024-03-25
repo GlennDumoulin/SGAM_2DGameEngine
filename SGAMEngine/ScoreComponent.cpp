@@ -48,6 +48,8 @@ void ScoreComponent::OnNotify(const Event& event)
 		{
 			m_Score += 50;
 			m_HasChanged = true;
+
+			OnScoreChanged->Notify(ScoreChangedEvent(m_Score));
 		}
 	}
 }

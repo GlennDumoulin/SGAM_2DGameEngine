@@ -1,6 +1,7 @@
 #pragma once
 #include "FunctionalComponent.h"
 #include "Observer.h"
+#include "Subject.h"
 
 namespace sgam
 {
@@ -19,6 +20,8 @@ namespace sgam
 		ScoreComponent(ScoreComponent&& other) = delete;
 		ScoreComponent& operator=(const ScoreComponent& other) = delete;
 		ScoreComponent& operator=(ScoreComponent&& other) = delete;
+
+		std::unique_ptr<Subject> OnScoreChanged{ std::make_unique<Subject>() };
 
 	private:
 		void UpdateScore();
