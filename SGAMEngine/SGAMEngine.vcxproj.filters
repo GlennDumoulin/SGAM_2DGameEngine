@@ -28,6 +28,9 @@
     <Filter Include="Command Files\BaseCommands">
       <UniqueIdentifier>{05a63f6a-c503-49a7-8a5a-42fb57c25f13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Files">
+      <UniqueIdentifier>{6e7a35d3-a802-44b2-b7e2-22c5484e5c08}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -144,6 +147,21 @@
     <ClInclude Include="Event.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
+    <ClInclude Include="Events.h">
+      <Filter>Game Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerComponent.h">
+      <Filter>Game Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreComponent.h">
+      <Filter>Game Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LivesComponent.h">
+      <Filter>Game Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FunctionCommand.h">
+      <Filter>Command Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">
@@ -241,6 +259,15 @@
     </ClCompile>
     <ClCompile Include="MoveComponent.cpp">
       <Filter>Component Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerComponent.cpp">
+      <Filter>Game Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreComponent.cpp">
+      <Filter>Game Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LivesComponent.cpp">
+      <Filter>Game Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

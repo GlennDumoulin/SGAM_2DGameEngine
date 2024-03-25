@@ -13,6 +13,7 @@ namespace sgam
 		virtual void Execute() override;
 
 		explicit MoveCommand(GameObject* pGameObject, const glm::vec2& direction);
+		~MoveCommand() = default;
 
 	private:
 		MoveComponent* m_pMoveComp{};
