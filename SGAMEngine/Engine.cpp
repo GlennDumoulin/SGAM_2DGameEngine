@@ -6,7 +6,6 @@
 #include <SDL_ttf.h>
 #include <thread>
 #include <iostream>
-#include <steam_api.h>
 
 #include "Engine.h"
 #include "InputManager.h"
@@ -14,8 +13,6 @@
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include "Time.h"
-#include "SteamAchievements.h"
-#include "Achievement.h"
 
 SDL_Window* g_pWindow{};
 
@@ -86,15 +83,6 @@ sgam::Engine::~Engine()
 
 void sgam::Engine::Run(const std::function<void()>& load)
 {
-	// Initialize Steam api
-	if (!SteamAPI_Init())
-	{
-		std::cerr << "Fatal Error - Steam must be running to play this game (SteamAPI_Init() failed).\n";
-		return;
-	}
-	else
-		std::cout << "Successfully initialized steam.\n";
-
 	load();
 
 	// Get the Singleton instances
@@ -102,13 +90,6 @@ void sgam::Engine::Run(const std::function<void()>& load)
 	auto& sceneManager = SceneManager::GetInstance();
 	auto& input = InputManager::GetInstance();
 	auto& time = Time::GetInstance();
-
-	// Initialize Steam
-	const std::vector<Achievement_t> achievements
-	{
-		Achievement_t{ static_cast<int>(SteamAchievements::Achievement::ACH_WIN_ONE_GAME), "Winner" }
-	};
-	SteamAchievements::GetInstance().Init(achievements, true);
 
 	// Initialize gameloop variables
 	bool doContinue = true;
@@ -118,9 +99,6 @@ void sgam::Engine::Run(const std::function<void()>& load)
 	// Handle the gameloop
 	while (doContinue)
 	{
-		// Call Steam api
-		SteamAPI_RunCallbacks();
-
 		// Update the Time and reset the nrOfSubsteps
 		time.Update();
 		unhandledTime += time.Delta();
@@ -150,7 +128,4 @@ void sgam::Engine::Run(const std::function<void()>& load)
 		// Sleep to not exceed the desired fps
 		std::this_thread::sleep_for(time.SleepTime());
 	}
-
-	// Stop Steam api
-	SteamAPI_Shutdown();
 }

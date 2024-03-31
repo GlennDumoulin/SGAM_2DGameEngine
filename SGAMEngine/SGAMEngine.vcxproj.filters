@@ -31,9 +31,6 @@
     <Filter Include="Game Files">
       <UniqueIdentifier>{6e7a35d3-a802-44b2-b7e2-22c5484e5c08}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Steam Files">
-      <UniqueIdentifier>{7bb78840-35fe-4b90-a484-8feb43c8819f}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Singleton.h">
@@ -117,9 +114,6 @@
     <ClInclude Include="..\3rdParty\imgui-1.90.4\backends\imgui_impl_sdl2.h">
       <Filter>imgui</Filter>
     </ClInclude>
-    <ClInclude Include="ImGuiExercises.h">
-      <Filter>Component Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\3rdParty\imgui-1.90.4\implot.h">
       <Filter>imgui</Filter>
     </ClInclude>
@@ -164,15 +158,6 @@
     </ClInclude>
     <ClInclude Include="FunctionCommand.h">
       <Filter>Command Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Achievement.h">
-      <Filter>Steam Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SteamAchievements.h">
-      <Filter>Steam Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AchievementUnlocker.h">
-      <Filter>Steam Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -254,9 +239,6 @@
     <ClCompile Include="..\3rdParty\imgui-1.90.4\backends\imgui_impl_sdl2.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="ImGuiExercises.cpp">
-      <Filter>Component Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\3rdParty\imgui-1.90.4\implot.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
@@ -280,9 +262,6 @@
     </ClCompile>
     <ClCompile Include="LivesComponent.cpp">
       <Filter>Game Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SteamAchievements.cpp">
-      <Filter>Steam Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
