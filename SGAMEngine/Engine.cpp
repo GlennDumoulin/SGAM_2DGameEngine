@@ -12,7 +12,7 @@
 #include "SceneManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
-#include "Time.h"
+#include "SGAMTime.h"
 
 SDL_Window* g_pWindow{};
 

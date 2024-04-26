@@ -1,7 +1,7 @@
 #include "PlayerComponent.h"
 #include "Events.h"
 
-using namespace sgam;
+using namespace digdug;
 
 void PlayerComponent::KillPlayer()
 {

@@ -23,16 +23,15 @@ namespace sgam
 
 		void Cleanup();
 
+	private:
+		friend class Singleton<SceneManager>;
+		explicit SceneManager() = default;
 		~SceneManager() = default;
 		SceneManager(const SceneManager& other) = delete;
 		SceneManager(SceneManager&& other) = delete;
 		SceneManager& operator=(const SceneManager& other) = delete;
 		SceneManager& operator=(SceneManager&& other) = delete;
 
-	private:
-		friend class Singleton<SceneManager>;
-		explicit SceneManager() = default;
-
-		std::vector<std::shared_ptr<Scene>> m_pScenes;
+		std::vector<std::shared_ptr<Scene>> m_pScenes{};
 	};
 }

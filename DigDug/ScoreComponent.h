@@ -6,27 +6,30 @@
 namespace sgam
 {
 	class TextComponent;
+}
 
-	class ScoreComponent final : public FunctionalComponent, public Observer
+namespace digdug
+{
+	class ScoreComponent final : public sgam::FunctionalComponent, public sgam::Observer
 	{
 	public:
 		virtual void Update() override;
 
-		virtual void OnNotify(const Event& event) override;
+		virtual void OnNotify(const sgam::Event& event) override;
 
-		explicit ScoreComponent(GameObject* pOwner) : FunctionalComponent(pOwner) {}
+		explicit ScoreComponent(sgam::GameObject* pOwner) : FunctionalComponent(pOwner) {}
 		~ScoreComponent() = default;
 		ScoreComponent(const ScoreComponent& other) = delete;
 		ScoreComponent(ScoreComponent&& other) = delete;
 		ScoreComponent& operator=(const ScoreComponent& other) = delete;
 		ScoreComponent& operator=(ScoreComponent&& other) = delete;
 
-		std::unique_ptr<Subject> OnScoreChanged{ std::make_unique<Subject>() };
+		std::unique_ptr<sgam::Subject> OnScoreChanged{ std::make_unique<sgam::Subject>() };
 
 	private:
 		void UpdateScore();
 
-		TextComponent* m_pTextComponent{};
+		sgam::TextComponent* m_pTextComponent{};
 
 		unsigned int m_Score{};
 

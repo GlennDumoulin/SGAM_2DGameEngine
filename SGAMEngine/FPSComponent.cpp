@@ -3,7 +3,7 @@
 #include "FPSComponent.h"
 #include "GameObject.h"
 #include "TextComponent.h"
-#include "Time.h"
+#include "SGAMTime.h"
 
 using namespace sgam;
 

@@ -12,7 +12,7 @@ namespace sgam
 	class Component
 	{
 	public:
-		virtual void RenderGUI() {};
+		virtual void RenderGUI() const {};
 
 		void Destroy() { m_IsMarkedAsDestroyed = true; }
 		const bool IsMarkedAsDestroyed() const { return m_IsMarkedAsDestroyed; }

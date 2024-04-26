@@ -2,9 +2,9 @@
 #include "FunctionalComponent.h"
 #include "Subject.h"
 
-namespace sgam
+namespace digdug
 {
-	class PlayerComponent final : public FunctionalComponent
+	class PlayerComponent final : public sgam::FunctionalComponent
 	{
 	public:
 		void KillPlayer();
@@ -12,15 +12,15 @@ namespace sgam
 
 		int GetHealth() const { return m_Health; }
 
-		explicit PlayerComponent(GameObject* pOwner) : FunctionalComponent(pOwner) {}
+		explicit PlayerComponent(sgam::GameObject* pOwner) : sgam::FunctionalComponent(pOwner) {}
 		~PlayerComponent() = default;
 		PlayerComponent(const PlayerComponent& other) = delete;
 		PlayerComponent(PlayerComponent&& other) = delete;
 		PlayerComponent& operator=(const PlayerComponent& other) = delete;
 		PlayerComponent& operator=(PlayerComponent&& other) = delete;
 
-		std::unique_ptr<Subject> OnPlayerDied{ std::make_unique<Subject>() };
-		std::unique_ptr<Subject> OnEnemyKilled{ std::make_unique<Subject>() };
+		std::unique_ptr<sgam::Subject> OnPlayerDied{ std::make_unique<sgam::Subject>() };
+		std::unique_ptr<sgam::Subject> OnEnemyKilled{ std::make_unique<sgam::Subject>() };
 
 	private:
 		int m_Health{ 3 };

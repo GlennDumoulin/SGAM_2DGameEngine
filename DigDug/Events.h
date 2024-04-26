@@ -4,19 +4,22 @@
 namespace sgam
 {
 	class GameObject;
+}
 
-	struct EntityDieEvent final : public Event
+namespace digdug
+{
+	struct EntityDieEvent final : public sgam::Event
 	{
 	public:
-		explicit EntityDieEvent(const GameObject* pEntity)
+		explicit EntityDieEvent(const sgam::GameObject* pEntity)
 			: pEntity{ pEntity }
 		{
 		}
 
-		const GameObject* pEntity;
+		const sgam::GameObject* pEntity;
 	};
 
-	struct ScoreChangedEvent final : public Event
+	struct ScoreChangedEvent final : public sgam::Event
 	{
 	public:
 		explicit ScoreChangedEvent(const unsigned int score)

@@ -6,7 +6,7 @@
 #include "GameObject.h"
 #include "Events.h"
 
-using namespace sgam;
+using namespace digdug;
 
 void ScoreComponent::Update()
 {
@@ -25,7 +25,7 @@ void ScoreComponent::UpdateScore()
 	// Check if there is a TextComponent on the owning GameObject, if not don't update
 	if (!m_pTextComponent)
 	{
-		m_pTextComponent = GetOwner()->GetComponent<TextComponent>();
+		m_pTextComponent = GetOwner()->GetComponent<sgam::TextComponent>();
 
 		if (!m_pTextComponent)
 		{
@@ -38,7 +38,7 @@ void ScoreComponent::UpdateScore()
 	m_pTextComponent->SetText(std::format("Score: {}", m_Score));
 }
 
-void ScoreComponent::OnNotify(const Event& event)
+void ScoreComponent::OnNotify(const sgam::Event& event)
 {
 	// Check if we were notified by an EntityDieEvent
 	if (auto entityDieEvent{ dynamic_cast<const EntityDieEvent*>(&event) })

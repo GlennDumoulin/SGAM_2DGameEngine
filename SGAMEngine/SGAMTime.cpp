@@ -1,4 +1,4 @@
-#include "Time.h"
+#include "SGAMTime.h"
 
 namespace sgam
 {

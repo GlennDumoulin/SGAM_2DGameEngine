@@ -1,6 +1,6 @@
 #include "RotaterComponent.h"
 #include "Transform.h"
-#include "Time.h"
+#include "SGAMTime.h"
 
 using namespace sgam;
 

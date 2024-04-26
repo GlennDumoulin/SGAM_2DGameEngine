@@ -5,17 +5,20 @@
 namespace sgam
 {
 	class TextComponent;
+}
 
-	class LivesComponent final : public FunctionalComponent, public Observer
+namespace digdug
+{
+	class LivesComponent final : public sgam::FunctionalComponent, public sgam::Observer
 	{
 	public:
 		virtual void Update() override;
 
-		virtual void OnNotify(const Event& event) override;
+		virtual void OnNotify(const sgam::Event& event) override;
 
 		void SetLives(const int lives) { m_Lives = lives; m_HasChanged = true; }
 
-		explicit LivesComponent(GameObject* pOwner) : FunctionalComponent(pOwner) {}
+		explicit LivesComponent(sgam::GameObject* pOwner) : sgam::FunctionalComponent(pOwner) {}
 		~LivesComponent() = default;
 		LivesComponent(const LivesComponent& other) = delete;
 		LivesComponent(LivesComponent&& other) = delete;
@@ -25,7 +28,7 @@ namespace sgam
 	private:
 		void UpdateLives();
 
-		TextComponent* m_pTextComponent{};
+		sgam::TextComponent* m_pTextComponent{};
 
 		int m_Lives{};
 

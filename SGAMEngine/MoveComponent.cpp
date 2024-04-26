@@ -1,5 +1,5 @@
 #include "MoveComponent.h"
-#include "Time.h"
+#include "SGAMTime.h"
 #include "Transform.h"
 
 using namespace sgam;

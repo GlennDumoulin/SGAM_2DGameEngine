@@ -7,7 +7,7 @@
 #include "GameObject.h"
 #include "Events.h"
 
-using namespace sgam;
+using namespace digdug;
 
 void LivesComponent::Update()
 {
@@ -21,7 +21,7 @@ void LivesComponent::Update()
 	m_HasChanged = false;
 }
 
-void LivesComponent::OnNotify(const Event& event)
+void LivesComponent::OnNotify(const sgam::Event& event)
 {
 	// Check if we were notified by an EntityDieEvent
 	if (auto entityDieEvent{ dynamic_cast<const EntityDieEvent*>(&event) })
@@ -44,7 +44,7 @@ void LivesComponent::UpdateLives()
 	// Check if there is a TextComponent on the owning GameObject, if not don't update
 	if (!m_pTextComponent)
 	{
-		m_pTextComponent = GetOwner()->GetComponent<TextComponent>();
+		m_pTextComponent = GetOwner()->GetComponent<sgam::TextComponent>();
 
 		if (!m_pTextComponent)
 		{
