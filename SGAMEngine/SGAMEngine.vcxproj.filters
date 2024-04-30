@@ -13,9 +13,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Manager Files">
-      <UniqueIdentifier>{dd1c14c7-b82a-4af2-bbef-fdc71f45d794}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component Files\BaseComponents">
       <UniqueIdentifier>{cb8a6470-3633-4e66-97ab-37b0c17812d9}</UniqueIdentifier>
     </Filter>
@@ -27,6 +24,15 @@
     </Filter>
     <Filter Include="Command Files\BaseCommands">
       <UniqueIdentifier>{05a63f6a-c503-49a7-8a5a-42fb57c25f13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Service Files">
+      <UniqueIdentifier>{ff10c5d1-a637-4c72-a79f-b3fac0c50877}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager Files">
+      <UniqueIdentifier>{dd1c14c7-b82a-4af2-bbef-fdc71f45d794}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Service Files\SoundServices">
+      <UniqueIdentifier>{717a6b0b-4108-48cb-a307-78db5f69f690}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +150,18 @@
     <ClInclude Include="FunctionCommand.h">
       <Filter>Command Files</Filter>
     </ClInclude>
+    <ClInclude Include="ServiceLocator.h">
+      <Filter>Service Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CyclicBuffer.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLSoundSystem.h">
+      <Filter>Service Files\SoundServices</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundSystem.h">
+      <Filter>Service Files\SoundServices</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">
@@ -235,6 +253,12 @@
     </ClCompile>
     <ClCompile Include="MoveComponent.cpp">
       <Filter>Component Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDLSoundSystem.cpp">
+      <Filter>Service Files\SoundServices</Filter>
+    </ClCompile>
+    <ClCompile Include="ServiceLocator.cpp">
+      <Filter>Service Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
