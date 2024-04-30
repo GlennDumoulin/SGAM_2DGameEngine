@@ -27,8 +27,13 @@
 #include "MoveCommand.h"
 #include "FunctionCommand.h"
 
+#include "ServiceLocator.h"
+#include "SDLSoundSystem.h"
+
 void load()
 {
+	sgam::ServiceLocator::RegisterSoundSystem(std::make_unique<sgam::SDLSoundSystem>());
+
 	auto& pScene = sgam::SceneManager::GetInstance().CreateScene("Demo");
 	const auto& resourceManager = sgam::ResourceManager::GetInstance();
 	auto& inputManager = sgam::InputManager::GetInstance();

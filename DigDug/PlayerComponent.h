@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+
 #include "FunctionalComponent.h"
 #include "Subject.h"
 
@@ -24,5 +26,7 @@ namespace digdug
 
 	private:
 		int m_Health{ 3 };
+
+		std::string m_PlayerHitSoundFile{ "PlayerHit.wav" };
 	};
 }
