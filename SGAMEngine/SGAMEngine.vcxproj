@@ -171,6 +171,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="CyclicBuffer.h" />
+    <ClInclude Include="DebugSoundSystem.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FPSComponent.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="..\3rdParty\imgui-1.90.4\implot_items.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="DebugSoundSystem.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FPSComponent.cpp" />
     <ClCompile Include="FunctionalComponent.cpp" />

@@ -29,10 +29,17 @@
 
 #include "ServiceLocator.h"
 #include "SDLSoundSystem.h"
+#include "DebugSoundSystem.h"
 
 void load()
 {
+#if _DEBUG
+	sgam::ServiceLocator::RegisterSoundSystem(
+		std::make_unique<sgam::DebugSoundSystem>(std::make_unique<sgam::SDLSoundSystem>())
+	);
+#else
 	sgam::ServiceLocator::RegisterSoundSystem(std::make_unique<sgam::SDLSoundSystem>());
+#endif
 
 	auto& pScene = sgam::SceneManager::GetInstance().CreateScene("Demo");
 	const auto& resourceManager = sgam::ResourceManager::GetInstance();

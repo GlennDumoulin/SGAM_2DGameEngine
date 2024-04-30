@@ -19,17 +19,18 @@ namespace sgam
 			// Initialize SDL_mixer
 			if (SDL_Init(SDL_INIT_AUDIO) != 0)
 			{
-				std::cout << "Failed to initialize SDL: " << SDL_GetError() << std::endl;
+				std::cout << "Failed to initialize SDL: " << SDL_GetError() << "\n";
 				return;
 			}
 
 			if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096) != 0)
 			{
-				std::cout << "Failed to open audio device: " << Mix_GetError() << std::endl;
+				std::cout << "Failed to open audio device: " << Mix_GetError() << "\n";
 				return;
 			}
 
 			// Start the sound thread
+			m_CurrentID = 0;
 			m_IsRunning = true;
 			m_Thread = std::jthread(&SDLSoundSystemImpl::RunThread, this);
 		}
@@ -68,7 +69,7 @@ namespace sgam
 			m_Condition.notify_one();
 		}
 
-		void Load(std::string& filepath)
+		void Load(const std::string& filepath)
 		{
 			// Add load event to buffer
 			{
@@ -80,7 +81,7 @@ namespace sgam
 			m_Condition.notify_one();
 		}
 
-		void LoadAndPlay(std::string& filepath, float volume)
+		void LoadAndPlay(const std::string& filepath, float volume)
 		{
 			// Add load_and_play event to buffer
 			{
@@ -143,15 +144,20 @@ namespace sgam
 					case SoundEventType::play:
 					{
 						// Check if the requested sound exists
-						if (se.id >= static_cast<uint32_t>(m_Sounds.size()))
+						const auto& soundIt{ std::find_if(m_Sounds.begin(), m_Sounds.end(),
+							[&](const SDLSound& sound) {
+								return se.id == sound.id;
+							})
+						};
+
+						if (soundIt == m_Sounds.end())
 						{
 							std::cout << "Requested id (" << se.id << ") does not exist!\n";
 							break;
 						}
 
 						// Play the sound
-						const SDLSound& sound{ m_Sounds.at(se.id) };
-						PlayEvent(sound.pSound, se.volume);
+						PlayEvent(soundIt->pSound, se.volume);
 
 						break;
 					}
@@ -236,8 +242,11 @@ namespace sgam
 			}
 
 			// Store loaded sound
-			const SDLSound sound{ static_cast<uint32_t>(m_Sounds.size()), filepath, pSound };
+			const SDLSound sound{ m_CurrentID, filepath, pSound };
 			m_Sounds.push_back(sound);
+
+			// Increment the current ID
+			++m_CurrentID;
 		}
 
 		CyclicBuffer<SoundEvent> m_SoundEvents{ 16 };
@@ -247,6 +256,7 @@ namespace sgam
 		std::mutex m_Mutex{};
 		std::condition_variable m_Condition{};
 
+		uint32_t m_CurrentID{};
 		bool m_IsRunning{};
 	};
 }
@@ -267,12 +277,12 @@ void SDLSoundSystem::Play(uint32_t id, float volume)
 	m_pImpl->Play(id, volume);
 }
 
-void SDLSoundSystem::Load(std::string& filepath)
+void SDLSoundSystem::Load(const std::string& filepath)
 {
 	m_pImpl->Load(filepath);
 }
 
-void SDLSoundSystem::LoadAndPlay(std::string& filepath, float volume)
+void SDLSoundSystem::LoadAndPlay(const std::string& filepath, float volume)
 {
 	m_pImpl->LoadAndPlay(filepath, volume);
 }

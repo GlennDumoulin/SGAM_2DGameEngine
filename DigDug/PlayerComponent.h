@@ -27,6 +27,6 @@ namespace digdug
 	private:
 		int m_Health{ 3 };
 
-		std::string m_PlayerHitSoundFile{ "PlayerHit.wav" };
+		const std::string m_PlayerHitSoundFile{ "PlayerHit.wav" };
 	};
 }

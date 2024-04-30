@@ -16,8 +16,8 @@ namespace sgam
 		SDLSoundSystem& operator=(SDLSoundSystem&& other) = delete;
 
 		virtual void Play(uint32_t id, float volume) override;
-		virtual void Load(std::string& filepath) override;
-		virtual void LoadAndPlay(std::string& filepath, float volume) override;
+		virtual void Load(const std::string& filepath) override;
+		virtual void LoadAndPlay(const std::string& filepath, float volume) override;
 
 	private:
 		class SDLSoundSystemImpl;

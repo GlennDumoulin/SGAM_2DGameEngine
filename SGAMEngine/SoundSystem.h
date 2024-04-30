@@ -14,8 +14,8 @@ namespace sgam
 		SoundSystem& operator=(SoundSystem&& other) = delete;
 
 		virtual void Play(uint32_t id, float volume) = 0;
-		virtual void Load(std::string& filepath) = 0;
-		virtual void LoadAndPlay(std::string& filepath, float volume) = 0;
+		virtual void Load(const std::string& filepath) = 0;
+		virtual void LoadAndPlay(const std::string& filepath, float volume) = 0;
 	};
 
 	class NullSoundSystem final : public SoundSystem
@@ -29,7 +29,7 @@ namespace sgam
 		NullSoundSystem& operator=(NullSoundSystem&& other) = delete;
 
 		virtual void Play(uint32_t, float) override {}
-		virtual void Load(std::string&) override {}
-		virtual void LoadAndPlay(std::string&, float) override {}
+		virtual void Load(const std::string&) override {}
+		virtual void LoadAndPlay(const std::string&, float) override {}
 	};
 }

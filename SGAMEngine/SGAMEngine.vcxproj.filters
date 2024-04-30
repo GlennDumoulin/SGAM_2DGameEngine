@@ -162,6 +162,9 @@
     <ClInclude Include="SoundSystem.h">
       <Filter>Service Files\SoundServices</Filter>
     </ClInclude>
+    <ClInclude Include="DebugSoundSystem.h">
+      <Filter>Service Files\SoundServices</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Transform.cpp">
@@ -259,6 +262,9 @@
     </ClCompile>
     <ClCompile Include="ServiceLocator.cpp">
       <Filter>Service Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugSoundSystem.cpp">
+      <Filter>Service Files\SoundServices</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
