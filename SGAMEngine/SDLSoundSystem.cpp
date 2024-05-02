@@ -125,7 +125,11 @@ namespace sgam
 				// Make thread wait for a new event to be added
 				{
 					std::unique_lock lock{ m_Mutex };
-					m_Condition.wait(lock);
+					m_Condition.wait(
+						lock, [&]() {
+							return !m_SoundEvents.IsEmpty() || !m_IsRunning;
+						}
+					);
 				}
 
 				// Handle sound events
