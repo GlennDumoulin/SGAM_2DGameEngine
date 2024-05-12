@@ -5,10 +5,6 @@
 
 using namespace sgam;
 
-TTF_Font* Font::GetFont() const {
-	return m_pFont;
-}
-
 Font::Font(const std::string& fullPath, unsigned int size) : m_pFont(nullptr)
 {
 	m_pFont = TTF_OpenFont(fullPath.c_str(), size);
@@ -21,4 +17,9 @@ Font::Font(const std::string& fullPath, unsigned int size) : m_pFont(nullptr)
 Font::~Font()
 {
 	TTF_CloseFont(m_pFont);
+}
+
+TTF_Font* Font::GetFont() const
+{
+	return m_pFont;
 }
