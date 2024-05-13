@@ -34,6 +34,12 @@
     <ClCompile Include="PookaComponent.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
+    <ClCompile Include="PookaWanderState.cpp">
+      <Filter>State Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PookaGhostState.cpp">
+      <Filter>State Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Events.h">
@@ -52,6 +58,12 @@
       <Filter>Component Files</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PookaWanderState.h">
+      <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PookaGhostState.h">
       <Filter>State Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -174,6 +174,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="PookaComponent.cpp" />
+    <ClCompile Include="PookaGhostState.cpp" />
+    <ClCompile Include="PookaWanderState.cpp" />
     <ClCompile Include="ScoreComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +183,8 @@
     <ClInclude Include="LivesComponent.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="PookaComponent.h" />
+    <ClInclude Include="PookaGhostState.h" />
+    <ClInclude Include="PookaWanderState.h" />
     <ClInclude Include="ScoreComponent.h" />
     <ClInclude Include="State.h" />
   </ItemGroup>

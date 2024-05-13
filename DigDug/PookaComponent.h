@@ -7,14 +7,14 @@ namespace digdug
 	class PookaComponent final : public sgam::FunctionalComponent
 	{
 	public:
-		virtual void Update() override;
-
-		explicit PookaComponent(sgam::GameObject* pOwner) : sgam::FunctionalComponent(pOwner) {}
+		explicit PookaComponent(sgam::GameObject* pOwner);
 		~PookaComponent() = default;
 		PookaComponent(const PookaComponent& other) = delete;
 		PookaComponent(PookaComponent&& other) = delete;
 		PookaComponent& operator=(const PookaComponent& other) = delete;
 		PookaComponent& operator=(PookaComponent&& other) = delete;
+
+		virtual void Update() override;
 
 	private:
 		void SetState(std::unique_ptr<State> newState);

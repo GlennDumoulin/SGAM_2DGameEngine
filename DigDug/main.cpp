@@ -23,6 +23,7 @@
 #include "PlayerComponent.h"
 #include "ScoreComponent.h"
 #include "LivesComponent.h"
+#include "PookaComponent.h"
 
 #include "MoveCommand.h"
 #include "FunctionCommand.h"
@@ -206,6 +207,27 @@ void load()
 	pKeyboardScoreTextComp->SetFont(pSmallFont);
 	auto pKeyboardScoreComp = pKeyboardScore->AddComponent<digdug::ScoreComponent>();
 	pKeyboardPlayerComp->OnEnemyKilled->AddObserver(pKeyboardScoreComp);
+
+	// Pooka GameObject
+	auto pPooka = pScene.CreateGameObject();
+	pPooka->GetTransform()->SetLocalPosition(400, 350);
+	pPooka->AddComponent<sgam::TextureComponent>();
+	pPooka->AddComponent<digdug::PookaComponent>();
+
+	// Pooka Text GameObject
+	auto pPookaText1 = pScene.CreateGameObject();
+	pPookaText1->GetTransform()->SetLocalPosition(250, 375);
+	pPookaText1->AddComponent<sgam::TextureComponent>();
+	auto pPookaTextComp1 = pPookaText1->AddComponent<sgam::TextComponent>();
+	pPookaTextComp1->SetFont(pSmallFont);
+	pPookaTextComp1->SetText("Pooka changes between wander and ghost state.");
+
+	auto pPookaText2 = pScene.CreateGameObject();
+	pPookaText2->GetTransform()->SetLocalPosition(300, 400);
+	pPookaText2->AddComponent<sgam::TextureComponent>();
+	auto pPookaTextComp2 = pPookaText2->AddComponent<sgam::TextComponent>();
+	pPookaTextComp2->SetFont(pSmallFont);
+	pPookaTextComp2->SetText("This happens after random time.");
 }
 
 int main(int, char* []) {

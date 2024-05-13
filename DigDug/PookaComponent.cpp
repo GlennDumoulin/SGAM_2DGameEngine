@@ -1,6 +1,14 @@
 #include "PookaComponent.h"
+#include "PookaWanderState.h"
 
 using namespace digdug;
+
+PookaComponent::PookaComponent(sgam::GameObject* pOwner)
+	: sgam::FunctionalComponent(pOwner)
+{
+	// Set the initial state
+	SetState(std::make_unique<PookaWanderState>(GetOwner()));
+}
 
 void PookaComponent::Update()
 {
