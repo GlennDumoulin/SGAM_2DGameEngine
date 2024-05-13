@@ -16,6 +16,9 @@
     <Filter Include="Event Files">
       <UniqueIdentifier>{07c37465-f4e3-41ad-9d8a-57956b726330}</UniqueIdentifier>
     </Filter>
+    <Filter Include="State Files">
+      <UniqueIdentifier>{1e7c11ba-bdce-4910-88db-aaa772468ec2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -26,6 +29,9 @@
       <Filter>Component Files</Filter>
     </ClCompile>
     <ClCompile Include="PlayerComponent.cpp">
+      <Filter>Component Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PookaComponent.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,6 +47,12 @@
     </ClInclude>
     <ClInclude Include="PlayerComponent.h">
       <Filter>Component Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PookaComponent.h">
+      <Filter>Component Files</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>State Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
