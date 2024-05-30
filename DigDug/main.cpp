@@ -32,6 +32,8 @@
 #include "SDLSoundSystem.h"
 #include "DebugSoundSystem.h"
 
+#include "BoxCollider.h"
+
 void load()
 {
 #if _DEBUG
@@ -152,6 +154,8 @@ void load()
 	auto pKeyboardMoveComp = pKeyboard->AddComponent<sgam::MoveComponent>();
 	pKeyboardMoveComp->SetMovementSpeed(50.f);
 	auto pKeyboardPlayerComp = pKeyboard->AddComponent<digdug::PlayerComponent>();
+	auto pKeyboardCollider = pKeyboard->AddCollider();
+	pKeyboardCollider->OnCollisionEnter->AddObserver(pKeyboardPlayerComp);
 
 	// Keyboard Move Commands
 	inputManager.BindKeyboardCommand(
@@ -213,6 +217,7 @@ void load()
 	pPooka->GetTransform()->SetLocalPosition(400, 350);
 	pPooka->AddComponent<sgam::TextureComponent>();
 	pPooka->AddComponent<digdug::PookaComponent>();
+	pPooka->AddCollider();
 
 	// Pooka Text GameObject
 	auto pPookaText1 = pScene.CreateGameObject();

@@ -16,6 +16,9 @@ void PhysicsManager::AddCollider(BoxCollider* pCollider)
 
 void PhysicsManager::RemoveCollider(BoxCollider* pCollider)
 {
+	// Check if the list is empty
+	if (m_Colliders.empty()) return;
+
 	// Remove the collider
 	m_Colliders.erase(std::remove(m_Colliders.begin(), m_Colliders.end(), pCollider), m_Colliders.end());
 }
@@ -77,21 +80,29 @@ bool PhysicsManager::CheckCollision(CollisionInfo& collisionInfo) const
 {
 	// Get collider shapes
 	const Rect shape{ collisionInfo.pCollider->GetShape() };
+	const glm::vec2 shapePos{ collisionInfo.pCollider->GetTransform()->GetWorldPosition() };
 	const Rect otherShape{ collisionInfo.pOther->GetShape() };
+	const glm::vec2 otherShapePos{ collisionInfo.pOther->GetTransform()->GetWorldPosition() };
 
 	// Check horizontal overlap
-	const float sLeft{ shape.topLeft.x };
-	const float sRight{ shape.topLeft.x + shape.size.x };
-	const float oLeft{ otherShape.topLeft.x };
-	const float oRight{ otherShape.topLeft.x + otherShape.size.x };
-	if (sRight - oLeft < m_CollisionEpsilon && oRight - sLeft < m_CollisionEpsilon) return false;
+	const float sLeft{ shapePos.x + shape.topLeft.x };
+	const float sRight{ shapePos.x + shape.topLeft.x + shape.size.x };
+	const float oLeft{ otherShapePos.x + otherShape.topLeft.x };
+	const float oRight{ otherShapePos.x + otherShape.topLeft.x + otherShape.size.x };
+
+	//if (sRight < oLeft + m_CollisionEpsilon || oRight < sLeft + m_CollisionEpsilon) return false;
+	const float horizontalOverlap{ std::min(sRight, oRight) - std::max(sLeft, oLeft) };
+	if (horizontalOverlap < m_CollisionEpsilon) return false;
 
 	// Check vertical overlap
-	const float sTop{ shape.topLeft.y };
-	const float sBottom{ shape.topLeft.y + shape.size.y };
-	const float oTop{ otherShape.topLeft.y };
-	const float oBottom{ otherShape.topLeft.y + otherShape.size.y };
-	if (sBottom - oTop < m_CollisionEpsilon && oBottom - sTop < m_CollisionEpsilon) return false;
+	const float sTop{ shapePos.y + shape.topLeft.y };
+	const float sBottom{ shapePos.y + shape.topLeft.y + shape.size.y };
+	const float oTop{ otherShapePos.y + otherShape.topLeft.y };
+	const float oBottom{ otherShapePos.y + otherShape.topLeft.y + otherShape.size.y };
+
+	//if (sBottom < oTop + m_CollisionEpsilon || oBottom < sTop + m_CollisionEpsilon) return false;
+	const float verticalOverlap{ std::min(sBottom, oBottom) - std::max(sTop, oTop) };
+	if (verticalOverlap < m_CollisionEpsilon) return false;
 
 	// If both directions are overlapping, we have a collision
 	return true;

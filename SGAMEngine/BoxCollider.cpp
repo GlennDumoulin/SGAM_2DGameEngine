@@ -1,12 +1,18 @@
+#include <stdexcept>
 #include <vector>
 
 #include "BoxCollider.h"
+#include "GameObject.h"
+#include "TextureComponent.h"
 
 using namespace sgam;
 
-BoxCollider::BoxCollider(GameObject* pOwner)
+BoxCollider::BoxCollider(GameObject* pOwner, const glm::vec2& topLeft, const glm::ivec2& size)
 	: Component(pOwner)
 {
+	SetTopLeft(topLeft);
+	SetSize(size == glm::ivec2{ 0, 0 } ? GetDefaultSize() : size);
+
 	// Add the collider
 	PhysicsManager::GetInstance().AddCollider(this);
 }
@@ -15,6 +21,24 @@ BoxCollider::~BoxCollider()
 {
 	// Remove the collider
 	PhysicsManager::GetInstance().RemoveCollider(this);
+}
+
+void BoxCollider::SetSize(const glm::ivec2& size)
+{
+	if (size.x <= 0 || size.y <= 0)
+		throw std::runtime_error("The collider size you are trying to set is invalid!");
+
+	m_ColliderShape.size = size;
+}
+
+const glm::ivec2 BoxCollider::GetDefaultSize() const
+{
+	TextureComponent* textureComp{ GetOwner()->GetComponent<TextureComponent>() };
+
+	if (!textureComp)
+		throw std::runtime_error("Can't set default collider size without TextureComponent!");
+
+	return textureComp->GetTextureSize();
 }
 
 void BoxCollider::Hit(const CollisionInfo& collisionInfo)

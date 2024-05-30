@@ -1,4 +1,6 @@
 #pragma once
+#include <glm/glm.hpp>
+
 #include "RenderableComponent.h"
 
 namespace sgam
@@ -11,6 +13,8 @@ namespace sgam
 		virtual void Render() const override;
 
 		void SetTexture(std::shared_ptr<Texture2D> pTexture) { m_pTexture = pTexture; }
+
+		const glm::ivec2 GetTextureSize() const;
 
 		explicit TextureComponent(GameObject* pOwner) : RenderableComponent(pOwner) {}
 		~TextureComponent() = default;

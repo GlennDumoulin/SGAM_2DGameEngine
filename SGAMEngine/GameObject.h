@@ -6,6 +6,7 @@
 
 #include "FunctionalComponent.h"
 #include "RenderableComponent.h"
+#include "BoxCollider.h"
 #include "Transform.h"
 
 namespace sgam
@@ -56,6 +57,10 @@ namespace sgam
 		bool HasComponent() const;
 		Transform* GetTransform() const { return m_pTransform.get(); }
 
+		BoxCollider* AddCollider(const glm::vec2& topLeft = { FLT_MIN, FLT_MIN }, const glm::ivec2& size = { 0, 0 });
+		bool RemoveCollider(BoxCollider* pCollider);
+		void ClearColliders() { m_pBoxColliders.clear(); }
+
 		explicit GameObject(Scene* pScene, const std::string& name = "", GameObject* pParent = nullptr);
 		~GameObject() = default;
 		GameObject(const GameObject& other) = delete;
@@ -76,6 +81,7 @@ namespace sgam
 
 		std::vector<std::unique_ptr<FunctionalComponent>> m_pFunctionalComponents{};
 		std::vector<std::unique_ptr<RenderableComponent>> m_pRenderableComponents{};
+		std::vector<std::unique_ptr<BoxCollider>> m_pBoxColliders{};
 		std::unique_ptr<Transform> m_pTransform{};
 
 		bool m_IsMarkedAsDestroyed{ false };

@@ -8,11 +8,13 @@
 #include <iostream>
 
 #include "Engine.h"
-#include "InputManager.h"
-#include "SceneManager.h"
 #include "Renderer.h"
-#include "ResourceManager.h"
 #include "SGAMTime.h"
+
+#include "ResourceManager.h"
+#include "SceneManager.h"
+#include "InputManager.h"
+#include "PhysicsManager.h"
 
 SDL_Window* g_pWindow{};
 
@@ -74,6 +76,7 @@ sgam::Engine::Engine(const std::string &dataPath)
 
 sgam::Engine::~Engine()
 {
+	PhysicsManager::GetInstance().ClearColliders();
 	InputManager::GetInstance().UnbindAll();
 	Renderer::GetInstance().Destroy();
 	SDL_DestroyWindow(g_pWindow);
@@ -90,6 +93,7 @@ void sgam::Engine::Run(const std::function<void()>& load)
 	auto& sceneManager = SceneManager::GetInstance();
 	auto& input = InputManager::GetInstance();
 	auto& time = Time::GetInstance();
+	auto& physics = PhysicsManager::GetInstance();
 
 	// Initialize gameloop variables
 	bool doContinue = true;
@@ -105,6 +109,8 @@ void sgam::Engine::Run(const std::function<void()>& load)
 		nrOfSubsteps = 0;
 
 		doContinue = input.ProcessInput();
+
+		physics.Update();
 
 		// Check if we still need to catch up with fixed updates and haven't handled to many this frame
 		while (unhandledTime >= time.FixedTimeStep() && nrOfSubsteps < time.MaxSubsteps())

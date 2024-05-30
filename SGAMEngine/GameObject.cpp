@@ -102,6 +102,15 @@ void GameObject::Cleanup()
 		}
 	});
 
+	// Remove all BoxColliders that were marked to be destroyed
+	std::for_each(m_pBoxColliders.begin(), m_pBoxColliders.end(), [&](const auto& pComponent)
+	{
+		if (pComponent->IsMarkedAsDestroyed())
+		{
+			m_pBoxColliders.erase(std::remove(m_pBoxColliders.begin(), m_pBoxColliders.end(), pComponent), m_pBoxColliders.end());
+		}
+	});
+
 	for (const auto& pChild : m_pChildren)
 	{
 		if (pChild->IsEnabled()) pChild->Cleanup();
@@ -224,4 +233,32 @@ GameObject* GameObject::CreateGameObject(const std::string& name)
 
 	// Return raw pointer
 	return pObjectPtr;
+}
+
+BoxCollider* GameObject::AddCollider(const glm::vec2& topLeft, const glm::ivec2& size)
+{
+	// Make a new Collider to add
+	// Set the current GameObject as the owner
+	// Set collider shape
+	auto pCollider{ std::make_unique<BoxCollider>(this, topLeft, size) };
+	
+	// Get the raw pointer to the Collider
+	BoxCollider* pColliderPtr{ pCollider.get() };
+
+	// Add the Collider to GameObject's Colliders
+	m_pBoxColliders.push_back(std::move(pCollider));
+
+	return pColliderPtr;
+}
+
+bool sgam::GameObject::RemoveCollider(BoxCollider* pCollider)
+{
+	if (pCollider && pCollider->GetOwner() == this)
+	{
+		pCollider->Destroy();
+
+		return true;
+	}
+
+	return false;
 }

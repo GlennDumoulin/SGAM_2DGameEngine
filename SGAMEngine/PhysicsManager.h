@@ -13,6 +13,7 @@ namespace sgam
 	public:
 		void AddCollider(BoxCollider* pCollider);
 		void RemoveCollider(BoxCollider* pCollider);
+		void ClearColliders() { m_Colliders.clear(); }
 
 		void Update();
 

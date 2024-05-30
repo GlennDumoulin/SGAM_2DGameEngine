@@ -3,16 +3,19 @@
 
 #include "FunctionalComponent.h"
 #include "Subject.h"
+#include "Observer.h"
 
 namespace digdug
 {
-	class PlayerComponent final : public sgam::FunctionalComponent
+	class PlayerComponent final : public sgam::FunctionalComponent, public sgam::Observer
 	{
 	public:
 		void KillPlayer();
 		void KillEnemy() const;
 
 		int GetHealth() const { return m_Health; }
+
+		virtual void OnNotify(const sgam::Event& event) override;
 
 		explicit PlayerComponent(sgam::GameObject* pOwner) : sgam::FunctionalComponent(pOwner) {}
 		~PlayerComponent() = default;
