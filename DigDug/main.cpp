@@ -34,7 +34,7 @@
 
 #include "BoxCollider.h"
 
-void load()
+void Load(sgam::Scene* pScene)
 {
 #if _DEBUG
 	sgam::ServiceLocator::RegisterSoundSystem(
@@ -44,25 +44,24 @@ void load()
 	sgam::ServiceLocator::RegisterSoundSystem(std::make_unique<sgam::SDLSoundSystem>());
 #endif
 
-	auto& pScene = sgam::SceneManager::GetInstance().CreateScene("Demo");
 	const auto& resourceManager = sgam::ResourceManager::GetInstance();
 	auto& inputManager = sgam::InputManager::GetInstance();
 
 	// Background GameObject
-	auto pBackground = pScene.CreateGameObject();
+	auto pBackground = pScene->CreateGameObject();
 	auto pBackgroundTextureComp = pBackground->AddComponent<sgam::TextureComponent>();
 	const auto& pBackgroundTexture = resourceManager.LoadTexture("background.tga");
 	pBackgroundTextureComp->SetTexture(pBackgroundTexture);
 
 	// Logo GameObject
-	auto pLogo = pScene.CreateGameObject();
+	auto pLogo = pScene->CreateGameObject();
 	pLogo->GetTransform()->SetLocalPosition(216, 180);
 	auto pLogoTextureComp = pLogo->AddComponent<sgam::TextureComponent>();
 	const auto& pLogoTexture = resourceManager.LoadTexture("logo.tga");
 	pLogoTextureComp->SetTexture(pLogoTexture);
 
 	// Text GameObject
-	auto pText = pScene.CreateGameObject();
+	auto pText = pScene->CreateGameObject();
 	pText->GetTransform()->SetLocalPosition(80, 20);
 	pText->AddComponent<sgam::TextureComponent>();
 	auto pTextComp = pText->AddComponent<sgam::TextComponent>();
@@ -71,7 +70,7 @@ void load()
 	pTextComp->SetText("Programming 4 Assignment");
 
 	// FPS GameObject
-	auto pFPS = pScene.CreateGameObject();
+	auto pFPS = pScene->CreateGameObject();
 	pFPS->GetTransform()->SetLocalPosition(10, 10);
 	pFPS->AddComponent<sgam::TextureComponent>();
 	auto pFPSTextComp = pFPS->AddComponent<sgam::TextComponent>();
@@ -80,7 +79,7 @@ void load()
 	pFPS->AddComponent<sgam::FPSComponent>();
 
 	// Controller GameObject
-	auto pController = pScene.CreateGameObject();
+	auto pController = pScene->CreateGameObject();
 	pController->GetTransform()->SetLocalPosition(100, 300);
 	auto pCharacter1TextureComp = pController->AddComponent<sgam::TextureComponent>();
 	const auto& pCharacter1Texture = resourceManager.LoadTexture("Character1.png");
@@ -118,7 +117,7 @@ void load()
 	);
 
 	// Controller Controls GameObject
-	auto pControllerControls = pScene.CreateGameObject();
+	auto pControllerControls = pScene->CreateGameObject();
 	pControllerControls->GetTransform()->SetLocalPosition(10, 120);
 	pControllerControls->AddComponent<sgam::TextureComponent>();
 	auto pControllerControlsTextComp = pControllerControls->AddComponent<sgam::TextComponent>();
@@ -127,7 +126,7 @@ void load()
 	pControllerControlsTextComp->SetText("Use the D-Pad to move DigDug, Left shoulder to inflict damage, Right shoulder to increase score");
 
 	// Controller Lives GameObject
-	auto pControllerLives = pScene.CreateGameObject();
+	auto pControllerLives = pScene->CreateGameObject();
 	pControllerLives->GetTransform()->SetLocalPosition(10, 170);
 	pControllerLives->AddComponent<sgam::TextureComponent>();
 	auto pControllerLivesTextComp = pControllerLives->AddComponent<sgam::TextComponent>();
@@ -137,7 +136,7 @@ void load()
 	pControllerPlayerComp->OnPlayerDied->AddObserver(pControllerLivesComp);
 
 	// Controller Score GameObject
-	auto pControllerScore = pScene.CreateGameObject();
+	auto pControllerScore = pScene->CreateGameObject();
 	pControllerScore->GetTransform()->SetLocalPosition(10, 190);
 	pControllerScore->AddComponent<sgam::TextureComponent>();
 	auto pControllerScoreTextComp = pControllerScore->AddComponent<sgam::TextComponent>();
@@ -146,7 +145,7 @@ void load()
 	pControllerPlayerComp->OnEnemyKilled->AddObserver(pControllerScoreComp);
 
 	// Keyboard GameObject
-	auto pKeyboard = pScene.CreateGameObject();
+	auto pKeyboard = pScene->CreateGameObject();
 	pKeyboard->GetTransform()->SetLocalPosition(100, 400);
 	auto pCharacter2TextureComp = pKeyboard->AddComponent<sgam::TextureComponent>();
 	const auto& pCharacter2Texture = resourceManager.LoadTexture("Character2.png");
@@ -186,7 +185,7 @@ void load()
 	);
 
 	// Keyboard Controls GameObject
-	auto pKeyboardControls = pScene.CreateGameObject();
+	auto pKeyboardControls = pScene->CreateGameObject();
 	pKeyboardControls->GetTransform()->SetLocalPosition(10, 140);
 	pKeyboardControls->AddComponent<sgam::TextureComponent>();
 	auto pKeyboardControlsTextComp = pKeyboardControls->AddComponent<sgam::TextComponent>();
@@ -194,7 +193,7 @@ void load()
 	pKeyboardControlsTextComp->SetText("Use WASD to move Fygar, Left shift to inflict damage, Space to increase score");
 
 	// Keyboard Lives GameObject
-	auto pKeyboardLives = pScene.CreateGameObject();
+	auto pKeyboardLives = pScene->CreateGameObject();
 	pKeyboardLives->GetTransform()->SetLocalPosition(10, 210);
 	pKeyboardLives->AddComponent<sgam::TextureComponent>();
 	auto pKeyboardLivesTextComp = pKeyboardLives->AddComponent<sgam::TextComponent>();
@@ -204,7 +203,7 @@ void load()
 	pKeyboardPlayerComp->OnPlayerDied->AddObserver(pKeyboardLivesComp);
 
 	// Keyboard Score GameObject
-	auto pKeyboardScore = pScene.CreateGameObject();
+	auto pKeyboardScore = pScene->CreateGameObject();
 	pKeyboardScore->GetTransform()->SetLocalPosition(10, 230);
 	pKeyboardScore->AddComponent<sgam::TextureComponent>();
 	auto pKeyboardScoreTextComp = pKeyboardScore->AddComponent<sgam::TextComponent>();
@@ -213,21 +212,21 @@ void load()
 	pKeyboardPlayerComp->OnEnemyKilled->AddObserver(pKeyboardScoreComp);
 
 	// Pooka GameObject
-	auto pPooka = pScene.CreateGameObject();
+	auto pPooka = pScene->CreateGameObject();
 	pPooka->GetTransform()->SetLocalPosition(400, 350);
 	pPooka->AddComponent<sgam::TextureComponent>();
 	pPooka->AddComponent<digdug::PookaComponent>();
 	pPooka->AddCollider();
 
 	// Pooka Text GameObject
-	auto pPookaText1 = pScene.CreateGameObject();
+	auto pPookaText1 = pScene->CreateGameObject();
 	pPookaText1->GetTransform()->SetLocalPosition(250, 375);
 	pPookaText1->AddComponent<sgam::TextureComponent>();
 	auto pPookaTextComp1 = pPookaText1->AddComponent<sgam::TextComponent>();
 	pPookaTextComp1->SetFont(pSmallFont);
 	pPookaTextComp1->SetText("Pooka changes between wander and ghost state.");
 
-	auto pPookaText2 = pScene.CreateGameObject();
+	auto pPookaText2 = pScene->CreateGameObject();
 	pPookaText2->GetTransform()->SetLocalPosition(300, 400);
 	pPookaText2->AddComponent<sgam::TextureComponent>();
 	auto pPookaTextComp2 = pPookaText2->AddComponent<sgam::TextComponent>();
@@ -235,8 +234,14 @@ void load()
 	pPookaTextComp2->SetText("This happens after random time.");
 }
 
-int main(int, char* []) {
+int main(int, char* [])
+{
 	sgam::Engine engine("../Data/");
-	engine.Run(load);
+
+	sgam::SceneManager::GetInstance().CreateScene(Load, "DemoScene");
+	sgam::SceneManager::GetInstance().SetNextScene("DemoScene");
+
+	engine.Run();
+
 	return 0;
 }

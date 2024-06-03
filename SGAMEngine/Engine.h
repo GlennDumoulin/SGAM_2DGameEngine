@@ -1,13 +1,12 @@
 #pragma once
 #include <string>
-#include <functional>
 
 namespace sgam
 {
 	class Engine
 	{
 	public:
-		void Run(const std::function<void()>& load);
+		void Run();
 
 		explicit Engine(const std::string& dataPath);
 		~Engine();

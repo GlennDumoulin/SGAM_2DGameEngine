@@ -84,10 +84,8 @@ sgam::Engine::~Engine()
 	SDL_Quit();
 }
 
-void sgam::Engine::Run(const std::function<void()>& load)
+void sgam::Engine::Run()
 {
-	load();
-
 	// Get the Singleton instances
 	auto& renderer = Renderer::GetInstance();
 	auto& sceneManager = SceneManager::GetInstance();
@@ -110,6 +108,10 @@ void sgam::Engine::Run(const std::function<void()>& load)
 
 		doContinue = input.ProcessInput();
 
+		// Handle loading next scene, if needed
+		sceneManager.LoadNextScene();
+
+		// Handle updating the physics
 		physics.Update();
 
 		// Check if we still need to catch up with fixed updates and haven't handled to many this frame

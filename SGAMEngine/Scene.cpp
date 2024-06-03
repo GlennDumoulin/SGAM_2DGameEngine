@@ -4,7 +4,10 @@
 
 using namespace sgam;
 
-unsigned int Scene::m_IdCounter = 0;
+Scene::~Scene()
+{
+	RemoveAll();
+}
 
 GameObject* Scene::CreateGameObject(const std::string& name)
 {
@@ -48,9 +51,18 @@ std::unique_ptr<GameObject> Scene::Remove(GameObject* pObject)
 	return nullptr;
 }
 
-void Scene::RemoveAll()
+bool Scene::Load()
 {
-	m_pObjects.clear();
+	if (!m_pObjects.empty())
+	{
+		std::cout << "Scene was already loaded!\n";
+		return false;
+	}
+
+	// Execute the load function
+	m_SceneLoader(this);
+
+	return true;
 }
 
 void Scene::FixedUpdate()
