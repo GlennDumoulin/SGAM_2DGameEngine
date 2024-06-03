@@ -19,6 +19,12 @@
     <Filter Include="State Files">
       <UniqueIdentifier>{1e7c11ba-bdce-4910-88db-aaa772468ec2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene Files">
+      <UniqueIdentifier>{f84a22b8-3263-43f4-9e66-1b4d7956069a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene Files\SceneLoaders">
+      <UniqueIdentifier>{ca48447c-79c7-47e4-a70a-47befd88c768}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -39,6 +45,9 @@
     </ClCompile>
     <ClCompile Include="PookaGhostState.cpp">
       <Filter>State Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoScene.cpp">
+      <Filter>Scene Files\SceneLoaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,6 +74,9 @@
     </ClInclude>
     <ClInclude Include="PookaGhostState.h">
       <Filter>State Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoScene.h">
+      <Filter>Scene Files\SceneLoaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

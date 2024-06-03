@@ -170,6 +170,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="LivesComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
@@ -179,6 +180,7 @@
     <ClCompile Include="ScoreComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DemoScene.h" />
     <ClInclude Include="Events.h" />
     <ClInclude Include="LivesComponent.h" />
     <ClInclude Include="PlayerComponent.h" />
