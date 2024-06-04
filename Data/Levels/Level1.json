@@ -1,0 +1,17 @@
+{
+	"layerTextures": [
+		"Tiles/WorldTile0.png",
+		"Tiles/WorldTile1.png",
+		"Tiles/WorldTile2.png",
+		"Tiles/WorldTile3.png"
+	],
+	"tunnels": [
+		{ "x": 2, "y": 2 },
+		{ "x": 2, "y": 3 },
+		{ "x": 2, "y": 4 },
+		{ "x": 4, "y": 5 },
+		{ "x": 5, "y": 5 },
+		{ "x": 6, "y": 5 },
+		{ "x": 7, "y": 5 }
+	]
+}

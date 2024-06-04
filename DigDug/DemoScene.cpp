@@ -25,6 +25,8 @@
 
 #include "BoxCollider.h"
 
+#include "LevelFileLoader.h"
+
 void digdug::DemoScene::Load(sgam::Scene* pScene)
 {
 #if _DEBUG
@@ -223,4 +225,8 @@ void digdug::DemoScene::Load(sgam::Scene* pScene)
 	auto pPookaTextComp2 = pPookaText2->AddComponent<sgam::TextComponent>();
 	pPookaTextComp2->SetFont(pSmallFont);
 	pPookaTextComp2->SetText("This happens after random time.");
+
+	auto pGrid = pScene->CreateGameObject();
+	pGrid->GetTransform()->SetWorldPosition(0, 100);
+	digdug::LevelFileLoader::Load("Levels/Level1.json", pGrid);
 }

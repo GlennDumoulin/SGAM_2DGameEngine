@@ -99,7 +99,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)SGAMEngine;$(SolutionDir)3rdParty\imgui-1.90.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SGAMEngine;$(SolutionDir)3rdParty\imgui-1.90.4;$(SolutionDir)3rdParty\nlohmann_json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -118,7 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)SGAMEngine;$(SolutionDir)3rdParty\imgui-1.90.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SGAMEngine;$(SolutionDir)3rdParty\imgui-1.90.4;$(SolutionDir)3rdParty\nlohmann_json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -137,7 +137,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)SGAMEngine;$(SolutionDir)3rdParty\imgui-1.90.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SGAMEngine;$(SolutionDir)3rdParty\imgui-1.90.4;$(SolutionDir)3rdParty\nlohmann_json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -156,7 +156,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)SGAMEngine;$(SolutionDir)3rdParty\imgui-1.90.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SGAMEngine;$(SolutionDir)3rdParty\imgui-1.90.4;$(SolutionDir)3rdParty\nlohmann_json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -171,6 +171,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DemoScene.cpp" />
+    <ClCompile Include="LevelFileLoader.cpp" />
     <ClCompile Include="LivesComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
@@ -182,6 +183,7 @@
   <ItemGroup>
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="Events.h" />
+    <ClInclude Include="LevelFileLoader.h" />
     <ClInclude Include="LivesComponent.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="PookaComponent.h" />

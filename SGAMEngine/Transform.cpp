@@ -51,7 +51,16 @@ void Transform::UpdateWorldPosition()
 
 void Transform::SetWorldPosition(const glm::vec2& pos)
 {
-	const glm::vec2 newLocalPos{ pos - GetParent()->GetTransform()->GetWorldPosition() };
+	const auto& pParent{ GetParent() };
+
+	// Check if we have a parent, if not world pos == local pos
+	if (!pParent)
+	{
+		SetLocalPosition(pos);
+		return;
+	}
+
+	const glm::vec2 newLocalPos{ pos - pParent->GetTransform()->GetWorldPosition() };
 
 	// Don't update if nothing changed
 	if (m_LocalPosition == newLocalPos) return;

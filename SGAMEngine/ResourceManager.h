@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <memory>
+#include <fstream>
 
 #include "Singleton.h"
 
@@ -13,8 +14,10 @@ namespace sgam
 	{
 	public:
 		void Init(const std::string& data);
-		std::shared_ptr<Texture2D> LoadTexture(const std::string& file) const;
-		std::shared_ptr<Font> LoadFont(const std::string& file, unsigned int size) const;
+
+		std::shared_ptr<Texture2D> LoadTexture(const std::string& filename) const;
+		std::shared_ptr<Font> LoadFont(const std::string& filename, unsigned int size) const;
+		std::ifstream LoadFile(const std::string& filename) const;
 
 	private:
 		friend class Singleton<ResourceManager>;
@@ -25,6 +28,6 @@ namespace sgam
 		ResourceManager& operator=(const ResourceManager& other) = delete;
 		ResourceManager& operator=(ResourceManager&& other) = delete;
 
-		std::string m_dataPath{};
+		std::string m_DataPath{};
 	};
 }
