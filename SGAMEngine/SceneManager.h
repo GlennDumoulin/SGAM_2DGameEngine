@@ -15,6 +15,7 @@ namespace sgam
 		Scene* CreateScene(const std::function<void(Scene*)>& sceneLoader, const std::string& name = "defaultScene");
 
 		bool SetNextScene(const std::string& sceneName = "defaultScene");
+		void ReloadScene() { m_pNextScene = m_pActiveScene; }
 		void LoadNextScene();
 
 		void FixedUpdate();

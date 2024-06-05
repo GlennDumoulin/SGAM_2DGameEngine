@@ -90,9 +90,7 @@ bool PhysicsManager::CheckCollision(CollisionInfo& collisionInfo) const
 	const float oLeft{ otherShapePos.x + otherShape.topLeft.x };
 	const float oRight{ otherShapePos.x + otherShape.topLeft.x + otherShape.size.x };
 
-	//if (sRight < oLeft + m_CollisionEpsilon || oRight < sLeft + m_CollisionEpsilon) return false;
-	const float horizontalOverlap{ std::min(sRight, oRight) - std::max(sLeft, oLeft) };
-	if (horizontalOverlap < m_CollisionEpsilon) return false;
+	if (sRight < oLeft + m_CollisionEpsilon || oRight < sLeft + m_CollisionEpsilon) return false;
 
 	// Check vertical overlap
 	const float sTop{ shapePos.y + shape.topLeft.y };
@@ -100,9 +98,7 @@ bool PhysicsManager::CheckCollision(CollisionInfo& collisionInfo) const
 	const float oTop{ otherShapePos.y + otherShape.topLeft.y };
 	const float oBottom{ otherShapePos.y + otherShape.topLeft.y + otherShape.size.y };
 
-	//if (sBottom < oTop + m_CollisionEpsilon || oBottom < sTop + m_CollisionEpsilon) return false;
-	const float verticalOverlap{ std::min(sBottom, oBottom) - std::max(sTop, oTop) };
-	if (verticalOverlap < m_CollisionEpsilon) return false;
+	if (sBottom < oTop + m_CollisionEpsilon || oBottom < sTop + m_CollisionEpsilon) return false;
 
 	// If both directions are overlapping, we have a collision
 	return true;

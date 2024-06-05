@@ -25,10 +25,9 @@
 
 #include "BoxCollider.h"
 
-#include "LevelFileLoader.h"
-
 void digdug::DemoScene::Load(sgam::Scene* pScene)
 {
+	// Register SoundSystem
 #if _DEBUG
 	sgam::ServiceLocator::RegisterSoundSystem(
 		std::make_unique<sgam::DebugSoundSystem>(std::make_unique<sgam::SDLSoundSystem>())
@@ -37,6 +36,7 @@ void digdug::DemoScene::Load(sgam::Scene* pScene)
 	sgam::ServiceLocator::RegisterSoundSystem(std::make_unique<sgam::SDLSoundSystem>());
 #endif
 
+	// Cache Singleton instances
 	const auto& resourceManager = sgam::ResourceManager::GetInstance();
 	auto& inputManager = sgam::InputManager::GetInstance();
 
@@ -58,7 +58,7 @@ void digdug::DemoScene::Load(sgam::Scene* pScene)
 	pText->GetTransform()->SetLocalPosition(80, 20);
 	pText->AddComponent<sgam::TextureComponent>();
 	auto pTextComp = pText->AddComponent<sgam::TextComponent>();
-	const auto& pLargeFont = resourceManager.LoadFont("Lingua.otf", 36);
+	const auto& pLargeFont = resourceManager.LoadFont("Fonts/Lingua.otf", 36);
 	pTextComp->SetFont(pLargeFont);
 	pTextComp->SetText("Programming 4 Assignment");
 
@@ -67,7 +67,7 @@ void digdug::DemoScene::Load(sgam::Scene* pScene)
 	pFPS->GetTransform()->SetLocalPosition(10, 10);
 	pFPS->AddComponent<sgam::TextureComponent>();
 	auto pFPSTextComp = pFPS->AddComponent<sgam::TextComponent>();
-	const auto& pMediumFont = resourceManager.LoadFont("Lingua.otf", 18);
+	const auto& pMediumFont = resourceManager.LoadFont("Fonts/Lingua.otf", 18);
 	pFPSTextComp->SetFont(pMediumFont);
 	pFPS->AddComponent<sgam::FPSComponent>();
 
@@ -114,7 +114,7 @@ void digdug::DemoScene::Load(sgam::Scene* pScene)
 	pControllerControls->GetTransform()->SetLocalPosition(10, 120);
 	pControllerControls->AddComponent<sgam::TextureComponent>();
 	auto pControllerControlsTextComp = pControllerControls->AddComponent<sgam::TextComponent>();
-	const auto& pSmallFont = resourceManager.LoadFont("Lingua.otf", 14);
+	const auto& pSmallFont = resourceManager.LoadFont("Fonts/Lingua.otf", 14);
 	pControllerControlsTextComp->SetFont(pSmallFont);
 	pControllerControlsTextComp->SetText("Use the D-Pad to move DigDug, Left shoulder to inflict damage, Right shoulder to increase score");
 
@@ -225,8 +225,4 @@ void digdug::DemoScene::Load(sgam::Scene* pScene)
 	auto pPookaTextComp2 = pPookaText2->AddComponent<sgam::TextComponent>();
 	pPookaTextComp2->SetFont(pSmallFont);
 	pPookaTextComp2->SetText("This happens after random time.");
-
-	auto pGrid = pScene->CreateGameObject();
-	pGrid->GetTransform()->SetWorldPosition(0, 100);
-	digdug::LevelFileLoader::Load("Levels/Level1.json", pGrid);
 }

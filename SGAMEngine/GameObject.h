@@ -28,6 +28,7 @@ namespace sgam
 		void Cleanup();
 
 		void SetEnabled(bool isEnabled) { m_IsEnabled = isEnabled; }
+		void ToggleEnabled() { m_IsEnabled = !m_IsEnabled; }
 		bool IsEnabled() const { return m_IsEnabled; }
 
 		const std::string& GetName() const { return m_Name; }

@@ -1,4 +1,5 @@
 #pragma once
+#include <SDL.h>
 #include <vector>
 #include <unordered_set>
 #include <memory>

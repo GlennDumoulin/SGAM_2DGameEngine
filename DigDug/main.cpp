@@ -9,6 +9,7 @@
 
 #include "SceneManager.h"
 #include "DemoScene.h"
+#include "GameScene.h"
 
 void ScenesSetup()
 {
@@ -16,9 +17,10 @@ void ScenesSetup()
 
 	// Create the needed scenes
 	sceneManager.CreateScene(digdug::DemoScene::Load, "DemoScene");
+	sceneManager.CreateScene(digdug::GameScene::Load, "GameScene");
 
 	// Set the initial scene
-	sceneManager.SetNextScene("DemoScene");
+	sceneManager.SetNextScene("GameScene");
 }
 
 int main(int, char* [])

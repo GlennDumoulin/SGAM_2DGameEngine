@@ -25,6 +25,9 @@
     <Filter Include="Loader Files\SceneLoaders">
       <UniqueIdentifier>{ca48447c-79c7-47e4-a70a-47befd88c768}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager Files">
+      <UniqueIdentifier>{88495a15-f914-4977-b283-1131beb3ae11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -51,6 +54,12 @@
     </ClCompile>
     <ClCompile Include="LevelFileLoader.cpp">
       <Filter>Loader Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Loader Files\SceneLoaders</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Manager Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +92,12 @@
     </ClInclude>
     <ClInclude Include="LevelFileLoader.h">
       <Filter>Loader Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Loader Files\SceneLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Manager Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

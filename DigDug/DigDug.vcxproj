@@ -109,6 +109,9 @@
       <AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SGAMEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)Data\*.*" "$(SolutionDir)$(Platform)\Data" /R /Y /I /E</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -130,6 +133,9 @@
       <AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SGAMEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)Data\*.*" "$(SolutionDir)$(Platform)\Data" /R /Y /I /E</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -147,6 +153,9 @@
       <AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SGAMEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)Data\*.*" "$(SolutionDir)$(Platform)\Data" /R /Y /I /E</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -168,9 +177,14 @@
       <AdditionalLibraryDirectories>$(OutputPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SGAMEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)Data\*.*" "$(SolutionDir)$(Platform)\Data" /R /Y /I /E</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DemoScene.cpp" />
+    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="LevelFileLoader.cpp" />
     <ClCompile Include="LivesComponent.cpp" />
     <ClCompile Include="main.cpp" />
@@ -183,6 +197,8 @@
   <ItemGroup>
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="Events.h" />
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="LevelFileLoader.h" />
     <ClInclude Include="LivesComponent.h" />
     <ClInclude Include="PlayerComponent.h" />
