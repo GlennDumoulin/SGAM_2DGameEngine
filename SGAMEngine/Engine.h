@@ -8,7 +8,7 @@ namespace sgam
 	public:
 		void Run();
 
-		explicit Engine(const std::string& dataPath);
+		explicit Engine(const std::string& dataPath, int windowWidth, int windowHeight);
 		~Engine();
 		Engine(const Engine& other) = delete;
 		Engine(Engine&& other) = delete;

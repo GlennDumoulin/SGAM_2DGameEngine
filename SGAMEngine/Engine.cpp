@@ -46,8 +46,9 @@ void PrintSDLVersion()
 		version.major, version.minor, version.patch);
 }
 
-sgam::Engine::Engine(const std::string &dataPath)
+sgam::Engine::Engine(const std::string &dataPath, int windowWidth, int windowHeight)
 {
+	// Initialize SDL
 	PrintSDLVersion();
 	
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) 
@@ -55,12 +56,13 @@ sgam::Engine::Engine(const std::string &dataPath)
 		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
 	}
 
+	// Initialize Window
 	g_pWindow = SDL_CreateWindow(
 		"Programming 4 assignment",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		640,
-		480,
+		windowWidth,
+		windowHeight,
 		SDL_WINDOW_OPENGL
 	);
 	if (g_pWindow == nullptr) 

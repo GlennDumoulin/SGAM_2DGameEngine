@@ -25,7 +25,7 @@ void ScenesSetup()
 
 int main(int, char* [])
 {
-	sgam::Engine engine{ "../Data/" };
+	sgam::Engine engine{ "../Data/", 480, 580 };
 
 	ScenesSetup();
 
