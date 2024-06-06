@@ -22,11 +22,16 @@ int GetOpenGLDriverIndex()
 	return openglIndex;
 }
 
-void sgam::Renderer::Init(SDL_Window* window)
+void sgam::Renderer::Init(SDL_Window* pWindow)
 {
-	m_window = window;
-	m_renderer = SDL_CreateRenderer(window, GetOpenGLDriverIndex(), SDL_RENDERER_ACCELERATED);
-	if (m_renderer == nullptr) 
+	m_pWindow = pWindow;
+	if (!m_pWindow)
+	{
+		throw std::runtime_error("Invalid SDL_Window pointer!");
+	}
+
+	m_pRenderer = SDL_CreateRenderer(m_pWindow, GetOpenGLDriverIndex(), SDL_RENDERER_ACCELERATED);
+	if (!m_pRenderer)
 	{
 		throw std::runtime_error(std::string("SDL_CreateRenderer Error: ") + SDL_GetError());
 	}
@@ -34,19 +39,19 @@ void sgam::Renderer::Init(SDL_Window* window)
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImPlot::CreateContext();
-	ImGui_ImplSDL2_InitForOpenGL(window, SDL_GL_GetCurrentContext());
+	ImGui_ImplSDL2_InitForOpenGL(m_pWindow, SDL_GL_GetCurrentContext());
 	ImGui_ImplOpenGL3_Init();
 }
 
 void sgam::Renderer::Render() const
 {
 	const auto& color = GetBackgroundColor();
-	SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
-	SDL_RenderClear(m_renderer);
+	SDL_SetRenderDrawColor(m_pRenderer, color.r, color.g, color.b, color.a);
+	SDL_RenderClear(m_pRenderer);
 
 	SceneManager::GetInstance().Render();
 
-	SDL_RenderFlush(m_renderer);
+	SDL_RenderFlush(m_pRenderer);
 
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame();
@@ -57,7 +62,7 @@ void sgam::Renderer::Render() const
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	
-	SDL_RenderPresent(m_renderer);
+	SDL_RenderPresent(m_pRenderer);
 }
 
 void sgam::Renderer::Destroy()
@@ -67,10 +72,10 @@ void sgam::Renderer::Destroy()
 	ImPlot::DestroyContext();
 	ImGui::DestroyContext();
 
-	if (m_renderer != nullptr)
+	if (m_pRenderer != nullptr)
 	{
-		SDL_DestroyRenderer(m_renderer);
-		m_renderer = nullptr;
+		SDL_DestroyRenderer(m_pRenderer);
+		m_pRenderer = nullptr;
 	}
 }
 
@@ -80,7 +85,8 @@ void sgam::Renderer::RenderTexture(const Texture2D& texture, const float x, cons
 	dst.x = static_cast<int>(x);
 	dst.y = static_cast<int>(y);
 	SDL_QueryTexture(texture.GetSDLTexture(), nullptr, nullptr, &dst.w, &dst.h);
-	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
+
+	RenderTexture(texture, nullptr, &dst);
 }
 
 void sgam::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y, const float width, const float height) const
@@ -90,7 +96,11 @@ void sgam::Renderer::RenderTexture(const Texture2D& texture, const float x, cons
 	dst.y = static_cast<int>(y);
 	dst.w = static_cast<int>(width);
 	dst.h = static_cast<int>(height);
-	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
+
+	RenderTexture(texture, nullptr, &dst);
 }
 
-SDL_Renderer* sgam::Renderer::GetSDLRenderer() const { return m_renderer; }
+void sgam::Renderer::RenderTexture(const Texture2D& texture, const SDL_Rect* srcRect, const SDL_Rect* dstRect) const
+{
+	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), srcRect, dstRect);
+}

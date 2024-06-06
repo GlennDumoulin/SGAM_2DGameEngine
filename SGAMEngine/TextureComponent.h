@@ -1,4 +1,5 @@
 #pragma once
+#include <SDL.h>
 #include <glm/glm.hpp>
 
 #include "RenderableComponent.h"
@@ -12,7 +13,10 @@ namespace sgam
 	public:
 		virtual void Render() const override;
 
-		void SetTexture(std::shared_ptr<Texture2D> pTexture) { m_pTexture = pTexture; }
+		void SetTexture(std::shared_ptr<Texture2D> pTexture);
+
+		void SetDstOffset(const glm::vec2 offset);
+		void SetDstSize(int width, int height);
 
 		const glm::ivec2 GetTextureSize() const;
 
@@ -25,5 +29,10 @@ namespace sgam
 
 	private:
 		std::shared_ptr<Texture2D> m_pTexture{};
+
+		SDL_Rect m_SrcRect{};
+
+		glm::ivec2 m_DstOffset{};
+		glm::ivec2 m_DstSize{};
 	};
 }
