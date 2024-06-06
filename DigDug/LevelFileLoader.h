@@ -5,6 +5,7 @@
 #include <json.hpp>
 
 #include "GameObject.h"
+#include "GridComponent.h"
 #include "Texture2D.h"
 
 namespace digdug
@@ -18,10 +19,10 @@ namespace digdug
 			std::vector<glm::ivec2> tunnels;
 		};
 
-		static void Load(const std::string& filename, sgam::GameObject* pObject);
+		static void Load(const std::string& filename, GridComponent* pGrid);
 
     private:
-        static void CreateGridTile(sgam::GameObject* pObject, const glm::vec2& tilePos, std::shared_ptr<sgam::Texture2D> pTexture);
+        static void CreateGridTile(sgam::GameObject* pObject, const glm::vec2& tilePos, std::shared_ptr<sgam::Texture2D> pTexture, int dstSize);
 	};
 }
 

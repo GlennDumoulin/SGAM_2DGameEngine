@@ -185,6 +185,7 @@
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="GridComponent.cpp" />
     <ClCompile Include="LevelFileLoader.cpp" />
     <ClCompile Include="LivesComponent.cpp" />
     <ClCompile Include="main.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="Events.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="GridComponent.h" />
     <ClInclude Include="LevelFileLoader.h" />
     <ClInclude Include="LivesComponent.h" />
     <ClInclude Include="PlayerComponent.h" />

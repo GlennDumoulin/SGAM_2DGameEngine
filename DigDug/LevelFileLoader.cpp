@@ -8,14 +8,16 @@
 #include "Transform.h"
 #include "TextureComponent.h"
 
-void digdug::LevelFileLoader::Load(const std::string& filename, sgam::GameObject* pObject)
+void digdug::LevelFileLoader::Load(const std::string& filename, GridComponent* pGrid)
 {
-	// Check filename & pObject
-	if (filename.empty() || !pObject)
+	// Check filename & pGrid
+	if (filename.empty() || !pGrid)
 	{
 		std::cout << "Failed to load level file! Invalid filename or GameObject!\n";
 		return;
 	}
+
+	auto pGridObject{ pGrid->GetOwner() };
 
 	const auto& resourceManager{ sgam::ResourceManager::GetInstance() };
 
@@ -39,9 +41,9 @@ void digdug::LevelFileLoader::Load(const std::string& filename, sgam::GameObject
 		return;
 	}
 
-	//TEMP --> make grid component
-	const int gridSize{ 12 };
-	const int tileSize{ 16 };
+	// Get grid sizes
+	const int gridSize{ pGrid->GetGridSize() };
+	const int tileSize{ pGrid->GetTileSize() };
 
 	// Create the grid tiles
 	glm::ivec2 gridTileIdx{};
@@ -64,12 +66,12 @@ void digdug::LevelFileLoader::Load(const std::string& filename, sgam::GameObject
 				y * tileSize
 			};
 			const int layerIdx{ y / 3 };
-			CreateGridTile(pObject, tilePos, layerTextures.at(layerIdx));
+			CreateGridTile(pGridObject, tilePos, layerTextures.at(layerIdx), tileSize);
 		}
 	}
 }
 
-void digdug::LevelFileLoader::CreateGridTile(sgam::GameObject* pObject, const glm::vec2& tilePos, std::shared_ptr<sgam::Texture2D> pTexture)
+void digdug::LevelFileLoader::CreateGridTile(sgam::GameObject* pObject, const glm::vec2& tilePos, std::shared_ptr<sgam::Texture2D> pTexture, int dstSize)
 {
 	// Create tile GameObject
 	auto pTile{ pObject->CreateGameObject() };
@@ -80,4 +82,5 @@ void digdug::LevelFileLoader::CreateGridTile(sgam::GameObject* pObject, const gl
 	// Set tile Texture
 	auto pTileTexture{ pTile->AddComponent<sgam::TextureComponent>() };
 	pTileTexture->SetTexture(pTexture);
+	pTileTexture->SetDstSize(dstSize, dstSize);
 }

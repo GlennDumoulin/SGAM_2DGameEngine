@@ -61,6 +61,9 @@
     <ClCompile Include="GameManager.cpp">
       <Filter>Manager Files</Filter>
     </ClCompile>
+    <ClCompile Include="GridComponent.cpp">
+      <Filter>Component Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Events.h">
@@ -98,6 +101,9 @@
     </ClInclude>
     <ClInclude Include="GameManager.h">
       <Filter>Manager Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GridComponent.h">
+      <Filter>Component Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

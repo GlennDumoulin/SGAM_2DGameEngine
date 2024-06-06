@@ -9,6 +9,7 @@
 
 #include "GameObject.h"
 #include "Transform.h"
+#include "GridComponent.h"
 #include "TextComponent.h"
 #include "TextureComponent.h"
 #include "FPSComponent.h"
@@ -40,8 +41,10 @@ void digdug::GameScene::Load(sgam::Scene* pScene)
 	// Grid GameObject
 	auto pGrid = pScene->CreateGameObject();
 	pGrid->GetTransform()->SetWorldPosition(0, 100);
+	auto pGridComp = pGrid->AddComponent<digdug::GridComponent>();
+	pGridComp->Init(12, 40);
 
-	digdug::LevelFileLoader::Load(std::format("Levels/Level{}.json", gameManager.GetCurrentLevel()), pGrid);
+	digdug::LevelFileLoader::Load(std::format("Levels/Level{}.json", gameManager.GetCurrentLevel()), pGridComp);
 
 	// Skip Level Command
 	inputManager.BindKeyboardCommand(
