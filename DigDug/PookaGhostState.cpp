@@ -26,7 +26,7 @@ std::unique_ptr<State> PookaGhostState::Update()
 void PookaGhostState::OnEnter()
 {
 	// Set the ghost texture
-	const auto& pTexture{ sgam::ResourceManager::GetInstance().LoadTexture("PookaGhost.png") };
+	const auto& pTexture{ sgam::ResourceManager::GetInstance().LoadTexture("Pooka/Ghost.png") };
 	m_pOwner->GetComponent<sgam::TextureComponent>()->SetTexture(pTexture);
 
 	// Get a random ghost time
@@ -36,4 +36,3 @@ void PookaGhostState::OnEnter()
 void PookaGhostState::OnExit()
 {
 }
-

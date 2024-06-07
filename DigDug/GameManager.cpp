@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdexcept>
 
 #include "GameManager.h"
 #include "SceneManager.h"
@@ -21,4 +22,14 @@ void GameManager::LevelCompleted()
 
 	//TEMP --> commands should be bound/unbound by components that need them
 	sgam::InputManager::GetInstance().UnbindAll();
+}
+
+void GameManager::SetNrOfPlayers(int nrOfPlayers)
+{
+	if (nrOfPlayers <= 0)
+	{
+		throw std::runtime_error("Can't set nrOfPlayers to 0 or less!");
+	}
+
+	m_NrOfPlayers = nrOfPlayers;
 }

@@ -1,14 +1,23 @@
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <format>
 #include <memory>
 #include <algorithm>
 
-#include "LevelFileLoader.h"
 #include "ResourceManager.h"
+#include "GameManager.h"
+
+#include "LevelFileLoader.h"
 #include "Transform.h"
 #include "TextureComponent.h"
+#include "PlayerComponent.h"
+#include "PookaComponent.h"
+#include "FygarComponent.h"
 
-void digdug::LevelFileLoader::Load(const std::string& filename, GridComponent* pGrid)
+using namespace digdug;
+
+void LevelFileLoader::Load(const std::string& filename, GridComponent* pGrid)
 {
 	// Check filename & pGrid
 	if (filename.empty() || !pGrid)
@@ -69,9 +78,61 @@ void digdug::LevelFileLoader::Load(const std::string& filename, GridComponent* p
 			CreateGridTile(pGridObject, tilePos, layerTextures.at(layerIdx), tileSize);
 		}
 	}
+
+	// Create the entities
+	int currentPlayerIdx{ 0 };
+	int nrOfEnemies{ 0 };
+	for (const auto& entity : info.entities)
+	{
+		// Check if the entity's tile is a tunnel
+		if (std::find(info.tunnels.begin(), info.tunnels.end(), entity.pos) == info.tunnels.end())
+			continue;
+
+		// Get the entity's position
+		const glm::vec2 tilePos{
+				entity.pos.x * tileSize,
+				entity.pos.y * tileSize
+		};
+
+		switch (entity.type)
+		{
+		case EntityType::Player:
+		{
+			CreatePlayer(pGridObject, tilePos, tileSize, currentPlayerIdx);
+			++currentPlayerIdx;
+			break;
+		}
+		case EntityType::Pooka:
+		{
+			CreatePooka(pGridObject, tilePos, tileSize);
+			++nrOfEnemies;
+			break;
+		}
+		case EntityType::Fygar:
+		{
+			CreateFygar(pGridObject, tilePos, tileSize);
+			++nrOfEnemies;
+			break;
+		}
+		default:
+			break;
+		}
+	}
+
+	// Check if we have the correct amount of players
+	if (currentPlayerIdx != GameManager::GetInstance().GetNrOfPlayers())
+	{
+		throw std::runtime_error("Invalid amount of player entities given!");
+	}
+
+	// Check if we have at least 1 enemy
+	if (nrOfEnemies == 0)
+	{
+		throw std::runtime_error("Invalid amount of enemy entities given!");
+	}
 }
 
-void digdug::LevelFileLoader::CreateGridTile(sgam::GameObject* pObject, const glm::vec2& tilePos, std::shared_ptr<sgam::Texture2D> pTexture, const int& dstSize)
+void LevelFileLoader::CreateGridTile(sgam::GameObject* pObject, const glm::vec2& tilePos, std::shared_ptr<sgam::Texture2D> pTexture, const int& dstSize)
 {
 	// Create tile GameObject
 	auto pTile{ pObject->CreateGameObject() };
@@ -87,4 +148,80 @@ void digdug::LevelFileLoader::CreateGridTile(sgam::GameObject* pObject, const gl
 	// Set tile Texture
 	auto pTileTexture{ pTile->AddComponent<sgam::TextureComponent>() };
 	pTileTexture->SetTexture(pTexture);
+}
+
+void LevelFileLoader::CreatePlayer(sgam::GameObject* pObject, const glm::vec2& tilePos, const int& dstSize, const int& playerIdx)
+{
+	// Create player GameObject
+	auto pPlayer{ pObject->CreateGameObject() };
+
+	// Set player Position
+	pPlayer->GetTransform()->SetLocalPosition(tilePos);
+
+	// Get temporary player texture
+	std::string texturePath{ std::format("DigDug{}/Walking.png", playerIdx)};
+	const auto& pTexture{ sgam::ResourceManager::GetInstance().LoadTexture(texturePath) };
+
+	// Set player Scale
+	const glm::vec2 texSize{ pTexture->GetSize() };
+	const glm::vec2 tileScale{ static_cast<float>(dstSize) / texSize };
+	pPlayer->GetTransform()->SetLocalScale(tileScale);
+
+	// Add player Components
+	pPlayer->AddComponent<sgam::TextureComponent>();
+	auto pPlayerComp{ pPlayer->AddComponent<digdug::PlayerComponent>() };
+	pPlayerComp->Init(playerIdx);
+}
+
+void LevelFileLoader::CreatePooka(sgam::GameObject* pObject, const glm::vec2& tilePos, const int& dstSize)
+{
+	// Create pooka GameObject
+	auto pPooka{ pObject->CreateGameObject() };
+
+	// Set pooka Position
+	pPooka->GetTransform()->SetLocalPosition(tilePos);
+
+	// Get temporary pooka texture
+	std::string texturePath{ "Pooka/Default.png" };
+	const auto& pTexture{ sgam::ResourceManager::GetInstance().LoadTexture(texturePath) };
+
+	// Set pooka Scale
+	const glm::vec2 texSize{ pTexture->GetSize() };
+	const glm::vec2 tileScale{ static_cast<float>(dstSize) / texSize };
+	pPooka->GetTransform()->SetLocalScale(tileScale);
+
+	// Add pooka Components
+	pPooka->AddComponent<sgam::TextureComponent>();
+	pPooka->AddComponent<digdug::PookaComponent>();
+}
+
+void LevelFileLoader::CreateFygar(sgam::GameObject* pObject, const glm::vec2& tilePos, const int& dstSize)
+{
+	// Create fygar GameObject
+	auto pFygar{ pObject->CreateGameObject() };
+
+	// Set fygar Position
+	pFygar->GetTransform()->SetLocalPosition(tilePos);
+
+	// Get temporary fygar texture
+	std::string texturePath{ "Fygar/Default.png" };
+	const auto& pTexture{ sgam::ResourceManager::GetInstance().LoadTexture(texturePath) };
+
+	// Set fygar Scale
+	const glm::vec2 texSize{ pTexture->GetSize() };
+	const glm::vec2 tileScale{ static_cast<float>(dstSize) / texSize };
+	pFygar->GetTransform()->SetLocalScale(tileScale);
+
+	// Add fygar Components
+	pFygar->AddComponent<sgam::TextureComponent>();
+	pFygar->AddComponent<digdug::FygarComponent>();
+}
+
+LevelFileLoader::EntityType LevelFileLoader::ConvertToEntityType(const std::string& type)
+{
+	if (type == "player") return EntityType::Player;
+	if (type == "pooka") return EntityType::Pooka;
+	if (type == "fygar") return EntityType::Fygar;
+
+	return EntityType::Invalid;
 }

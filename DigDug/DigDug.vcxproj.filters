@@ -73,6 +73,9 @@
     <ClCompile Include="PookaWanderState.cpp">
       <Filter>State Files\PookaStates</Filter>
     </ClCompile>
+    <ClCompile Include="FygarComponent.cpp">
+      <Filter>Component Files\EntityComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Events.h">
@@ -113,6 +116,9 @@
     </ClInclude>
     <ClInclude Include="PookaWanderState.h">
       <Filter>State Files\PookaStates</Filter>
+    </ClInclude>
+    <ClInclude Include="FygarComponent.h">
+      <Filter>Component Files\EntityComponents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -10,10 +10,13 @@ namespace digdug
 	class PlayerComponent final : public sgam::FunctionalComponent, public sgam::Observer
 	{
 	public:
+		void Init(int playerIdx);
+
 		void KillPlayer();
 		void KillEnemy() const;
 
 		int GetHealth() const { return m_Health; }
+		int GetPlayerIdx() const { return m_PlayerIdx; }
 
 		virtual void OnNotify(const sgam::Event& event) override;
 
@@ -28,8 +31,15 @@ namespace digdug
 		std::unique_ptr<sgam::Subject> OnEnemyKilled{ std::make_unique<sgam::Subject>() };
 
 	private:
+		void BindInputs() const;
+		void BindKeyboardInputs() const;
+		void BindControllerInputs() const;
+
+		int m_PlayerIdx{ -1 };
+		int m_ControllerIdx{ -1 };
+
 		int m_Health{ 3 };
 
-		const std::string m_PlayerHitSoundFile{ "PlayerHit.wav" };
+		const std::string m_PlayerHitSoundFile{ "Sounds/PlayerHit.wav" };
 	};
 }

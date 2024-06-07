@@ -26,7 +26,7 @@ std::unique_ptr<State> PookaWanderState::Update()
 void PookaWanderState::OnEnter()
 {
 	// Set the wander texture
-	const auto& pTexture{ sgam::ResourceManager::GetInstance().LoadTexture("PookaWandering.png") };
+	const auto& pTexture{ sgam::ResourceManager::GetInstance().LoadTexture("Pooka/Default.png") };
 	m_pOwner->GetComponent<sgam::TextureComponent>()->SetTexture(pTexture);
 
 	// Get a random wander time

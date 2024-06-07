@@ -10,6 +10,9 @@ namespace digdug
 
 		const int GetCurrentLevel() const { return m_CurrentLevel; }
 
+		const int GetNrOfPlayers() const { return m_NrOfPlayers; }
+		void SetNrOfPlayers(int nrOfPlayers);
+
 	private:
 		friend class Singleton<GameManager>;
 		explicit GameManager() = default;
@@ -21,5 +24,7 @@ namespace digdug
 
 		const int m_NrOfLevels{ 3 };
 		int m_CurrentLevel{ 1 };
+
+		int m_NrOfPlayers{ 1 };
 	};
 }
