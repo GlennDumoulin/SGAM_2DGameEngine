@@ -1,17 +1,30 @@
 {
 	"layerTextures": [
-		"Tiles/WorldTile0.png",
-		"Tiles/WorldTile1.png",
-		"Tiles/WorldTile2.png",
-		"Tiles/WorldTile3.png"
+		"Tiles/DirtTile0.png",
+		"Tiles/DirtTile1.png",
+		"Tiles/DirtTile2.png",
+		"Tiles/DirtTile3.png"
 	],
 	"tunnels": [
 		{ "x": 2, "y": 2 },
 		{ "x": 2, "y": 3 },
 		{ "x": 2, "y": 4 },
-		{ "x": 4, "y": 5 },
-		{ "x": 5, "y": 5 },
-		{ "x": 6, "y": 5 },
-		{ "x": 7, "y": 5 }
+		{ "x": 4, "y": 6 },
+		{ "x": 5, "y": 6 },
+		{ "x": 6, "y": 6 },
+		{ "x": 7, "y": 6 },
+		{ "x": 6, "y": 3 },
+		{ "x": 7, "y": 3 },
+		{ "x": 8, "y": 3 },
+		{ "x": 3, "y": 10 },
+		{ "x": 4, "y": 10 },
+		{ "x": 5, "y": 10 },
+		{ "x": 6, "y": 10 }
+	],
+	"entities": [
+		{ "type": "player", "x": 5, "y": 6 },
+		{ "type": "pooka", "x": 2, "y": 3 },
+		{ "type": "pooka", "x": 4, "y": 10 },
+		{ "type": "fygar", "x": 7, "y": 3 }
 	]
 }

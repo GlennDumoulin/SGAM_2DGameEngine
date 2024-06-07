@@ -28,27 +28,18 @@
     <Filter Include="Manager Files">
       <UniqueIdentifier>{88495a15-f914-4977-b283-1131beb3ae11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component Files\EntityComponents">
+      <UniqueIdentifier>{c5b60a5f-ff1e-4a8b-9c9d-07cc495da9de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component Files\HUDComponents">
+      <UniqueIdentifier>{406c4111-d1fa-466b-a46e-875b575f1d57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State Files\PookaStates">
+      <UniqueIdentifier>{1fede1d5-5e1f-4685-a20e-6b29c66f1f61}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="LivesComponent.cpp">
-      <Filter>Component Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ScoreComponent.cpp">
-      <Filter>Component Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerComponent.cpp">
-      <Filter>Component Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PookaComponent.cpp">
-      <Filter>Component Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PookaWanderState.cpp">
-      <Filter>State Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PookaGhostState.cpp">
-      <Filter>State Files</Filter>
-    </ClCompile>
     <ClCompile Include="DemoScene.cpp">
       <Filter>Loader Files\SceneLoaders</Filter>
     </ClCompile>
@@ -64,30 +55,30 @@
     <ClCompile Include="GridComponent.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerComponent.cpp">
+      <Filter>Component Files\EntityComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="PookaComponent.cpp">
+      <Filter>Component Files\EntityComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="LivesComponent.cpp">
+      <Filter>Component Files\HUDComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreComponent.cpp">
+      <Filter>Component Files\HUDComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="PookaGhostState.cpp">
+      <Filter>State Files\PookaStates</Filter>
+    </ClCompile>
+    <ClCompile Include="PookaWanderState.cpp">
+      <Filter>State Files\PookaStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Events.h">
       <Filter>Event Files</Filter>
     </ClInclude>
-    <ClInclude Include="LivesComponent.h">
-      <Filter>Component Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ScoreComponent.h">
-      <Filter>Component Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerComponent.h">
-      <Filter>Component Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PookaComponent.h">
-      <Filter>Component Files</Filter>
-    </ClInclude>
     <ClInclude Include="State.h">
-      <Filter>State Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PookaWanderState.h">
-      <Filter>State Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PookaGhostState.h">
       <Filter>State Files</Filter>
     </ClInclude>
     <ClInclude Include="DemoScene.h">
@@ -104,6 +95,24 @@
     </ClInclude>
     <ClInclude Include="GridComponent.h">
       <Filter>Component Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerComponent.h">
+      <Filter>Component Files\EntityComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="PookaComponent.h">
+      <Filter>Component Files\EntityComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="LivesComponent.h">
+      <Filter>Component Files\HUDComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreComponent.h">
+      <Filter>Component Files\HUDComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="PookaGhostState.h">
+      <Filter>State Files\PookaStates</Filter>
+    </ClInclude>
+    <ClInclude Include="PookaWanderState.h">
+      <Filter>State Files\PookaStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

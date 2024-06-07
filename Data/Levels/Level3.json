@@ -1,9 +1,9 @@
 {
 	"layerTextures": [
-		"Tiles/DirtTile0.png",
-		"Tiles/DirtTile1.png",
-		"Tiles/DirtTile2.png",
-		"Tiles/DirtTile3.png"
+		"Tiles/CityTile0.png",
+		"Tiles/CityTile1.png",
+		"Tiles/CityTile2.png",
+		"Tiles/CityTile3.png"
 	],
 	"tunnels": [
 		{ "x": 2, "y": 1 },
@@ -21,13 +21,17 @@
 		{ "x": 5, "y": 9 },
 		{ "x": 6, "y": 9 },
 		{ "x": 7, "y": 9 },
-		{ "x": 8, "y": 9 }
+		{ "x": 8, "y": 9 },
+		{ "x": 3, "y": 8 },
+		{ "x": 3, "y": 9 },
+		{ "x": 3, "y": 10 }
 	],
 	"entities": [
 		{ "type": "player", "x": 5, "y": 6 },
-		{ "type": "pooka", "x": 3, "y": 1 },
 		{ "type": "pooka", "x": 5, "y": 1 },
 		{ "type": "pooka", "x": 9, "y": 4 },
+		{ "type": "pooka", "x": 3, "y": 9 },
+		{ "type": "fygar", "x": 3, "y": 1 },
 		{ "type": "fygar", "x": 6, "y": 9 }
 	]
 }

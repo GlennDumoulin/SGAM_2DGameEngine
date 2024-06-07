@@ -19,7 +19,7 @@ namespace digdug
 		GameManager& operator=(const GameManager& other) = delete;
 		GameManager& operator=(GameManager&& other) = delete;
 
-		const int m_NrOfLevels{ 2 };
+		const int m_NrOfLevels{ 3 };
 		int m_CurrentLevel{ 1 };
 	};
 }
