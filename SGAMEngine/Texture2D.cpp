@@ -21,7 +21,7 @@ SDL_Texture* Texture2D::GetSDLTexture() const
 
 glm::ivec2 Texture2D::GetSize() const
 {
-	SDL_Rect dst{};
-	SDL_QueryTexture(GetSDLTexture(), nullptr, nullptr, &dst.w, &dst.h);
-	return glm::ivec2{ dst.w,dst.h };
+	glm::ivec2 size{};
+	SDL_QueryTexture(GetSDLTexture(), nullptr, nullptr, &size.x, &size.y);
+	return size;
 }

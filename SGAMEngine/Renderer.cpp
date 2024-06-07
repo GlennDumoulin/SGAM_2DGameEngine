@@ -104,3 +104,15 @@ void sgam::Renderer::RenderTexture(const Texture2D& texture, const SDL_Rect* src
 {
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), srcRect, dstRect);
 }
+
+void sgam::Renderer::RenderTexture(const Texture2D& texture, const SDL_Rect* srcRect, const SDL_Rect* dstRect, float rotation) const
+{
+	const SDL_RendererFlip flipState{ dstRect->w < 0.0f ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE };
+
+	SDL_RenderCopyEx(
+		GetSDLRenderer(), texture.GetSDLTexture(),
+		srcRect, dstRect,
+		rotation, nullptr,
+		flipState
+	);
+}

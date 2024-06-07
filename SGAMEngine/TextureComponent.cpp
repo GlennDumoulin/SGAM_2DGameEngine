@@ -13,24 +13,28 @@ void TextureComponent::Render() const
 	if (!m_pTexture) return;
 
 	const auto& pos{ GetTransform()->GetWorldPosition() };
+	const auto& rot{ GetTransform()->GetWorldRotation() };
+	const auto& scale{ GetTransform()->GetWorldScale() };
+
+	SDL_Rect dst{};
+	dst.x = static_cast<int>(pos.x) + m_DstOffset.x;
+	dst.y = static_cast<int>(pos.y) + m_DstOffset.y;
 
 	// Check if we have a valid destination rect
 	if (m_DstSize.x == 0 || m_DstSize.y == 0)
 	{
-		// If not, render with default dstRect
-		Renderer::GetInstance().RenderTexture(*m_pTexture, pos.x, pos.y);
+		// If not, render with srcRect
+		dst.w = static_cast<int>(m_SrcRect.w * scale.x);
+		dst.h = static_cast<int>(m_SrcRect.h * scale.y);
 	}
 	else
 	{
 		// If so, render with dstRect
-		SDL_Rect dst{};
-		dst.x = static_cast<int>(pos.x) + m_DstOffset.x;
-		dst.y = static_cast<int>(pos.y) + m_DstOffset.y;
-		dst.w = m_DstSize.x;
-		dst.h = m_DstSize.y;
-
-		Renderer::GetInstance().RenderTexture(*m_pTexture, &m_SrcRect, &dst);
+		dst.w = static_cast<int>(m_DstSize.x * scale.x);
+		dst.h = static_cast<int>(m_DstSize.y * scale.y);
 	}
+
+	Renderer::GetInstance().RenderTexture(*m_pTexture, &m_SrcRect, &dst, rot);
 }
 
 void sgam::TextureComponent::SetTexture(std::shared_ptr<Texture2D> pTexture)

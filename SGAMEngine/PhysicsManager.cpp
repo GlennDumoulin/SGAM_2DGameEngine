@@ -81,22 +81,24 @@ bool PhysicsManager::CheckCollision(CollisionInfo& collisionInfo) const
 	// Get collider shapes
 	const Rect shape{ collisionInfo.pCollider->GetShape() };
 	const glm::vec2 shapePos{ collisionInfo.pCollider->GetTransform()->GetWorldPosition() };
+	const glm::vec2 shapeScale{ collisionInfo.pCollider->GetTransform()->GetWorldScale() };
 	const Rect otherShape{ collisionInfo.pOther->GetShape() };
 	const glm::vec2 otherShapePos{ collisionInfo.pOther->GetTransform()->GetWorldPosition() };
+	const glm::vec2 otherShapeScale{ collisionInfo.pOther->GetTransform()->GetWorldScale() };
 
 	// Check horizontal overlap
 	const float sLeft{ shapePos.x + shape.topLeft.x };
-	const float sRight{ shapePos.x + shape.topLeft.x + shape.size.x };
+	const float sRight{ shapePos.x + shape.topLeft.x + (shape.size.x * shapeScale.x) };
 	const float oLeft{ otherShapePos.x + otherShape.topLeft.x };
-	const float oRight{ otherShapePos.x + otherShape.topLeft.x + otherShape.size.x };
+	const float oRight{ otherShapePos.x + otherShape.topLeft.x + (otherShape.size.x * otherShapeScale.x) };
 
 	if (sRight < oLeft + m_CollisionEpsilon || oRight < sLeft + m_CollisionEpsilon) return false;
 
 	// Check vertical overlap
 	const float sTop{ shapePos.y + shape.topLeft.y };
-	const float sBottom{ shapePos.y + shape.topLeft.y + shape.size.y };
+	const float sBottom{ shapePos.y + shape.topLeft.y + (shape.size.y * shapeScale.y) };
 	const float oTop{ otherShapePos.y + otherShape.topLeft.y };
-	const float oBottom{ otherShapePos.y + otherShape.topLeft.y + otherShape.size.y };
+	const float oBottom{ otherShapePos.y + otherShape.topLeft.y + (otherShape.size.y * otherShapeScale.y) };
 
 	if (sBottom < oTop + m_CollisionEpsilon || oBottom < sTop + m_CollisionEpsilon) return false;
 

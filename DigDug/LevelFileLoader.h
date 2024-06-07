@@ -22,7 +22,7 @@ namespace digdug
 		static void Load(const std::string& filename, GridComponent* pGrid);
 
     private:
-        static void CreateGridTile(sgam::GameObject* pObject, const glm::vec2& tilePos, std::shared_ptr<sgam::Texture2D> pTexture, int dstSize);
+        static void CreateGridTile(sgam::GameObject* pObject, const glm::vec2& tilePos, std::shared_ptr<sgam::Texture2D> pTexture, const int& dstSize);
 	};
 }
 

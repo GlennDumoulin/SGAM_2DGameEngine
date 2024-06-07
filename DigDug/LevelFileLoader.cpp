@@ -71,7 +71,7 @@ void digdug::LevelFileLoader::Load(const std::string& filename, GridComponent* p
 	}
 }
 
-void digdug::LevelFileLoader::CreateGridTile(sgam::GameObject* pObject, const glm::vec2& tilePos, std::shared_ptr<sgam::Texture2D> pTexture, int dstSize)
+void digdug::LevelFileLoader::CreateGridTile(sgam::GameObject* pObject, const glm::vec2& tilePos, std::shared_ptr<sgam::Texture2D> pTexture, const int& dstSize)
 {
 	// Create tile GameObject
 	auto pTile{ pObject->CreateGameObject() };
@@ -79,8 +79,12 @@ void digdug::LevelFileLoader::CreateGridTile(sgam::GameObject* pObject, const gl
 	// Set tile Position
 	pTile->GetTransform()->SetLocalPosition(tilePos);
 
+	// Set tile Scale
+	const glm::vec2 texSize{ pTexture->GetSize() };
+	const glm::vec2 tileScale{ static_cast<float>(dstSize) / texSize };
+	pTile->GetTransform()->SetLocalScale(tileScale);
+
 	// Set tile Texture
 	auto pTileTexture{ pTile->AddComponent<sgam::TextureComponent>() };
 	pTileTexture->SetTexture(pTexture);
-	pTileTexture->SetDstSize(dstSize, dstSize);
 }
