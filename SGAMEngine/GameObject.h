@@ -35,7 +35,7 @@ namespace sgam
 
 		Scene* GetScene() const { return m_pScene; }
 
-		void SetParent(GameObject* pParent, const bool keepWorldPosition = true);
+		void SetParent(GameObject* pParent, const bool keepWorldTransform = true);
 		GameObject* GetParent() const { return m_pParent; }
 		GameObject* GetChildAt(const unsigned int index) const;
 		size_t GetChildCount() const { return m_pChildren.size(); }

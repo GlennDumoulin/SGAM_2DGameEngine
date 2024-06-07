@@ -117,7 +117,7 @@ void GameObject::Cleanup()
 	}
 }
 
-void GameObject::SetParent(GameObject* pParent, const bool keepWorldPosition)
+void GameObject::SetParent(GameObject* pParent, const bool keepWorldTransform)
 {
 	// Check if the new parent is different from the current parent & itself
 	if (m_pParent == pParent || pParent == this) return;
@@ -128,14 +128,29 @@ void GameObject::SetParent(GameObject* pParent, const bool keepWorldPosition)
 	// Update Transform
 	const auto& pTransform{ GetTransform() };
 
-	if (keepWorldPosition)
+	if (keepWorldTransform)
 	{
+		// Update position
 		glm::vec2 newLocalPos{ pTransform->GetWorldPosition() };
 		if (pParent) newLocalPos -= pParent->GetTransform()->GetWorldPosition();
 
 		pTransform->SetLocalPosition(newLocalPos);
+
+		// Update rotation
+		float newLocalRot{ pTransform->GetWorldRotation() };
+		if (pParent) newLocalRot -= pParent->GetTransform()->GetWorldRotation();
+
+		pTransform->SetLocalRotation(newLocalRot);
+
+		// Update scale
+		glm::vec2 newLocalScale{ pTransform->GetWorldScale() };
+		if (pParent) newLocalScale /= pParent->GetTransform()->GetWorldScale();
+
+		pTransform->SetLocalScale(newLocalScale);
 	}
 	pTransform->SetPositionDirty();
+	pTransform->SetRotationDirty();
+	pTransform->SetScaleDirty();
 
 	// Cache the unique pointer of the current GameObject
 	std::unique_ptr<GameObject> pObject{};
