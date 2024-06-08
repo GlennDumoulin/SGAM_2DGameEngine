@@ -1,5 +1,6 @@
 #pragma once
 #include "Singleton.h"
+#include "Command.h"
 
 namespace digdug
 {
@@ -15,8 +16,8 @@ namespace digdug
 
 	private:
 		friend class Singleton<GameManager>;
-		explicit GameManager() = default;
-		~GameManager() = default;
+		explicit GameManager();
+		~GameManager();
 		GameManager(const GameManager& other) = delete;
 		GameManager(GameManager&& other) = delete;
 		GameManager& operator=(const GameManager& other) = delete;
@@ -26,5 +27,7 @@ namespace digdug
 		int m_CurrentLevel{ 1 };
 
 		int m_NrOfPlayers{ 1 };
+
+		sgam::Command* m_pSkipLevelCommand{};
 	};
 }

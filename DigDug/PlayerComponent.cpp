@@ -31,11 +31,7 @@ void PlayerComponent::Init(int playerIdx)
 	// 2-player: player 1 has keyboard and index 1, player 2 has index 0
 	m_ControllerIdx = GameManager::GetInstance().GetNrOfPlayers() - 1 - m_PlayerIdx;
 
-	//TEMP --> Add player states, state binds needed input commands
-	// Bind input commands
-	BindInputs();
-
-	//TEMP --> Add player states, state sets needed texture
+	//TEMP --> Add player states, state binds needed input commands and sets texture
 	auto pTextureComp{ GetOwner()->GetComponent<sgam::TextureComponent>() };
 	if (pTextureComp)
 	{
@@ -43,25 +39,6 @@ void PlayerComponent::Init(int playerIdx)
 		const auto& pTexture{ sgam::ResourceManager::GetInstance().LoadTexture(texturePath) };
 		pTextureComp->SetTexture(pTexture);
 	}
-}
-
-void PlayerComponent::BindInputs() const
-{
-	// Bind keyboard inputs for first player
-	if (m_PlayerIdx == 0) BindKeyboardInputs();
-
-	// Bind controller inputs for all players
-	BindControllerInputs();
-}
-
-void PlayerComponent::BindKeyboardInputs() const
-{
-	//...
-}
-
-void PlayerComponent::BindControllerInputs() const
-{
-	//...
 }
 
 void PlayerComponent::KillPlayer()

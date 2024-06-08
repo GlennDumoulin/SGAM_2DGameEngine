@@ -38,8 +38,9 @@ namespace sgam
 
 		bool ProcessInput();
 
-		void BindControllerCommand(const unsigned int controllerIdx, const ControllerButton button, const InputType inputType, std::unique_ptr<Command> pCommand);
-		void BindKeyboardCommand(const SDL_Scancode button, const InputType inputType, std::unique_ptr<Command> pCommand);
+		Command* BindControllerCommand(const unsigned int controllerIdx, const ControllerButton button, const InputType inputType, std::unique_ptr<Command> pCommand);
+		Command* BindKeyboardCommand(const SDL_Scancode button, const InputType inputType, std::unique_ptr<Command> pCommand);
+		void UnbindCommand(Command* pCommand);
 		void UnbindAll();
 
 	private:

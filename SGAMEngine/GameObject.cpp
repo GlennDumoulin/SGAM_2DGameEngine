@@ -1,5 +1,7 @@
 #include <algorithm>
 
+#include "InputManager.h"
+
 #include "GameObject.h"
 #include "Scene.h"
 
@@ -11,6 +13,15 @@ GameObject::GameObject(Scene* pScene, const std::string& name, GameObject* pPare
 	, m_pParent{ pParent }
 {
 	AddComponent<Transform>();
+}
+
+GameObject::~GameObject()
+{
+	// Make sure all commands are unbound
+	for (auto pCommand : m_pCommands)
+	{
+		InputManager::GetInstance().UnbindCommand(pCommand);
+	}
 }
 
 void GameObject::FixedUpdate()
@@ -276,4 +287,13 @@ bool sgam::GameObject::RemoveCollider(BoxCollider* pCollider)
 	}
 
 	return false;
+}
+
+void GameObject::RemoveCommand(Command* pCommand)
+{
+	// Check if the list is empty
+	if (m_pCommands.empty()) return;
+
+	// Remove the command
+	m_pCommands.erase(std::remove(m_pCommands.begin(), m_pCommands.end(), pCommand), m_pCommands.end());
 }

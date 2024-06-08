@@ -9,6 +9,8 @@
 #include "BoxCollider.h"
 #include "Transform.h"
 
+#include "Command.h"
+
 namespace sgam
 {
 	class Scene;
@@ -62,8 +64,11 @@ namespace sgam
 		bool RemoveCollider(BoxCollider* pCollider);
 		void ClearColliders() { m_pBoxColliders.clear(); }
 
+		void AddCommand(Command* pCommand) { m_pCommands.push_back(pCommand); }
+		void RemoveCommand(Command* pCommand);
+
 		explicit GameObject(Scene* pScene, const std::string& name = "", GameObject* pParent = nullptr);
-		~GameObject() = default;
+		~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
 		GameObject& operator=(const GameObject& other) = delete;
@@ -89,6 +94,8 @@ namespace sgam
 		bool m_IsEnabled{ true };
 
 		std::string m_Name{};
+
+		std::vector<sgam::Command*> m_pCommands{};
 	};
 
 	template <class T>

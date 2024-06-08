@@ -46,12 +46,6 @@ void digdug::GameScene::Load(sgam::Scene* pScene)
 
 	digdug::LevelFileLoader::Load(std::format("Levels/Level{}.json", gameManager.GetCurrentLevel()), pGridComp);
 
-	// Skip Level Command
-	inputManager.BindKeyboardCommand(
-		SDL_SCANCODE_F1, sgam::InputManager::InputType::ButtonDown,
-		std::make_unique<sgam::FunctionCommand>(std::bind(&digdug::GameManager::LevelCompleted, &gameManager))
-	);
-
 	// FPS GameObject
 	auto pFPS = pScene->CreateGameObject();
 	pFPS->SetEnabled(false);
@@ -63,8 +57,8 @@ void digdug::GameScene::Load(sgam::Scene* pScene)
 	pFPS->AddComponent<sgam::FPSComponent>();
 
 	// Toggle FPS Command
-	inputManager.BindKeyboardCommand(
+	pFPS->AddCommand(inputManager.BindKeyboardCommand(
 		SDL_SCANCODE_F2, sgam::InputManager::InputType::ButtonDown,
 		std::make_unique<sgam::FunctionCommand>(std::bind(&sgam::GameObject::ToggleEnabled, pFPS))
-	);
+	));
 }

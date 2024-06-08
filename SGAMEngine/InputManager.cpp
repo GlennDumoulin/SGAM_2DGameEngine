@@ -135,10 +135,10 @@ Controller* InputManager::GetController(const unsigned int controllerIdx) const
 	return nullptr;
 }
 
-void InputManager::BindControllerCommand(const unsigned int controllerIdx, const ControllerButton button, const InputType inputType, std::unique_ptr<Command> pCommand)
+Command* InputManager::BindControllerCommand(const unsigned int controllerIdx, const ControllerButton button, const InputType inputType, std::unique_ptr<Command> pCommand)
 {
 	// Check if the controllerIdx is valid
-	if (controllerIdx >= m_MaxControllers) return;
+	if (controllerIdx >= m_MaxControllers) return nullptr;
 
 	// Add a new controller for the index we are binding a command to, if we don't have one already
 	if (GetController(controllerIdx) == nullptr)
@@ -146,18 +146,50 @@ void InputManager::BindControllerCommand(const unsigned int controllerIdx, const
 		m_pControllers.push_back(std::make_unique<Controller>(controllerIdx));
 	}
 
+	// Get raw pointer to command
+	Command* pCommandPtr{ pCommand.get() };
+
 	// Bind new command to list of controller commands
 	m_pControllerCommands.push_back(std::make_unique<ControllerCommand>(
 		controllerIdx, button, inputType, std::move(pCommand)
 	));
+
+	return pCommandPtr;
 }
 
-void InputManager::BindKeyboardCommand(const SDL_Scancode button, const InputType inputType, std::unique_ptr<Command> pCommand)
+Command* InputManager::BindKeyboardCommand(const SDL_Scancode button, const InputType inputType, std::unique_ptr<Command> pCommand)
 {
+	// Get raw pointer to command
+	Command* pCommandPtr{ pCommand.get() };
+
 	// Bind new command to list of keyboard commands
 	m_pKeyboardCommands.push_back(std::make_unique<KeyboardCommand>(
 		button, inputType, std::move(pCommand)
 	));
+
+	return pCommandPtr;
+}
+
+void sgam::InputManager::UnbindCommand(Command* pCommand)
+{
+	if (!m_pControllerCommands.empty())
+	{
+		m_pControllerCommands.erase(
+			std::remove_if(m_pControllerCommands.begin(), m_pControllerCommands.end(), [pCommand](const auto& input) {
+				return input->pCommand.get() == pCommand;
+			}),
+			m_pControllerCommands.end()
+		);
+	}
+	if (!m_pKeyboardCommands.empty())
+	{
+		m_pKeyboardCommands.erase(
+			std::remove_if(m_pKeyboardCommands.begin(), m_pKeyboardCommands.end(), [pCommand](const auto& input) {
+				return input->pCommand.get() == pCommand;
+			}),
+			m_pKeyboardCommands.end()
+		);
+	}
 }
 
 void InputManager::UnbindAll()

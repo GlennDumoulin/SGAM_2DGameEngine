@@ -5,7 +5,26 @@
 #include "SceneManager.h"
 #include "InputManager.h"
 
+#include "FunctionCommand.h"
+
 using namespace digdug;
+
+GameManager::GameManager()
+{
+	auto& inputManager{ sgam::InputManager::GetInstance() };
+
+	// Bind skip level Command
+	m_pSkipLevelCommand = inputManager.BindKeyboardCommand(
+		SDL_SCANCODE_F1, sgam::InputManager::InputType::ButtonDown,
+		std::make_unique<sgam::FunctionCommand>(std::bind(&digdug::GameManager::LevelCompleted, this))
+	);
+}
+
+GameManager::~GameManager()
+{
+	// Unbind skip level Command
+	sgam::InputManager::GetInstance().UnbindCommand(m_pSkipLevelCommand);
+}
 
 void GameManager::LevelCompleted()
 {
@@ -19,9 +38,6 @@ void GameManager::LevelCompleted()
 	// If not, prepare the next level
 	++m_CurrentLevel;
 	sgam::SceneManager::GetInstance().ReloadScene();
-
-	//TEMP --> commands should be bound/unbound by components that need them
-	sgam::InputManager::GetInstance().UnbindAll();
 }
 
 void GameManager::SetNrOfPlayers(int nrOfPlayers)

@@ -17,6 +17,7 @@ namespace digdug
 
 		int GetHealth() const { return m_Health; }
 		int GetPlayerIdx() const { return m_PlayerIdx; }
+		int GetControllerIdx() const { return m_ControllerIdx; }
 
 		virtual void OnNotify(const sgam::Event& event) override;
 
@@ -31,10 +32,6 @@ namespace digdug
 		std::unique_ptr<sgam::Subject> OnEnemyKilled{ std::make_unique<sgam::Subject>() };
 
 	private:
-		void BindInputs() const;
-		void BindKeyboardInputs() const;
-		void BindControllerInputs() const;
-
 		int m_PlayerIdx{ -1 };
 		int m_ControllerIdx{ -1 };
 
