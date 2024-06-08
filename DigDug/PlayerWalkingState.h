@@ -13,7 +13,7 @@ namespace digdug
 	{
 	public:
 		explicit PlayerWalkingState(PlayerComponent* pPlayer);
-		~PlayerWalkingState() = default;
+		~PlayerWalkingState();
 		PlayerWalkingState(const PlayerWalkingState& other) = delete;
 		PlayerWalkingState(PlayerWalkingState&& other) = delete;
 		PlayerWalkingState& operator=(const PlayerWalkingState& other) = delete;

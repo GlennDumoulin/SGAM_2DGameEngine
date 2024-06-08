@@ -11,7 +11,11 @@
 #include "DemoScene.h"
 #include "GameScene.h"
 
-void ScenesSetup()
+#include "ServiceLocator.h"
+#include "SDLSoundSystem.h"
+#include "DebugSoundSystem.h"
+
+static void ScenesSetup()
 {
 	auto& sceneManager{ sgam::SceneManager::GetInstance() };
 
@@ -23,11 +27,24 @@ void ScenesSetup()
 	sceneManager.SetNextScene("GameScene");
 }
 
+static void RegisterSoundSystem()
+{
+	// Register SoundSystem
+#if _DEBUG
+	sgam::ServiceLocator::RegisterSoundSystem(
+		std::make_unique<sgam::DebugSoundSystem>(std::make_unique<sgam::SDLSoundSystem>())
+	);
+#else
+	sgam::ServiceLocator::RegisterSoundSystem(std::make_unique<sgam::SDLSoundSystem>());
+#endif
+}
+
 int main(int, char* [])
 {
 	sgam::Engine engine{ "../Data/", 480, 580 };
 
 	ScenesSetup();
+	RegisterSoundSystem();
 
 	engine.Run();
 

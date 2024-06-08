@@ -22,6 +22,7 @@ namespace digdug
 		void KillPlayer();
 		void KillEnemy() const;
 
+		void SetHealth(int health) { m_Health = health; }
 		int GetHealth() const { return m_Health; }
 		int GetPlayerIdx() const { return m_PlayerIdx; }
 		int GetControllerIdx() const { return m_ControllerIdx; }

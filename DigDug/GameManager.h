@@ -1,10 +1,15 @@
 #pragma once
+#include <vector>
+
 #include "Singleton.h"
 #include "Command.h"
+#include "Observer.h"
+
+#include "PlayerComponent.h"
 
 namespace digdug
 {
-	class GameManager final : public sgam::Singleton<GameManager>
+	class GameManager final : public sgam::Singleton<GameManager>, public sgam::Observer
 	{
 	public:
 		void LevelCompleted();
@@ -13,6 +18,11 @@ namespace digdug
 
 		const int GetNrOfPlayers() const { return m_NrOfPlayers; }
 		void SetNrOfPlayers(int nrOfPlayers);
+
+		void SetPlayer(PlayerComponent* pPlayer);
+		int GetPlayerHealth(int playerIdx) const;
+
+		virtual void OnNotify(const sgam::Event& event) override;
 
 	private:
 		friend class Singleton<GameManager>;
@@ -27,6 +37,8 @@ namespace digdug
 		int m_CurrentLevel{ 1 };
 
 		int m_NrOfPlayers{ 1 };
+		std::vector<PlayerComponent*> m_pPlayers{};
+		std::vector<int> m_PlayersHealth{};
 
 		sgam::Command* m_pSkipLevelCommand{};
 	};

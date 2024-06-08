@@ -13,6 +13,8 @@
 #include "PlayerComponent.h"
 #include "TextureComponent.h"
 
+#include "BoxCollider.h"
+
 #include "PlayerWalkingState.h"
 
 using namespace digdug;
@@ -32,6 +34,9 @@ void PlayerComponent::Init(int playerIdx)
 	// 1-player: always index 0
 	// 2-player: player 1 has keyboard and index 1, player 2 has index 0
 	m_ControllerIdx = GameManager::GetInstance().GetNrOfPlayers() - 1 - m_PlayerIdx;
+
+	// Set the player in the GameManager
+	GameManager::GetInstance().SetPlayer(this);
 
 	// Set the initial state
 	SetState(std::make_unique<PlayerWalkingState>(this));
@@ -75,6 +80,7 @@ void PlayerComponent::SetIsPumping(bool isPumping)
 void PlayerComponent::KillPlayer()
 {
 	--m_Health;
+	std::cout << "Health: " << m_Health << "\n";
 
 	// Play player hit sound
 	sgam::ServiceLocator::GetSoundSystem().LoadAndPlay(m_PlayerHitSoundFile, .5f);
@@ -92,6 +98,14 @@ void PlayerComponent::OnNotify(const sgam::Event& event)
 	// Check if we were notified by a CollisionEvent
 	if (auto collisionEvent{ dynamic_cast<const sgam::CollisionEvent*>(&event) })
 	{
-		std::cout << "Collision entered!\n";
+		// Get the BoxCollider we collided with
+		sgam::BoxCollider* pOther{ collisionEvent->collisionInfo.pOther };
+
+		// Ignore collisions with other players
+		//TEMP --> Add layer to BoxCollider & ignoreLayers to PhysicsManager
+		if (pOther->GetOwner()->GetComponent<PlayerComponent>()) return;
+
+		// Any other collisions is an enemy in the current state of the game
+		KillPlayer();
 	}
 }

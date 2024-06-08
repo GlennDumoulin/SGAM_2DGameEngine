@@ -16,23 +16,10 @@
 
 #include "FunctionCommand.h"
 
-#include "ServiceLocator.h"
-#include "SDLSoundSystem.h"
-#include "DebugSoundSystem.h"
-
 #include "LevelFileLoader.h"
 
 void digdug::GameScene::Load(sgam::Scene* pScene)
 {
-	// Register SoundSystem
-#if _DEBUG
-	sgam::ServiceLocator::RegisterSoundSystem(
-		std::make_unique<sgam::DebugSoundSystem>(std::make_unique<sgam::SDLSoundSystem>())
-	);
-#else
-	sgam::ServiceLocator::RegisterSoundSystem(std::make_unique<sgam::SDLSoundSystem>());
-#endif
-
 	// Cache Singleton instances
 	const auto& resourceManager = sgam::ResourceManager::GetInstance();
 	auto& inputManager = sgam::InputManager::GetInstance();

@@ -108,10 +108,10 @@ void sgam::Engine::Run()
 		unhandledTime += time.Delta();
 		nrOfSubsteps = 0;
 
-		doContinue = input.ProcessInput();
-
 		// Handle loading next scene, if needed
 		sceneManager.LoadNextScene();
+
+		doContinue = input.ProcessInput();
 
 		// Handle updating the physics
 		physics.Update();

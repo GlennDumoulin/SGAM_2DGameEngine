@@ -171,6 +171,10 @@ void LevelFileLoader::CreatePlayer(sgam::GameObject* pObject, const glm::vec2& t
 	pPlayer->AddComponent<sgam::TextureComponent>();
 	auto pPlayerComp{ pPlayer->AddComponent<digdug::PlayerComponent>() };
 	pPlayerComp->Init(playerIdx);
+
+	// Add player Collider
+	auto pPlayerCollider = pPlayer->AddCollider();
+	pPlayerCollider->OnCollisionEnter->AddObserver(pPlayerComp);
 }
 
 void LevelFileLoader::CreatePooka(sgam::GameObject* pObject, const glm::vec2& tilePos, const int& dstSize)
@@ -193,6 +197,9 @@ void LevelFileLoader::CreatePooka(sgam::GameObject* pObject, const glm::vec2& ti
 	// Add pooka Components
 	pPooka->AddComponent<sgam::TextureComponent>();
 	pPooka->AddComponent<digdug::PookaComponent>();
+
+	// Add pooka Collider
+	pPooka->AddCollider();
 }
 
 void LevelFileLoader::CreateFygar(sgam::GameObject* pObject, const glm::vec2& tilePos, const int& dstSize)
@@ -215,6 +222,9 @@ void LevelFileLoader::CreateFygar(sgam::GameObject* pObject, const glm::vec2& ti
 	// Add fygar Components
 	pFygar->AddComponent<sgam::TextureComponent>();
 	pFygar->AddComponent<digdug::FygarComponent>();
+
+	// Add fygar Collider
+	pFygar->AddCollider();
 }
 
 LevelFileLoader::EntityType LevelFileLoader::ConvertToEntityType(const std::string& type)

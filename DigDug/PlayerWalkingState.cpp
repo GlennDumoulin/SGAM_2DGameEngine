@@ -28,6 +28,11 @@ PlayerWalkingState::PlayerWalkingState(PlayerComponent* pPlayer)
 	}
 }
 
+PlayerWalkingState::~PlayerWalkingState()
+{
+	OnExit();
+}
+
 std::unique_ptr<PlayerState> PlayerWalkingState::HandleInput(const glm::vec2& movement, bool isPumping)
 {
 	// If we are pumping, go to pumping State
@@ -194,21 +199,29 @@ void PlayerWalkingState::BindKeyboardCommands()
 	auto& inputManager = sgam::InputManager::GetInstance();
 
 	// Move Commands
-	inputManager.BindKeyboardCommand(
-		SDL_SCANCODE_W, sgam::InputManager::InputType::ButtonPressed,
-		std::make_unique<GridMoveCommand>(m_pPlayer, glm::vec2{ 0.f, -1.f })
+	m_pCommands.push_back(
+		inputManager.BindKeyboardCommand(
+			SDL_SCANCODE_W, sgam::InputManager::InputType::ButtonPressed,
+			std::make_unique<GridMoveCommand>(m_pPlayer, glm::vec2{ 0.f, -1.f })
+		)
 	);
-	inputManager.BindKeyboardCommand(
-		SDL_SCANCODE_D, sgam::InputManager::InputType::ButtonPressed,
-		std::make_unique<GridMoveCommand>(m_pPlayer, glm::vec2{ 1.f, 0.f })
+	m_pCommands.push_back(
+		inputManager.BindKeyboardCommand(
+			SDL_SCANCODE_D, sgam::InputManager::InputType::ButtonPressed,
+			std::make_unique<GridMoveCommand>(m_pPlayer, glm::vec2{ 1.f, 0.f })
+		)
 	);
-	inputManager.BindKeyboardCommand(
-		SDL_SCANCODE_S, sgam::InputManager::InputType::ButtonPressed,
-		std::make_unique<GridMoveCommand>(m_pPlayer, glm::vec2{ 0.f, 1.f })
+	m_pCommands.push_back(
+		inputManager.BindKeyboardCommand(
+			SDL_SCANCODE_S, sgam::InputManager::InputType::ButtonPressed,
+			std::make_unique<GridMoveCommand>(m_pPlayer, glm::vec2{ 0.f, 1.f })
+		)
 	);
-	inputManager.BindKeyboardCommand(
-		SDL_SCANCODE_A, sgam::InputManager::InputType::ButtonPressed,
-		std::make_unique<GridMoveCommand>(m_pPlayer, glm::vec2{ -1.f, 0.f })
+	m_pCommands.push_back(
+		inputManager.BindKeyboardCommand(
+			SDL_SCANCODE_A, sgam::InputManager::InputType::ButtonPressed,
+			std::make_unique<GridMoveCommand>(m_pPlayer, glm::vec2{ -1.f, 0.f })
+		)
 	);
 }
 
@@ -218,21 +231,29 @@ void PlayerWalkingState::BindControllerCommands()
 	const int controllerIdx{ m_pPlayer->GetControllerIdx() };
 
 	// Move Commands
-	inputManager.BindControllerCommand(
-		controllerIdx, sgam::InputManager::ControllerButton::DPAD_UP, sgam::InputManager::InputType::ButtonPressed,
-		std::make_unique<GridMoveCommand>(m_pPlayer, glm::vec2{ 0.f, -1.f })
+	m_pCommands.push_back(
+		inputManager.BindControllerCommand(
+			controllerIdx, sgam::InputManager::ControllerButton::DPAD_UP, sgam::InputManager::InputType::ButtonPressed,
+			std::make_unique<GridMoveCommand>(m_pPlayer, glm::vec2{ 0.f, -1.f })
+		)
 	);
-	inputManager.BindControllerCommand(
-		controllerIdx, sgam::InputManager::ControllerButton::DPAD_RIGHT, sgam::InputManager::InputType::ButtonPressed,
-		std::make_unique<GridMoveCommand>(m_pPlayer, glm::vec2{ 1.f, 0.f })
+	m_pCommands.push_back(
+		inputManager.BindControllerCommand(
+			controllerIdx, sgam::InputManager::ControllerButton::DPAD_RIGHT, sgam::InputManager::InputType::ButtonPressed,
+			std::make_unique<GridMoveCommand>(m_pPlayer, glm::vec2{ 1.f, 0.f })
+		)
 	);
-	inputManager.BindControllerCommand(
-		controllerIdx, sgam::InputManager::ControllerButton::DPAD_DOWN, sgam::InputManager::InputType::ButtonPressed,
-		std::make_unique<GridMoveCommand>(m_pPlayer, glm::vec2{ 0.f, 1.f })
+	m_pCommands.push_back(
+		inputManager.BindControllerCommand(
+			controllerIdx, sgam::InputManager::ControllerButton::DPAD_DOWN, sgam::InputManager::InputType::ButtonPressed,
+			std::make_unique<GridMoveCommand>(m_pPlayer, glm::vec2{ 0.f, 1.f })
+		)
 	);
-	inputManager.BindControllerCommand(
-		controllerIdx, sgam::InputManager::ControllerButton::DPAD_LEFT, sgam::InputManager::InputType::ButtonPressed,
-		std::make_unique<GridMoveCommand>(m_pPlayer, glm::vec2{ -1.f, 0.f })
+	m_pCommands.push_back(
+		inputManager.BindControllerCommand(
+			controllerIdx, sgam::InputManager::ControllerButton::DPAD_LEFT, sgam::InputManager::InputType::ButtonPressed,
+			std::make_unique<GridMoveCommand>(m_pPlayer, glm::vec2{ -1.f, 0.f })
+		)
 	);
 }
 
