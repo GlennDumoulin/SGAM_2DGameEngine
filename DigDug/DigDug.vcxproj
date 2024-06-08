@@ -187,10 +187,12 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GridComponent.cpp" />
+    <ClCompile Include="GridMoveCommand.cpp" />
     <ClCompile Include="LevelFileLoader.cpp" />
     <ClCompile Include="LivesComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
+    <ClCompile Include="PlayerWalkingState.cpp" />
     <ClCompile Include="PookaComponent.cpp" />
     <ClCompile Include="PookaGhostState.cpp" />
     <ClCompile Include="PookaWanderState.cpp" />
@@ -203,9 +205,12 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GridComponent.h" />
+    <ClInclude Include="GridMoveCommand.h" />
     <ClInclude Include="LevelFileLoader.h" />
     <ClInclude Include="LivesComponent.h" />
     <ClInclude Include="PlayerComponent.h" />
+    <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="PlayerWalkingState.h" />
     <ClInclude Include="PookaComponent.h" />
     <ClInclude Include="PookaGhostState.h" />
     <ClInclude Include="PookaWanderState.h" />

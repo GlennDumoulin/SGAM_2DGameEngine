@@ -86,6 +86,10 @@ void GameObject::RenderGUI()
 	{
 		if (pComponent->IsEnabled()) pComponent->RenderGUI();
 	}
+	for (const auto& pCollider : m_pBoxColliders)
+	{
+		if (pCollider->IsEnabled()) pCollider->RenderGUI();
+	}
 
 	for (const auto& pChild : m_pChildren)
 	{

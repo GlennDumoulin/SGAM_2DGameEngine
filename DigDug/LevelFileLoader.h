@@ -46,6 +46,8 @@ namespace digdug
 	};
 }
 
+// Define custom serializers for custom types
+/* Credit to ChatGPT - https://json.nlohmann.me/features/arbitrary_types/ */
 namespace nlohmann
 {
     template <>

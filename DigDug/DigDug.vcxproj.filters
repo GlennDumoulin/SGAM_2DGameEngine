@@ -40,6 +40,9 @@
     <Filter Include="Component Files\WorldComponents">
       <UniqueIdentifier>{9dfb7229-89aa-4948-9edf-4b5975c1a4da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="State Files\PlayerStates">
+      <UniqueIdentifier>{12a28718-f94b-42f7-af0b-52d22e814774}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -78,6 +81,12 @@
     </ClCompile>
     <ClCompile Include="GridComponent.cpp">
       <Filter>Component Files\WorldComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerWalkingState.cpp">
+      <Filter>State Files\PlayerStates</Filter>
+    </ClCompile>
+    <ClCompile Include="GridMoveCommand.cpp">
+      <Filter>Command Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -122,6 +131,15 @@
     </ClInclude>
     <ClInclude Include="GridComponent.h">
       <Filter>Component Files\WorldComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerWalkingState.h">
+      <Filter>State Files\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="GridMoveCommand.h">
+      <Filter>Command Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>State Files\PlayerStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

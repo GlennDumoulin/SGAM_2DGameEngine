@@ -4,6 +4,7 @@
 #include "FunctionalComponent.h"
 #include "Subject.h"
 #include "Observer.h"
+#include "PlayerState.h"
 
 namespace digdug
 {
@@ -11,6 +12,12 @@ namespace digdug
 	{
 	public:
 		void Init(int playerIdx);
+
+		virtual void Update() override;
+
+		void HandleInput(const glm::vec2& movement, bool isPumping);
+		void AddMovement(const glm::vec2& direction);
+		void SetIsPumping(bool isPumping);
 
 		void KillPlayer();
 		void KillEnemy() const;
@@ -32,6 +39,10 @@ namespace digdug
 		std::unique_ptr<sgam::Subject> OnEnemyKilled{ std::make_unique<sgam::Subject>() };
 
 	private:
+		void SetState(std::unique_ptr<PlayerState> pNewState);
+
+		std::unique_ptr<PlayerState> m_pState{};
+
 		int m_PlayerIdx{ -1 };
 		int m_ControllerIdx{ -1 };
 

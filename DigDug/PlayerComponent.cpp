@@ -13,6 +13,8 @@
 #include "PlayerComponent.h"
 #include "TextureComponent.h"
 
+#include "PlayerWalkingState.h"
+
 using namespace digdug;
 
 void PlayerComponent::Init(int playerIdx)
@@ -31,14 +33,43 @@ void PlayerComponent::Init(int playerIdx)
 	// 2-player: player 1 has keyboard and index 1, player 2 has index 0
 	m_ControllerIdx = GameManager::GetInstance().GetNrOfPlayers() - 1 - m_PlayerIdx;
 
-	//TEMP --> Add player states, state binds needed input commands and sets texture
-	auto pTextureComp{ GetOwner()->GetComponent<sgam::TextureComponent>() };
-	if (pTextureComp)
-	{
-		std::string texturePath{ std::format("DigDug{}/Walking.png", m_PlayerIdx) };
-		const auto& pTexture{ sgam::ResourceManager::GetInstance().LoadTexture(texturePath) };
-		pTextureComp->SetTexture(pTexture);
-	}
+	// Set the initial state
+	SetState(std::make_unique<PlayerWalkingState>(this));
+}
+
+void PlayerComponent::Update()
+{
+	// Update the current state
+	std::unique_ptr<PlayerState> pNewState{ m_pState->Update() };
+
+	// Change current state, if there is a new one
+	if (pNewState) SetState(std::move(pNewState));
+}
+
+void PlayerComponent::HandleInput(const glm::vec2& movement, bool isPumping)
+{
+	// Handle input in the current state
+	std::unique_ptr<PlayerState> pNewState{ m_pState->HandleInput(movement, isPumping) };
+
+	// Change current state, if there is a new one
+	if (pNewState) SetState(std::move(pNewState));
+}
+
+void PlayerComponent::SetState(std::unique_ptr<PlayerState> pNewState)
+{
+	if (m_pState) m_pState->OnExit();
+	m_pState = std::move(pNewState);
+	m_pState->OnEnter();
+}
+
+void PlayerComponent::AddMovement(const glm::vec2& direction)
+{
+	HandleInput(direction, false);
+}
+
+void PlayerComponent::SetIsPumping(bool isPumping)
+{
+	HandleInput(glm::vec2{}, isPumping);
 }
 
 void PlayerComponent::KillPlayer()
