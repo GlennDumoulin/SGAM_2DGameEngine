@@ -12,12 +12,13 @@ namespace digdug
 	class GameManager final : public sgam::Singleton<GameManager>, public sgam::Observer
 	{
 	public:
+		void Reset(int nrOfPlayers);
+
 		void LevelCompleted();
 
 		const int GetCurrentLevel() const { return m_CurrentLevel; }
 
 		const int GetNrOfPlayers() const { return m_NrOfPlayers; }
-		void SetNrOfPlayers(int nrOfPlayers);
 
 		void SetPlayer(PlayerComponent* pPlayer);
 		int GetPlayerHealth(int playerIdx) const;
@@ -33,6 +34,8 @@ namespace digdug
 		GameManager& operator=(const GameManager& other) = delete;
 		GameManager& operator=(GameManager&& other) = delete;
 
+		void SetNrOfPlayers(int nrOfPlayers);
+
 		const int m_NrOfLevels{ 3 };
 		int m_CurrentLevel{ 1 };
 
@@ -41,5 +44,6 @@ namespace digdug
 		std::vector<int> m_PlayersHealth{};
 
 		sgam::Command* m_pSkipLevelCommand{};
+		std::vector<sgam::Command*> m_pGoToMenuCommands{};
 	};
 }

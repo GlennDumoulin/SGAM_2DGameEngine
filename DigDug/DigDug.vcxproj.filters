@@ -88,6 +88,9 @@
     <ClCompile Include="GridMoveCommand.cpp">
       <Filter>Command Files</Filter>
     </ClCompile>
+    <ClCompile Include="MenuScene.cpp">
+      <Filter>Loader Files\SceneLoaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Events.h">
@@ -140,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="PlayerState.h">
       <Filter>State Files\PlayerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScene.h">
+      <Filter>Loader Files\SceneLoaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -10,6 +10,7 @@
 #include "SceneManager.h"
 #include "DemoScene.h"
 #include "GameScene.h"
+#include "MenuScene.h"
 
 #include "ServiceLocator.h"
 #include "SDLSoundSystem.h"
@@ -22,9 +23,10 @@ static void ScenesSetup()
 	// Create the needed scenes
 	sceneManager.CreateScene(digdug::DemoScene::Load, "DemoScene");
 	sceneManager.CreateScene(digdug::GameScene::Load, "GameScene");
+	sceneManager.CreateScene(digdug::MenuScene::Load, "MenuScene");
 
 	// Set the initial scene
-	sceneManager.SetNextScene("GameScene");
+	sceneManager.SetNextScene("MenuScene");
 }
 
 static void RegisterSoundSystem()

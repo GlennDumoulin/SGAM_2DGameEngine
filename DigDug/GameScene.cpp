@@ -31,7 +31,10 @@ void digdug::GameScene::Load(sgam::Scene* pScene)
 	auto pGridComp = pGrid->AddComponent<digdug::GridComponent>();
 	pGridComp->Init(12, 40);
 
-	digdug::LevelFileLoader::Load(std::format("Levels/Level{}.json", gameManager.GetCurrentLevel()), pGridComp);
+	digdug::LevelFileLoader::Load(
+		std::format("Levels/Level{}_{}.json", gameManager.GetCurrentLevel(), gameManager.GetNrOfPlayers()),
+		pGridComp
+	);
 
 	// FPS GameObject
 	auto pFPS = pScene->CreateGameObject();
